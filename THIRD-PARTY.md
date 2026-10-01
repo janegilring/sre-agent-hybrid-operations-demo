@@ -10,7 +10,7 @@ This repository does not imply Microsoft endorsement or a product support
 commitment. No Microsoft workbook, CSS support code/PDF, screenshot, presentation,
 logo or raw diagnostic evidence is included.
 
-The owner explicitly authorized narrow export of original monitoring, collection,
+The owner explicitly authorized narrow export of original monitoring, collection, service-event monitoring,
 SRE starter, Windows JEA, Spooler recovery and portable MCP components from
 `janegilring/session-azure-sre-agent`.
 That private source repository declares no license; no implicit upstream MIT

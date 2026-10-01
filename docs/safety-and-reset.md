@@ -14,11 +14,17 @@ entire LocalBox deployment. Keep private receipts until cleanup is verified.
 
 For [disk collection](../infra/hybrid-monitoring-collection/README.md), cleanup
 requires exact resource sets and original configuration fingerprints. Legacy
-receipt migration remains held until original-snapshot provenance and comparison
-are proven; never construct ownership from current GET responses.
+receipt reconciliation concluded HELD after original snapshots were overwritten.
+No resource cleanup was performed or is authorized without fresh owner review;
+never construct ownership from current GET responses.
 For [Spooler recovery](../tools/hybrid-service-recovery/README.md), cleanup must
 verify the owned group, registration, unchanged files and exact service DACL ACE.
 Neither cleanup procedure restores service state or authorizes an outage.
+
+The [service-event starter](../infra/hybrid-service-monitoring/README.md#ownership-cleanup-and-offline-checks)
+has no automated cleanup wrapper. Verify its receipt and exact DCR, association
+and optional alert IDs independently. Never use the five-rule baseline's cleanup
+script for these different resources. An event expiring is not service recovery.
 
 ## Offline reset
 

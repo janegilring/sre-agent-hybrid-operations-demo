@@ -15,7 +15,7 @@ foreach ($id in $receipt.createdRuleIds) {
     if ($rule.Count -and $rule[0].tags.'hybrid-monitoring-owner' -ne $receipt.ownerToken) { throw "Foreign ownership; refusing cleanup: $id" }
 }
 foreach ($id in $receipt.createdRuleIds) {
-    if ($id -notin @($rules | ForEach-Object id)) { continue }
+    if ($id -notin @($rules | ForEach-Object { $_.id })) { continue }
     if ($PSCmdlet.ShouldProcess($id, 'Delete this manifest-recorded owned alert rule only')) {
         $url = "https://management.azure.com${id}?api-version=2023-12-01"
         $current = Invoke-AzJson @('rest','--subscription',$SubscriptionId,'--method','get','--url',$url)

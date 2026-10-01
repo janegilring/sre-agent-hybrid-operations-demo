@@ -62,6 +62,12 @@ Avoid concurrent writers during cleanup; validation is not an ARM transaction.
 
 ### Explicit legacy receipt reconciliation — cleanup remains held
 
+Packaging status: the source environment's legacy reconciliation concluded
+**HELD** because original snapshots were overwritten. No resource cleanup was
+performed or is authorized without fresh owner review. The instructions below
+describe the required provenance checks, not a way to recover missing originals
+from current GET responses or permission to resume cleanup.
+
 Never fill missing fingerprints from current GETs. For a legacy deployment,
 the owner must independently verify the provenance of the preserved original
 full resource snapshots and their matching deployment identity receipt.

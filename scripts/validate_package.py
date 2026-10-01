@@ -30,6 +30,8 @@ ALLOWED_GUIDS = {
     "984b1aee-e2db-4c89-bbb0-0ac50b7fa91c",
     "d7d7f425-620e-419c-bc75-bfe367fc8e56",
     "e5e4ef24-efc9-43c4-a4f7-0e7d2249f030",
+    "11111111-1111-4111-8111-111111111111",
+    "00000000-0000-4000-8000-000000000000",
 }
 TEST_ADDRESSES = {"10.0.0.0", "10.1.0.0", "999.0.0.0"}
 TEST_ADDRESS_FILES = {
@@ -78,7 +80,7 @@ def main():
             errors.append(f"Export hash mismatch: {entry['path']}")
         if entry["sourceSha256"] != entry["exportSha256"] and path.suffix != ".md":
             errors.append(f"Non-documentation source modification: {entry['path']}")
-        if entry.get("originCommit") != "04fd291baa88a3370ed17f591e22c15214df865c":
+        if entry.get("originCommit") != "c086d8d38f1a2d2db9242889ec715dad704749c2":
             errors.append(f"Unexpected approved source revision: {entry['path']}")
     for name in names:
         path = ROOT / name
@@ -92,6 +94,8 @@ def main():
             name.startswith("tools/private-mcp/") and path.suffix in {".ps1", ".py"}
         ):
             errors.append(f"Unapproved native configuration or lab operator script: {name}")
+        if name.startswith(("infra/", "tools/")) and name not in allowlist:
+            errors.append(f"Unreviewed component path outside export allowlist: {name}")
         text = path.read_text(encoding="utf-8-sig")
         if PRIVATE_KEY.search(text) or any(
             hashlib.sha256(host.lower().encode()).hexdigest() in DENIED_HOST_HASHES

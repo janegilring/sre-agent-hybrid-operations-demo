@@ -2,28 +2,32 @@
 
 **Private, not publicly released.** Begin with the [component quickstarts](../README.md).
 This refresh exports approved committed source
-`04fd291baa88a3370ed17f591e22c15214df865c`, including monitoring correction
-`8e823e7`. No source workspace changes, private history or live receipts are
+`c086d8d38f1a2d2db9242889ec715dad704749c2`, retaining monitoring correction
+`8e823e7` and adding the cleanup WhatIf fix and service-event starter.
+No later private-doc commit, source workspace changes, private history or live receipts are
 imported. Earlier kit snapshots are superseded by this manifest.
 
 ## Included and immutable provenance
 
 - SRE starter, corrected five-rule monitoring, ordinary-server JEA, portable
   MCP C# source/tests/locked dependencies, additive disk collection and
-  independently approved Spooler-only recovery.
+  independently approved Spooler-only recovery, plus the six-file English
+  Spooler stopped-transition monitoring starter.
 - Exact reviewed paths in [export-paths.json](../packaging/export-paths.json).
 - Original blob IDs, source commit and source/export SHA-256 hashes in
   [source-manifest.json](../packaging/source-manifest.json).
   Source is read directly from committed Git blobs, not a dirty worktree.
 - Only README packaging changes differ from original source bytes: generic
-  attendee wording, short-path guidance and removal of private receipt paths.
+  attendee wording, short-path guidance, removal of private receipt paths and
+  explicit legacy reconciliation HELD status.
   Those changes are identified separately in the manifest.
 - Git attributes preserve exported source line endings on clean clones.
 - Existing synthetic exercises remain optional offline illustrations.
 
 ## Excluded and remaining gates
 
-Native configuration under `tools/nic-sre-config` remains excluded pending review.
+Native configuration under `tools/nic-sre-config` and the unreviewed Arc-connectivity
+increment remain excluded.
 Also excluded: lab-bound private-MCP root operator scripts and their dependent
 PowerShell/Python tests, migration receipts, deployment bindings, binaries,
 build output, raw operational evidence, internal plans, presentations, fault
@@ -34,8 +38,9 @@ defaults. Operators must explicitly configure both; there is no allow-any
 fallback. Its private configuration migration receipt is deliberately absent.
 
 Disk-collection cleanup requires original configuration fingerprints and exact
-resource sets. Existing legacy-deployment cleanup remains held pending separate
-private original-snapshot reconciliation. The included receipt helper is **not**
+resource sets. Legacy reconciliation concluded **HELD** after original snapshots
+were overwritten. No resource cleanup was performed or is authorized without
+fresh owner review. The included receipt helper is **not**
 permission to adopt current resources or reconstruct ownership from current GETs.
 
 Five corrected alert rules were separately live-verified in the source lab.
@@ -51,6 +56,12 @@ approval boundary is independently verified. No Azure deployment, guest
 installation, endpoint registration, fault or service change is performed by
 packaging.
 
+The new service-event starter is offline source only: no AMA installation,
+continuous current-state monitoring, service-stream coverage, live deployment,
+native approval or recovery is proven. Its optional English 7036 rule reports
+an observed stopped transition. Zero matching events is UNKNOWN, and neither
+event expiry nor an alert's user state establishes recovery.
+
 ## Reproduce local validation
 
 From the repository root:
@@ -59,6 +70,8 @@ From the repository root:
 python -B scripts\validate_package.py
 python -B -m unittest discover -s tests -v
 python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
+python -B infra\hybrid-service-monitoring\tests\test_contract.py
+bicep build-params infra\hybrid-service-monitoring\example.bicepparam --stdout | Out-Null
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring-collection\tests\Test-Collection.ps1
@@ -88,13 +101,37 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Refresh verification — 2026-10-02
+## Current increment verification — source c086d8d, 2026-10-02
 
-The listed suites passed in a fresh local Git clone without private configuration
+The current package contains **105 tracked files and 85 source-manifest entries**.
+Every entry was verified against its committed blob at `c086d8d`; executable
+files are byte-identical. Only the six approved service-monitoring files and
+the two monitoring cleanup/test files changed in executable source scope.
+All other source blobs were checked unchanged before their provenance was
+repinned. No content from the later private-doc commit was exported.
+
+A fresh Git clone passed:
+
+- All 11 service-monitoring contract tests, including Bicep compilation; the
+  documentation-only parameter file also compiled offline.
+- The monitoring PowerShell suite, including all **five owned cleanup WhatIf
+  previews**, zero mocked Azure deletes and an unchanged receipt hash.
+- The existing nine monitoring Python tests and five-rule template contracts.
+- All 85 export hashes, portable relative Markdown file links and scoped
+  identifier/address/known-binding checks.
+
+The clone remained clean and was removed. No private configuration, Azure
+operation, real receipt modification, guest installation or resource cleanup
+was needed. Unchanged MCP/JEA/recovery suites were not rerun for this bounded
+increment; their previous clean-clone results are recorded below.
+
+## Previous component verification — source 04fd291, 2026-10-02
+
+Before this increment, the previously included component suites passed in a fresh local Git clone without private configuration
 or source-workspace files. The clone's tracked/unignored state remained clean.
 The validation copy and short drive mapping used for PowerShell 5.1 were removed.
 
-- 99 tracked package files; 79 committed-source entries verified against original
+- That revision had 99 tracked package files and 79 committed-source entries verified against original
   Git blobs and SHA-256. Executable files remain byte-identical to source.
 - 199 MCP tests passed; locked restore and Release build succeeded with zero
   build warnings/errors using .NET SDK 10.0.401.

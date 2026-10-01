@@ -8,7 +8,7 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
-This revision exports approved source commit `04fd291`. Five corrected alert
+This revision exports approved source checkpoint `c086d8d`. Five corrected alert
 rules were separately live-verified in the source environment; that is not
 proof of deployment in your environment or end-to-end guest investigation.
 
@@ -21,6 +21,7 @@ proof of deployment in your environment or end-to-end guest investigation.
 | Bounded facts, Spooler state and recent System/Application events | [Windows JEA capability](tools/hybrid-server/README.md) | Domain-joined member server, Windows PowerShell 5.1, Kerberos/WSMan and dedicated nonadmin caller |
 | Connect those reads to an SRE Agent over private MCP | [Portable MCP source](tools/private-mcp/README.md) | .NET 10 SDK; Windows host, explicit private configuration, TLS/Entra identity, network and JEA setup |
 | Add missing Windows logical-disk counters | [Additive disk collection](infra/hybrid-monitoring-collection/README.md) | Exactly two existing Arc Windows servers in one RG and an existing workspace; ownership fingerprint receipt |
+| Observe an English Spooler stopped transition | [Service-event monitoring starter](infra/hybrid-service-monitoring/README.md) | One existing Arc Windows Server guest with working AMA; DCR/association plus optional event rule; **offline source only** |
 | Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
 
@@ -56,7 +57,9 @@ Edit the private copies with your own approved bindings. Then follow
 Collection is a prerequisite. The optional
 [disk-only DCR component](infra/hybrid-monitoring-collection/README.md) adds one
 counter to exactly two Arc servers; it does not bootstrap all AMA collection.
-This does not implement Arc connection-state or service-state alerts.
+The five-rule baseline does not implement Arc connection-state or current
+service-state alerts. The separate service-event starter below observes a
+historical transition, not current state.
 
 ### Quickstart: ordinary Windows server
 
@@ -115,7 +118,9 @@ pwsh -NoProfile -File tools\hybrid-service-recovery\Test-InstallerOffline.ps1
 Read the collection guide's exact three-resource what-if and
 `New-CollectionReceipt` instructions before separately approved deployment.
 Legacy receipts without proven original snapshots/fingerprints do **not**
-authorize cleanup; reconciliation is a separate gate.
+authorize cleanup. The legacy reconciliation concluded **HELD** after original
+snapshots were overwritten; no cleanup was performed or is authorized without
+fresh owner review. Never reconstruct ownership from current GET responses.
 
 Spooler recovery exposes only a fixed state read and `Start-HybridSpooler`.
 It has no fault injection, arbitrary service control, MCP write tool or native
@@ -123,10 +128,27 @@ approval integration. Follow its [installation and ownership cleanup guide](tool
 do not grant an SRE identity write access until native human-approval behavior
 is independently proved.
 
+### Optional: English Spooler stopped-transition monitoring
+
+```powershell
+python -B infra\hybrid-service-monitoring\tests\test_contract.py
+bicep build infra\hybrid-service-monitoring\main.bicep --stdout | Out-Null
+bicep build-params infra\hybrid-service-monitoring\example.bicepparam --stdout | Out-Null
+```
+
+The [self-contained starter](infra/hybrid-service-monitoring/README.md) defines
+one DCR/association and an optional English 7036 stopped-transition alert.
+It does not install AMA, grant RBAC, monitor continuous current state or prove
+native human approval. Verify the exact guest event XML and ingested schema
+before enabling its optional rule. **Zero matching events means UNKNOWN**;
+an old stop aging out is not recovery. The rule does not automatically resolve.
+Follow its manual staging, ownership and exact-ID cleanup instructions; the
+five-rule baseline's cleanup script does not apply to these resources.
+
 ### What is not ready
 
-Native configuration (`tools\nic-sre-config`) is deliberately excluded pending
-review. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
+Native configuration (`tools\nic-sre-config`) and the unreviewed Arc-connectivity
+increment are deliberately excluded. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
 readiness, so no end-to-end guest read or recovery is claimed. Source alert
 verification does not prove native incident routing, approval, final Teams
 notification, guest recovery or a complete attendee lab.

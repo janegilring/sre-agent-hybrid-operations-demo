@@ -147,6 +147,20 @@ try {
     $receipt.createdRuleIds=@($global:HmTestRules | ForEach-Object { $_.id })
     $receipt | ConvertTo-Json -Depth 10 | Set-Content $receiptPath
     $baseline=$global:HmTestRules | ConvertTo-Json -Depth 30
+    $receiptHash=(Get-FileHash -LiteralPath $receiptPath).Hash
+    $previewPath=Join-Path $work 'cleanup-preview.txt'
+    $null=Start-Transcript -LiteralPath $previewPath
+    try {
+        & "$PSScriptRoot\..\Cleanup.ps1" -SubscriptionId $sub -ResourceGroup rg -ReceiptPath $receiptPath -WhatIf
+    } finally {
+        $null=Stop-Transcript
+    }
+    $preview=Get-Content -LiteralPath $previewPath -Raw
+    if ([regex]::Matches($preview,'Delete this manifest-recorded owned alert rule only').Count -ne 5) { throw 'Cleanup WhatIf did not preview all five owned deletions.' }
+    foreach ($id in $receipt.createdRuleIds) {
+        if (-not $preview.Contains($id)) { throw "Cleanup WhatIf omitted owned rule: $id" }
+    }
+    if ($global:HmTestCalls.Where({$_ -match '--method delete'}).Count -or (Get-FileHash -LiteralPath $receiptPath).Hash -ne $receiptHash) { throw 'Cleanup WhatIf changed Azure or the receipt.' }
     # Mock GET representations must work under Common.ps1's StrictMode.
     foreach ($representation in @('absent','null','default')) {
         $global:HmTestRules=$baseline | ConvertFrom-Json -AsHashtable

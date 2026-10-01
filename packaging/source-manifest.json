@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "capturedUtc": "2026-10-02T00:30:19.409208+02:00",
+  "capturedUtc": "2026-10-02T00:52:43.201599+02:00",
   "attribution": "Owner-authorized original components from Jan Egil Ring; destination MIT retained. Exact committed blobs exported without private repository history.",
   "files": [
     {
@@ -9,19 +9,19 @@
       "exportSha256": "de996f1058832dc84180f344833a9e479eca4de150590afe3aba92c424e6e88c",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "54a86b866e12b8305de1a32ad828cf64f180cb85",
       "packagingChanges": []
     },
     {
       "path": "infra/hybrid-monitoring/Cleanup.ps1",
-      "sourceSha256": "9d6ffc3baed9101db2d3844118f1f4343d9e06b438a886bfba77a8c1c7d20733",
-      "exportSha256": "9d6ffc3baed9101db2d3844118f1f4343d9e06b438a886bfba77a8c1c7d20733",
+      "sourceSha256": "a1c3f4792c6eb8dc9229e51bafb7b19587a40666cd1ff87533f3e49d59080910",
+      "exportSha256": "a1c3f4792c6eb8dc9229e51bafb7b19587a40666cd1ff87533f3e49d59080910",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
-      "originBlob": "e6c50541bc0e300a701883bd30fe135a270086e6",
-      "packagingChanges": []
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "960f5f4176f2984266188287cc8984c999490f47"
     },
     {
       "path": "infra/hybrid-monitoring/Common.ps1",
@@ -29,7 +29,7 @@
       "exportSha256": "875763779f10dd006ac97708c41e2d3fe8598197fca28dbe7630d926c170d68b",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "0284b5dbdb39f1917a2196fe142cbd6ed8307ab5",
       "packagingChanges": []
     },
@@ -39,7 +39,7 @@
       "exportSha256": "3ef2b85281d77c7baa9b1b926bbf6efa07a363833c04f1607332c0cce3a47222",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "48996795384f471af7d91fc9217e0d9c70db94b3",
       "packagingChanges": []
     },
@@ -49,7 +49,7 @@
       "exportSha256": "957f68cfa2b6dfd24ff3e71d4824b290ea95fbcbddc726f8460737d376a0fed0",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "51ffbc0d18758b937d6b31bfaad5189dfd69fde1",
       "packagingChanges": []
     },
@@ -59,7 +59,7 @@
       "exportSha256": "18e0d39b6dd0dd8ab7b5fc6fb8376ccccec4efe4133d02a175717d3cc73ba13c",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "37974f5b810ef3207ed9f1c090a92f482b84778e",
       "packagingChanges": []
     },
@@ -69,7 +69,7 @@
       "exportSha256": "78d30dcdf31b903e9fc50657f54b0438246baae1f55efce6eeffa330aa84aed1",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "804a62309d6c0ecf3fe18ee6463d95829edffed6",
       "packagingChanges": []
     },
@@ -79,7 +79,7 @@
       "exportSha256": "bc0a36a7040605080f03b284b980c430c00af4b18c9314ad646795c366bcc94c",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "f757602623c32d9ca740d315d68c2bac01cb2361",
       "packagingChanges": []
     },
@@ -89,7 +89,7 @@
       "exportSha256": "f2999772441d69454ff81bfcd8d4d49e1d3193232c371131f899fb54c1f5bd74",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a5dc5f093a25c8e98c1e2b54ec007d6c330940c8",
       "packagingChanges": []
     },
@@ -99,7 +99,7 @@
       "exportSha256": "d99aa788046346a0fa21a5df37e0da7a5dfc5c350f97c423b05d0daff7e5921e",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "cb30545feded8aa2e3cbadeef7160caacfde9223",
       "packagingChanges": []
     },
@@ -109,7 +109,7 @@
       "exportSha256": "df036852b72766c2e3b1669ef52cb28ebc6022b2cdc137c05cc182a6da44e722",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "5b10910c02f9b28711f23a1c77d6d15e326a9a64",
       "packagingChanges": []
     },
@@ -119,7 +119,7 @@
       "exportSha256": "6d24628a3b318d8636f44cc706a58d312a339752919aaf231701be00b5767848",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a57b2a1a48fdc4086731bd2ecfc5e57d4cd6b5ae",
       "packagingChanges": []
     },
@@ -129,7 +129,7 @@
       "exportSha256": "050cb2d03fcb187b6805bbaaa8913f6bda5c44fb2b87509867ddd5cb25808fe8",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3d76fbed75594ed06729489c0c855fdb8114a910",
       "packagingChanges": []
     },
@@ -139,7 +139,7 @@
       "exportSha256": "2f6b305d5048bed0240421fa4e6ca57e38f0ddf0a43983ec534a5a7f47189362",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "42a5516be6b1341b613babadd22ebde25d804961",
       "packagingChanges": []
     },
@@ -149,7 +149,7 @@
       "exportSha256": "7c4bcbee749dff2845b9a39568bd70176b36862de7283d9fb28a568d46fd37aa",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "351fe3ecda83e819f9f9be141bd672e253dc9d82",
       "packagingChanges": []
     },
@@ -159,7 +159,7 @@
       "exportSha256": "ffdcbfc645915e6af754c0b057bb4514e9f47aac3a53c4ea28bc54ced35081e6",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "b621e8b24d4f4b87d4a4c1b25ddabae762b3c1aa",
       "packagingChanges": []
     },
@@ -169,19 +169,19 @@
       "exportSha256": "03788334a7a2a97e5eae588a0609a978b7e3c943202b370c023a5fd8f66cbb32",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "9fe004b4ea21b26f256df68a3fbd5ad71ce70fd0",
       "packagingChanges": []
     },
     {
       "path": "infra/hybrid-monitoring/tests/Test-Scripts.ps1",
-      "sourceSha256": "669eacb0de4f3f963d3a9c1672db7378f518c772a0afa639deeafc9abc8272ee",
-      "exportSha256": "669eacb0de4f3f963d3a9c1672db7378f518c772a0afa639deeafc9abc8272ee",
+      "sourceSha256": "7cbaf4689b26adc663e4cc2f2f37cfdb5975e42f8a43750de0f63f125d931105",
+      "exportSha256": "7cbaf4689b26adc663e4cc2f2f37cfdb5975e42f8a43750de0f63f125d931105",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
-      "originBlob": "293bd3952d90fde535deb723ae15bf060cf09cf0",
-      "packagingChanges": []
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "fb0776202031572fe4e1f1c61061e2659736d146"
     },
     {
       "path": "infra/hybrid-monitoring/tests/Test-Template.ps1",
@@ -189,7 +189,7 @@
       "exportSha256": "989e45011a355030306e8f24b56a87febd416ce57311232ff4b092f0b6701091",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "125ad1edf0073bb05665dbea6804cf8b1c0b702d",
       "packagingChanges": []
     },
@@ -199,7 +199,7 @@
       "exportSha256": "e3c0daef70d6f67ea7ca1d855a3481d34cea8d1f024c8afe2f2e1bf205b32271",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "7213e035942eecdb2ee676c7720caa9d3d9a0e4d",
       "packagingChanges": []
     },
@@ -209,7 +209,7 @@
       "exportSha256": "52d0670e939668183da3e7f3b5fea4476de36052670cfb53257236588db156b6",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "cf0e95970b5955943960b323e207086e55a993a5",
       "packagingChanges": []
     },
@@ -219,20 +219,20 @@
       "exportSha256": "f66630ff6031f2ec55ba145ec31fcd90d74613f32aba6e8f9c30f6c4cddca739",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "326c34565b365d12da921440ad5d91bfd46f2ed3",
       "packagingChanges": []
     },
     {
       "path": "infra/hybrid-monitoring-collection/README.md",
       "sourceSha256": "0e0a7d1abb5acb75ce8e780f1c8c16830aff5cbcd737d7daf4e049b58a41e75b",
-      "exportSha256": "fff7ed358a57381deaeb0912c7acf17ba15a1c6fc84800fda51b5c4f312c50cb",
+      "exportSha256": "cfa018bb14bfe03f2ebf41c1623197753fb80b2c3990a6bf238ee2a29db7c853",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "15512340e82a051b2564571e547b833faeb72f86",
       "packagingChanges": [
-        "README only: generic attendee wording, private receipt path removal or short-checkout guidance."
+        "README only: generic attendee wording, private receipt path removal, short-checkout guidance or explicit legacy-reconciliation HELD status."
       ]
     },
     {
@@ -241,7 +241,7 @@
       "exportSha256": "24ec40d3185967833ae8246d957626d4595ead9bc595bd19b12f622fa769909c",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a949386c2a95c6cbe99e388b4e3a545958a9d533",
       "packagingChanges": []
     },
@@ -251,9 +251,69 @@
       "exportSha256": "8cb84c3322e09a0bbd58af47f403ba27d6b3d6cc71e94c77abd4275d37cb6a35",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "e0638f31a2ed91707a79c6980f0eecd520da3836",
       "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/.gitignore",
+      "sourceSha256": "adcb9f400be54a69411b27fa9664c7477ea6ef87298e29fc453219da268be5c6",
+      "exportSha256": "adcb9f400be54a69411b27fa9664c7477ea6ef87298e29fc453219da268be5c6",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "258d1b44164ecc8649da354fabfab984acee4e58"
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/README.md",
+      "sourceSha256": "d019f8fb40e4fe060187241994a93861585412453be24c111ae540199da9c280",
+      "exportSha256": "d019f8fb40e4fe060187241994a93861585412453be24c111ae540199da9c280",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "a29dd1f918be090b6a399e612bab068a14904a3a"
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/example.bicepparam",
+      "sourceSha256": "8c0ecbef073848f83e0dc3fd1a67bc96ec3c806515f8c01fe85e0b4872deb500",
+      "exportSha256": "8c0ecbef073848f83e0dc3fd1a67bc96ec3c806515f8c01fe85e0b4872deb500",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "f6e11904615d98be6c402a27c69c10abfdab0810"
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/main.bicep",
+      "sourceSha256": "676f5bda757eac5813c663ce9139bf9d42f08d98beea9afa1755f8dd70bb29e6",
+      "exportSha256": "676f5bda757eac5813c663ce9139bf9d42f08d98beea9afa1755f8dd70bb29e6",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "c3fb3baf1702bc68a5af20fc75657f7faf7d4419"
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/stopped-transition.kql",
+      "sourceSha256": "2aa6d13a99fa67fbd9160899115235608920bf0995bd323b8fd387ba3234b5b2",
+      "exportSha256": "2aa6d13a99fa67fbd9160899115235608920bf0995bd323b8fd387ba3234b5b2",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "7f0c32f0851aab218c5e263db9c382ae4dc219d7"
+    },
+    {
+      "path": "infra/hybrid-service-monitoring/tests/test_contract.py",
+      "sourceSha256": "7cfe438841e8c229eed51f1c0252db12ffdab3d411b31926663538ab9fb74a98",
+      "exportSha256": "7cfe438841e8c229eed51f1c0252db12ffdab3d411b31926663538ab9fb74a98",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "packagingChanges": [],
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
+      "originBlob": "a3e42b2a923689f590dc2f7927829496e06ea064"
     },
     {
       "path": "infra/sre-agent-starter/.gitignore",
@@ -261,7 +321,7 @@
       "exportSha256": "263cca13406f7fc7fba255675bf6adf26e14c363d5f5f2dbbaae1b27f47ec419",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "33af595d9a7ec550b5fa071c3ca3fdfae4fa5f3a",
       "packagingChanges": []
     },
@@ -271,7 +331,7 @@
       "exportSha256": "fa7066eece7c8a8566332e193566dfa3ce79cc0deb2f1c2414594d5ef548554d",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "5c6057f97d52c07afc47d69ea8a428eb4a1a4a3f",
       "packagingChanges": []
     },
@@ -281,7 +341,7 @@
       "exportSha256": "38630ba6acb2baccb7f7449de85da6e6a88186a76e919a96a20fc1b8a6a785f4",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "2f6fb04f6c0f4bb9d50ec19b9f88cddada7d2ada",
       "packagingChanges": []
     },
@@ -291,7 +351,7 @@
       "exportSha256": "5a41f984e121696cdde44acf8ae0f7235d9ad79e54767727e22887dba1edd090",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "87dd991904df3c3117444073216c92344dfe7160",
       "packagingChanges": []
     },
@@ -301,7 +361,7 @@
       "exportSha256": "62966ee070e30e764802fe17bda8512fcc3e54580ceaa5731dc099acb865f046",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "5353aa42a36214c8bed4a2566679bab6a225d988",
       "packagingChanges": []
     },
@@ -311,7 +371,7 @@
       "exportSha256": "1914cdefb2bd618c0d6ae09e9e6dbabbfc774edcedf939c6a1357257101e16fe",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "44e36a36e6e0245792f821ee0ab1923116a5776f",
       "packagingChanges": []
     },
@@ -321,7 +381,7 @@
       "exportSha256": "bc3848187da60ea61815f94cdaefd9f104b4ae0ac62bb5f4a9ffe0edf15201bb",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "fd8a1ce8e44f1dc816c3bddf87b2079ef3f031a6",
       "packagingChanges": []
     },
@@ -331,7 +391,7 @@
       "exportSha256": "e2465a2ea1ad039ac0579e42df2b59a9bbc84cc3ef641e16ea7e985cc4e7ffee",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "6d2b37a7db3b4a798af7b059aeb52227fa380fdd",
       "packagingChanges": [
         "README only: generic attendee wording, private receipt path removal or short-checkout guidance."
@@ -343,7 +403,7 @@
       "exportSha256": "98aa673907ea2d3a7bd6dcd3a705a6a21c03ebdf6fbf0ae9f4080ab27020be95",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "4699967ef42eedfb9835576ffa00f65a3165ab40",
       "packagingChanges": []
     },
@@ -353,7 +413,7 @@
       "exportSha256": "4752fd5c61c228236b9181cc78a547ff11fa52b0ea8145438ec818ce1c307530",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a1691af6c37f8704923c9fe47455d375a4cc0768",
       "packagingChanges": []
     },
@@ -363,7 +423,7 @@
       "exportSha256": "b400b71f1f9c5ff8cda306bca81d8e3e75452f04d763c54403d534074e0a7068",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a3d2930d5620ee6f9742fc11d1369cb8cd89a28d",
       "packagingChanges": []
     },
@@ -373,7 +433,7 @@
       "exportSha256": "1efaed6479f36f5e592152fab136074ddf92af9fc84b246bc183b68b8c47f303",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "41b0a6b10aab5f6eb1da26ee978d73defc0b674c",
       "packagingChanges": []
     },
@@ -383,7 +443,7 @@
       "exportSha256": "abb7f917905238a448bb19552a33fbe62c50f53a2876c3a5aa60f6f99375c2d8",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3c04b7874348daeeaa197bd0220b1594b5e2237d",
       "packagingChanges": []
     },
@@ -393,7 +453,7 @@
       "exportSha256": "4f615412e991ea86faf97902f21ac57b76d4c485848296b616510dbd558f1be5",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "945a810421f6af1b4c33df6ee7b94920ee37271f",
       "packagingChanges": []
     },
@@ -403,7 +463,7 @@
       "exportSha256": "aee4b44e980e960bea0ead4da2a113b945132a20fb284610c81c727f747095f3",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a7c47b22cd94077fb400555340466c86f5d31430",
       "packagingChanges": []
     },
@@ -413,7 +473,7 @@
       "exportSha256": "d6d08d34bdd9168e7a3f06fa2dd4c2a123c6838c83c710ff5757c03f15a961be",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "0c454f2468681df8c5dd603e45a431fd4db1b70f",
       "packagingChanges": []
     },
@@ -423,7 +483,7 @@
       "exportSha256": "d880999473f9a4e47332ece07caa9605572854a39ef62c1bf3dadb911dcefea9",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "b5a5fa4f865d29fe8fe9025b39b7db540cf18d0b",
       "packagingChanges": [
         "README only: generic attendee wording, private receipt path removal or short-checkout guidance."
@@ -435,7 +495,7 @@
       "exportSha256": "5ed1568554e9553434c47a766d59403498dd2410bc868b21e5f5426d08a69e65",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "dff25e0177fcc716520c72685fe33dce320f461c",
       "packagingChanges": []
     },
@@ -445,7 +505,7 @@
       "exportSha256": "0f56b8503e067f6fb34b034acceec450e939f78bbe382a8edd7195e318f9ffd6",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "ae28440db2c44e4c2ab1e959203fff28fb7cd115",
       "packagingChanges": []
     },
@@ -455,7 +515,7 @@
       "exportSha256": "0b307503754b9b5c536440651785d0957ab7d327f600bab1f5c9fcea9be5d4e6",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "55f032a48122538f800e0c1d07ca68e10bec04bf",
       "packagingChanges": []
     },
@@ -465,7 +525,7 @@
       "exportSha256": "1216e9012222dabb7763aed1ef084db6ec505681edb7afd156364c8327f851c4",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "8ddc48fb27297006a3e7bebd82f0aaac36c973b3",
       "packagingChanges": []
     },
@@ -475,7 +535,7 @@
       "exportSha256": "c9e4135154361d603d496f2b8a62eb04c55516cda961cd9374dfd9ec7e6024b6",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "7daebbdd2de3f045bbb57b9554aebce788ecb4ce",
       "packagingChanges": []
     },
@@ -485,7 +545,7 @@
       "exportSha256": "0d051e69c64afd999e0f8d92e76e2acb5fadaa26a9201f6ab6282f7d2759f184",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "0796555f3f197e3a947a01a8bbd1f73fbf1f5dc7",
       "packagingChanges": []
     },
@@ -495,7 +555,7 @@
       "exportSha256": "6b5e80fe32b71e735487e9d091f2b0833ee21445a85f0b4bc7e259b53093d223",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "ce4e0c073ab2f2d313b79ba7734456f03d2542d7",
       "packagingChanges": []
     },
@@ -505,7 +565,7 @@
       "exportSha256": "84bd3b179b31a25e398c7812e8a99ccf93e42da336a7780a24de1c0966b3337e",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "13c7466386579edaccf8b623f18e38cdc88abdb4",
       "packagingChanges": []
     },
@@ -515,7 +575,7 @@
       "exportSha256": "1661254b1309446bf6d86fc7b70fa1349357c08c927bf36e07fe94b9d37397eb",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "9552e9bb852150175ada325a8bbf4b8b9b94d3c4",
       "packagingChanges": []
     },
@@ -525,7 +585,7 @@
       "exportSha256": "ec7479a9766eeeb4b7ab6440afce8c855c1e8fc80bfaa8d9bcd73d38c64d23c1",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "f389fdcf84122c12481b57bccc9413d15274462f",
       "packagingChanges": []
     },
@@ -535,7 +595,7 @@
       "exportSha256": "0b4a643e7f049198698d5852881aa59d5dd6ccf67615c8f9a5e4b588e97c392a",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3ea529f908be1bb3f0ba0cad6682380c040d6401",
       "packagingChanges": []
     },
@@ -545,7 +605,7 @@
       "exportSha256": "313fdb84acf2a5d2007304a6c76119ba83c243638e491de025f531c6c9b4de07",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3006092023c688b1fe3a29ad5f46828884a06fb3",
       "packagingChanges": []
     },
@@ -555,7 +615,7 @@
       "exportSha256": "411a0d4ec789b51676803282fb6836cacdd8c3e3297f92607d2272a6cf23e3ec",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "7c37ba43241d1c84d93505ad1b31f0fdfd1d7a95",
       "packagingChanges": []
     },
@@ -565,7 +625,7 @@
       "exportSha256": "d802a175ed8812d1f56e05091a8988300caaf3b1b947c29aefdd4a19e8b044ba",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3f54577a32d9e1c7699a6309e6ad484f2ee3127f",
       "packagingChanges": []
     },
@@ -575,7 +635,7 @@
       "exportSha256": "4c76169e7b37c0fd18a59508bb9ce318904f083875261cb2d8a8670ffb290f96",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "e58195a25fd7db273085056d180649a9ff493d42",
       "packagingChanges": []
     },
@@ -585,7 +645,7 @@
       "exportSha256": "d2a43e4783c3cd99d0f1d7600d7f63cb718c40bf8d4664611ab10eaa713a13ac",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "72484eb895153fe9a3d287fc0905692f756be666",
       "packagingChanges": []
     },
@@ -595,7 +655,7 @@
       "exportSha256": "03bc8378fb879b3e15201588891877fe4595e53897607747df50664376431818",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "1104abea21725411d5efa2e305ebdf4b4e081f6b",
       "packagingChanges": []
     },
@@ -605,7 +665,7 @@
       "exportSha256": "d93ec7ab8b078073a1f319f35cdd6ddba0deba1fec5058b6a8f74dbd8ff4aa3b",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "5ef7c36cfe0ea86e67e98b3e10014ecfe4ceb998",
       "packagingChanges": []
     },
@@ -615,7 +675,7 @@
       "exportSha256": "182e1e9edbf2ebd235036fcded4a0691d0896a58285f087030db8ee67ec208b1",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "94fa2ab8989442dab98f212d66ec10333888d4dd",
       "packagingChanges": []
     },
@@ -625,7 +685,7 @@
       "exportSha256": "0d8b564e67e955bc64a43fe5ec2ae1eefd1e2100da9e4fda3929e8988dcacfbf",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "b4ffb12fe45b5ecd649bd44242fa91c9d7eb5761",
       "packagingChanges": []
     },
@@ -635,7 +695,7 @@
       "exportSha256": "22eaa9ba8a4864bea2b59262e2ca67abe04fd03e9824a4b9d4bb377e31e32602",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "2ab80a67b92fb83a7f5dda60cee41ae9fc1fc17f",
       "packagingChanges": []
     },
@@ -645,7 +705,7 @@
       "exportSha256": "a3a93a6c73bd31d4c8c97446527bf18795f6403167c32aaded70e0e523560543",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "8ea5f955a5ce5c49a38dfff232900400d55f7978",
       "packagingChanges": []
     },
@@ -655,7 +715,7 @@
       "exportSha256": "a0451dab229ba57da080e6ad87dba648c585de1896e3ddab393043b9cc6f1267",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "92cf0406d676e11cd22ad17d59f9e370e30a3db2",
       "packagingChanges": []
     },
@@ -665,7 +725,7 @@
       "exportSha256": "3460952a83fc133e374e62bc24ef7bb38c9d31b4122de5e9bad368bf450a5e83",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "26b8201660e86de0de8e44f2650fbc40d5f1341f",
       "packagingChanges": []
     },
@@ -675,7 +735,7 @@
       "exportSha256": "5d4a132976b2b17c643deca1b638ae1b97a70349b043a4cb18e8c923fb1ed8f5",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "eb81686f26a36c64db6861059b773d7bb5ea824c",
       "packagingChanges": []
     },
@@ -685,7 +745,7 @@
       "exportSha256": "fa87feb7a1cac75c33f2497e1333786341d1dcb2c3a86cbe7cd39059a8961488",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "676c537e155441f65a4b7775aafdd728ce153151",
       "packagingChanges": []
     },
@@ -695,7 +755,7 @@
       "exportSha256": "894f5f370747a5d70c9ce7f430c623d4623a7c7b1585c4d44ef3d199d733d0f7",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "0235024f7a4ad28486351b50fb564778d2a27e66",
       "packagingChanges": []
     },
@@ -705,7 +765,7 @@
       "exportSha256": "b379150550439d80ab7f7aa875e8698c037069ab06dad6a5ace4f0c4b1c88434",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "804164090aa6ea976e83c31f7643116c1f5eed4c",
       "packagingChanges": []
     },
@@ -715,7 +775,7 @@
       "exportSha256": "93bd5688bf72b9bcd98f2bf08223b1a50506ded391e5e2abd0063729b9108ba0",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "bb530f2b43fbc8d3a161294ffa4148e7dfb09ebe",
       "packagingChanges": []
     },
@@ -725,7 +785,7 @@
       "exportSha256": "a7e3349c172b1b734a0add81921306311f96c2eca0f75ef8711124e18816f381",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "27b61c844908f1a08d1a1effc38c0ecc4ec8e074",
       "packagingChanges": []
     },
@@ -735,7 +795,7 @@
       "exportSha256": "190ab3cd7d221bf2ea28abec42e684e395f6ba55aeed9dfe858732fb8e853682",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "5cc49d977aba863240cf0c4e6da52db18c03a493",
       "packagingChanges": []
     },
@@ -745,7 +805,7 @@
       "exportSha256": "9a3ac6cba959c7c81e0b5aea582000fb0df2db0982faf2a2015cd25d69eb8880",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "4e583a7dbfb21dd223d339b9ef073d99a14b9dd5",
       "packagingChanges": []
     },
@@ -755,7 +815,7 @@
       "exportSha256": "c70f1b8a8bcbcc4a782cb5e4e52a7831ebb546eada6ce169a8242f09dc255a95",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "6631d36fcef782b7471b54ec4e28502448fbf5d6",
       "packagingChanges": []
     },
@@ -765,7 +825,7 @@
       "exportSha256": "83fcf2253ddc604f0322e73d081c05e80973ffe8f14a495f950171242d0dfbda",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "613f9f75bbdf8c87f1617337744411de45362e13",
       "packagingChanges": []
     },
@@ -775,7 +835,7 @@
       "exportSha256": "4a37126cf0fcd61355420738bb7e693e92b15d9d917f1d42c28024dac73f4e9e",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "7f8640800b99a106982654d1a27fef227d405033",
       "packagingChanges": []
     },
@@ -785,7 +845,7 @@
       "exportSha256": "402783ef9d1aeceb6cc10effe8f52f2f2b9aab293deaa1b0f396b8c0941f5858",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "3c3c9cc9c473e4333070a3031b908fc80e41cf14",
       "packagingChanges": []
     },
@@ -795,7 +855,7 @@
       "exportSha256": "a30dd87fe26f054cfdf251ce45036cf2b04b0db484bf569b28108abf5a148b93",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "04fd291baa88a3370ed17f591e22c15214df865c",
+      "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "c91aa218e3467bf74ee0d44c14a6da20107ce042",
       "packagingChanges": []
     }

@@ -1,0 +1,11 @@
+let TargetIds = dynamic(__TARGET_RESOURCE_IDS__);
+Event
+| where TimeGenerated >= ago(10m) and TimeGenerated <= now()
+| where _ResourceId in~ (TargetIds)
+| where EventLog == "System" and Source == "Service Control Manager" and EventID == 7036
+| extend EventIngestedUtc = ingestion_time()
+| where isnotnull(EventIngestedUtc) and EventIngestedUtc >= ago(5m) and EventIngestedUtc <= now()
+| where trim(@"\s+", RenderedDescription) == "The Print Spooler service entered the stopped state."
+| project TimeGenerated, EventIngestedUtc, _ResourceId, Computer,
+    ServiceName = "Spooler", Evidence = "StoppedTransitionObserved",
+    CurrentState = "Unknown", EventData, RenderedDescription

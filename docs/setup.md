@@ -15,6 +15,10 @@ Optional [disk collection](../infra/hybrid-monitoring-collection/README.md) and
 [Spooler recovery](../tools/hybrid-service-recovery/README.md) have separate
 collection-ownership and human-approval requirements; neither is a whole-stack
 installer or proof of live guest access.
+The [service-event monitoring starter](../infra/hybrid-service-monitoring/README.md)
+adds scoped DCR/association source and an optional English 7036 transition
+rule. AMA installation is a prerequisite, zero events is UNKNOWN, and neither
+current-state monitoring nor native approval is delivered.
 For a complete lab foundation use the [pinned LocalBox route](localbox.md).
 
 The remainder of this section describes only the optional synthetic replay.
