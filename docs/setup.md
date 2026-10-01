@@ -4,7 +4,16 @@ Reviewed 2026-10-01. Product sources: [source register](sources.md).
 
 ## Reproducible offline scope
 
-Use Python 3.11+ and the two commands in the [README](../README.md).
+For buildable components, start with the [component table](../README.md):
+the [SRE starter](../infra/sre-agent-starter/README.md),
+[monitoring baseline](../infra/hybrid-monitoring/README.md), and
+[Windows JEA capability](../tools/hybrid-server/README.md) include their own
+prerequisites, validation, deployment and ownership-checked cleanup commands.
+The [MCP implementation remains withheld](../tools/private-mcp/README.md).
+For a complete lab foundation use the [pinned LocalBox route](localbox.md).
+
+The remainder of this section describes only the optional synthetic replay.
+Use Python 3.11+ and the two replay commands in the [README](../README.md).
 No package installation, Azure subscription, GitHub write token, SRE service,
 model deployment or cloud login is required once the files are available.
 The exercise does not load environment variables, credentials or a binding file.
@@ -16,10 +25,10 @@ key. The replay computes outcomes independently and tests compare them.
 Its 120-second age and five-second future-skew values are teaching fixture
 policy, not a universal product guarantee.
 
-## Optional live environment: preparation only
+## Additional whole-lab readiness
 
-This release does not automate any of these steps. A live environment needs an
-owner-approved implementation and independent reproduction evidence before use:
+The component scripts do not automate this whole sequence. A live environment
+still needs owner approval and independent reproduction evidence before use:
 
 1. Establish supported Azure Local deployment type/release, registered system,
    exact read targets and verified infrastructure/workload classification.
@@ -34,8 +43,9 @@ owner-approved implementation and independent reproduction evidence before use:
 4. If using private MCP, supply a separately reviewed deployment: private route,
    supported authentication, TLS certificate lifecycle, restricted caller,
    nonadmin service, explicit node transport, fixed tools, JEA/provider rights,
-   bounded outputs and independent audits. This repository supplies none of
-   those live components and does not authorize granting missing rights.
+   bounded outputs and independent audits. This repository supplies the ordinary
+   Windows JEA guest component, not a portable MCP host deployment, and does
+   not authorize granting missing rights.
 5. If considering Arc guest execution, verify its separate preview/support,
    agent/network/local-policy prerequisites and action-specific permissions.
    Arc Connected is not execution proof. No guest command is included here.

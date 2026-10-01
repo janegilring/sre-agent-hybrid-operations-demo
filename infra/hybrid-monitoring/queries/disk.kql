@@ -1,0 +1,12 @@
+let ExpectedDisks = Inventory | mv-expand Disks
+| project _ResourceId, InstanceName = tolower(tostring(Disks));
+Perf
+| where TimeGenerated >= WindowStart and TimeGenerated < WindowEnd
+| where ObjectName == "LogicalDisk" and CounterName == "% Free Space" and InstanceName != "_Total"
+| extend _ResourceId = tolower(_ResourceId), InstanceName = tolower(InstanceName)
+| join kind=inner ExpectedDisks on _ResourceId, InstanceName
+| where CounterValue between (0.0 .. 100.0)
+| summarize Average = avg(CounterValue), Samples = count() by _ResourceId, InstanceName, bin(TimeGenerated, 5m)
+| summarize Bins = count(), LeastSamples = min(Samples), Value = max(Average) by _ResourceId, InstanceName
+| where Bins == RequiredBins and LeastSamples >= MinSamples
+| project TimeGenerated = now(), _ResourceId, InstanceName, Signal = "Disk", Value

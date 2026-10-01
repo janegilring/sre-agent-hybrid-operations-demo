@@ -1,0 +1,10 @@
+Perf
+| where TimeGenerated >= WindowStart and TimeGenerated < WindowEnd
+| where ObjectName == "Processor" and CounterName == "% Processor Time" and InstanceName == "_Total"
+| extend _ResourceId = tolower(_ResourceId)
+| where _ResourceId in (Inventory | project _ResourceId)
+| where CounterValue between (0.0 .. 100.0)
+| summarize Average = avg(CounterValue), Samples = count() by _ResourceId, bin(TimeGenerated, 5m)
+| summarize Bins = count(), LeastSamples = min(Samples), Value = min(Average) by _ResourceId
+| where Bins == RequiredBins and LeastSamples >= MinSamples
+| project TimeGenerated = now(), _ResourceId, InstanceName = "_Total", Signal = "CPU", Value

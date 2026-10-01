@@ -1,0 +1,12 @@
+Perf
+| where TimeGenerated >= WindowStart and TimeGenerated < WindowEnd
+| where ObjectName == "Memory" and CounterName == "__MEMORY_COUNTER__"
+| extend _ResourceId = tolower(_ResourceId)
+| join kind=inner (Inventory | project _ResourceId, TotalMemoryMiB) on _ResourceId
+| extend AvailableMiB = iff(CounterName == "Available Bytes", CounterValue / 1048576.0, CounterValue)
+| extend PercentAvailable = 100.0 * AvailableMiB / TotalMemoryMiB
+| where PercentAvailable between (0.0 .. 100.0)
+| summarize Average = avg(PercentAvailable), Samples = count() by _ResourceId, bin(TimeGenerated, 5m)
+| summarize Bins = count(), LeastSamples = min(Samples), Value = max(Average) by _ResourceId
+| where Bins == RequiredBins and LeastSamples >= MinSamples
+| project TimeGenerated = now(), _ResourceId, InstanceName = "", Signal = "Memory", Value

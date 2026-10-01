@@ -10,3 +10,11 @@ evidence/
 *.pem
 *.pfx
 *.key
+.local/
+.work/
+**/bin/
+**/obj/
+**/TestResults/
+*.zip
+.ownership-offline-*/
+.offline-*/

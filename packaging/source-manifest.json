@@ -1,0 +1,407 @@
+{
+  "capturedUtc": "2026-10-01T21:39:02.8631806Z",
+  "schemaVersion": 1,
+  "attribution": "Original owner-authorized components from Jan Egil Ring; target MIT license retained. Source repository has no declared license; no private history imported.",
+  "files": [
+    {
+      "sourceSha256": "af7f9b34525ebd9a2795cdb18dc783e763d2dde992d9ca8cf9dea82af10ccd43",
+      "exportSha256": "af7f9b34525ebd9a2795cdb18dc783e763d2dde992d9ca8cf9dea82af10ccd43",
+      "path": "infra/hybrid-monitoring/.gitignore",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "0d99ecc701e47ad2586ecc33423217081ca3d5dae0507d37595c4febdab77905",
+      "exportSha256": "0d99ecc701e47ad2586ecc33423217081ca3d5dae0507d37595c4febdab77905",
+      "path": "infra/hybrid-monitoring/Cleanup.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "9c3919f7899e2ae96495c6d77e1e1e024e20d9f3bf65a519bf1d2b8e3547fd71",
+      "exportSha256": "9c3919f7899e2ae96495c6d77e1e1e024e20d9f3bf65a519bf1d2b8e3547fd71",
+      "path": "infra/hybrid-monitoring/Common.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "a4601a2f89372ccb8fce2fb58f1177190c4e86c8ad459b8915a9188bc3fdcf18",
+      "exportSha256": "a4601a2f89372ccb8fce2fb58f1177190c4e86c8ad459b8915a9188bc3fdcf18",
+      "path": "infra/hybrid-monitoring/config.example.json",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "f290bfa4f9fc6b2cccb54048fea4d31db734ca94f82aa26d1f24b0cfcf9077be",
+      "exportSha256": "f290bfa4f9fc6b2cccb54048fea4d31db734ca94f82aa26d1f24b0cfcf9077be",
+      "path": "infra/hybrid-monitoring/Deploy.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "dc80eed7c2102ffed58612350672894afd55658b0fa38804839fcae32c355eeb",
+      "exportSha256": "dc80eed7c2102ffed58612350672894afd55658b0fa38804839fcae32c355eeb",
+      "path": "infra/hybrid-monitoring/main.bicep",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e1352cb5bc7975d001f97fdd92d4faa7d8c4f44ae22097dc6f8b4f50231f1ae5",
+      "exportSha256": "e1352cb5bc7975d001f97fdd92d4faa7d8c4f44ae22097dc6f8b4f50231f1ae5",
+      "path": "infra/hybrid-monitoring/Preflight.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "b6cc2a635c07c4954b23705784a009b0383994bb920d17dae4634892d117ba03",
+      "exportSha256": "b6cc2a635c07c4954b23705784a009b0383994bb920d17dae4634892d117ba03",
+      "path": "infra/hybrid-monitoring/README.md",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "d13cb0668e0993fc15f3505eee33c88dc8b919ad0e6496aa6506194cf4c5b454",
+      "exportSha256": "d13cb0668e0993fc15f3505eee33c88dc8b919ad0e6496aa6506194cf4c5b454",
+      "path": "infra/hybrid-monitoring/targets.example.json",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e94e750b86a3166c682897c20bf3a446cf2bbb8d1446a1f9830dc02105e47765",
+      "exportSha256": "e94e750b86a3166c682897c20bf3a446cf2bbb8d1446a1f9830dc02105e47765",
+      "path": "infra/hybrid-monitoring/Validate.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "fd32774118327723d17f3e40d43c3fb92379f6053aea5a2d918da1c452f4a95b",
+      "exportSha256": "fd32774118327723d17f3e40d43c3fb92379f6053aea5a2d918da1c452f4a95b",
+      "path": "infra/hybrid-monitoring/queries/coverage.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "407d1bcc47a47a57c8ac456dcdcb641fcfb4330c1b2adeaa9da886bf0e5daf62",
+      "exportSha256": "407d1bcc47a47a57c8ac456dcdcb641fcfb4330c1b2adeaa9da886bf0e5daf62",
+      "path": "infra/hybrid-monitoring/queries/cpu.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "c6d7d139066f6f24636450ae987f4fc7cb5e88d67ca868859b7fc60b13e87c3a",
+      "exportSha256": "c6d7d139066f6f24636450ae987f4fc7cb5e88d67ca868859b7fc60b13e87c3a",
+      "path": "infra/hybrid-monitoring/queries/disk.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "c07121164f6cb84bf4917376bf88421054232785d166753fa32f7e5b0495a7f6",
+      "exportSha256": "c07121164f6cb84bf4917376bf88421054232785d166753fa32f7e5b0495a7f6",
+      "path": "infra/hybrid-monitoring/queries/heartbeat.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "cc7e9ea3bebb55ba2da65c704eacc3876dc579bed551f7436f7238f11fc02508",
+      "exportSha256": "cc7e9ea3bebb55ba2da65c704eacc3876dc579bed551f7436f7238f11fc02508",
+      "path": "infra/hybrid-monitoring/queries/inventory.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "26066267ec7391fd57c1b15c3e02d7ace4001d0573e80642691027be282caf90",
+      "exportSha256": "26066267ec7391fd57c1b15c3e02d7ace4001d0573e80642691027be282caf90",
+      "path": "infra/hybrid-monitoring/queries/memory.kql",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e9ee53d5592b05a642fd26f8793b0f323aedf67d8cbdb3dadbddbd37df8fa280",
+      "exportSha256": "e9ee53d5592b05a642fd26f8793b0f323aedf67d8cbdb3dadbddbd37df8fa280",
+      "path": "infra/hybrid-monitoring/tests/test_queries.py",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "fb72e1aeef7a8e0add9f9865272ca6f7e457d991f49e9b5bde1012d4d25032e8",
+      "exportSha256": "fb72e1aeef7a8e0add9f9865272ca6f7e457d991f49e9b5bde1012d4d25032e8",
+      "path": "infra/hybrid-monitoring/tests/Test-Scripts.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "8508fbc06a12fe0840df768c958d5a37c90f36935ec7a63e16a3adda5428b362",
+      "exportSha256": "8508fbc06a12fe0840df768c958d5a37c90f36935ec7a63e16a3adda5428b362",
+      "path": "infra/sre-agent-starter/.gitignore",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "2fa201a6fe87db24914c2284abeb7b0efd4af6fe06c15ee0faabb2bbc060afac",
+      "exportSha256": "2fa201a6fe87db24914c2284abeb7b0efd4af6fe06c15ee0faabb2bbc060afac",
+      "path": "infra/sre-agent-starter/Cleanup.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "13bfd366d5257f6992ab74cca500c324389503108625b44b3f8ff2d7ebfe0668",
+      "exportSha256": "13bfd366d5257f6992ab74cca500c324389503108625b44b3f8ff2d7ebfe0668",
+      "path": "infra/sre-agent-starter/Common.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "eb56e76d1dcd0db2ba670b2df98ac8d4e51860d4cac0595dc2b23aba9449aad6",
+      "exportSha256": "eb56e76d1dcd0db2ba670b2df98ac8d4e51860d4cac0595dc2b23aba9449aad6",
+      "path": "infra/sre-agent-starter/Deploy.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "6af618f8d741f2c0670d45f0d7770730b37b371de0719217fa406e797152628b",
+      "exportSha256": "6af618f8d741f2c0670d45f0d7770730b37b371de0719217fa406e797152628b",
+      "path": "infra/sre-agent-starter/main.bicep",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "05a23018e7531700433bbdd0fbaaa63b9c79640ab3b36d50f2e757c6797de798",
+      "exportSha256": "05a23018e7531700433bbdd0fbaaa63b9c79640ab3b36d50f2e757c6797de798",
+      "path": "infra/sre-agent-starter/main.example.bicepparam",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "fc7a8ca9ecab52cac2960acb0e3c75988f8095ef6351b0f4a0b48942882701ee",
+      "exportSha256": "fc7a8ca9ecab52cac2960acb0e3c75988f8095ef6351b0f4a0b48942882701ee",
+      "path": "infra/sre-agent-starter/parameters.example.json",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "87bbbcac247061b4d08f56efab0df0c35f256ad40999c167a27b07776156ba5f",
+      "exportSha256": "81f3a157511e86dfd825866162224c8c557cf10548888ab34a01d4e1b0f6e632",
+      "path": "infra/sre-agent-starter/README.md",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [
+        "Documentation only: attendee wording, withheld MCP status, runnable test commands and Windows PowerShell short-path requirement."
+      ],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "882fe4e7c95bc125ade8430247541749cf72b4774888a38796f8af9ae03362d7",
+      "exportSha256": "882fe4e7c95bc125ade8430247541749cf72b4774888a38796f8af9ae03362d7",
+      "path": "infra/sre-agent-starter/target-reader.bicep",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "9bcbfa0ff9b58859afd242dcede06ae85f2907f50a16abcb87a5d066e794b0d8",
+      "exportSha256": "9bcbfa0ff9b58859afd242dcede06ae85f2907f50a16abcb87a5d066e794b0d8",
+      "path": "infra/sre-agent-starter/test_role_cli.py",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "7cb6ea63b3ce23b28e54faf5e7fe3082b97c263941985dd430d59ced8bc7041a",
+      "exportSha256": "7cb6ea63b3ce23b28e54faf5e7fe3082b97c263941985dd430d59ced8bc7041a",
+      "path": "infra/sre-agent-starter/Test-Contracts.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "aae3913ba487d1db60ed41bb2d6b09bd0e0a93d23069d6d633a185eda7f2e399",
+      "exportSha256": "aae3913ba487d1db60ed41bb2d6b09bd0e0a93d23069d6d633a185eda7f2e399",
+      "path": "infra/sre-agent-starter/Test-Regression.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e3ee941c76c1bbe9c6e1ca92577640755e5f343222f7e944c5e9e3990500fb0b",
+      "exportSha256": "e3ee941c76c1bbe9c6e1ca92577640755e5f343222f7e944c5e9e3990500fb0b",
+      "path": "infra/sre-agent-starter/Validate.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "5286b3ccdc2a93f5450f98dd2c3580b8ea4659f1d4a5bba1e198e426842e86b7",
+      "exportSha256": "5286b3ccdc2a93f5450f98dd2c3580b8ea4659f1d4a5bba1e198e426842e86b7",
+      "path": "tools/hybrid-server/Install-HybridServerReadOnly.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "bc931d9021656fd475408339568d721506f75a20385dd64b23443018670d55bb",
+      "exportSha256": "bc931d9021656fd475408339568d721506f75a20385dd64b23443018670d55bb",
+      "path": "tools/hybrid-server/New-HybridServerConfiguration.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e1f293873b502e2ef6c01fb8b5b107b81d80fdfac7b8619254f7b14465a9dce0",
+      "exportSha256": "e1f293873b502e2ef6c01fb8b5b107b81d80fdfac7b8619254f7b14465a9dce0",
+      "path": "tools/hybrid-server/Ownership.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "b2a30709099acd2d4c37582075859162c3f008905ac12e8e4daf795a13370f8e",
+      "exportSha256": "72affba623ed72a6b8c03215586db11b16b79cc7031213cce274edb5105e52ba",
+      "path": "tools/hybrid-server/README.md",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [
+        "Documentation only: attendee wording, withheld MCP status, runnable test commands and Windows PowerShell short-path requirement."
+      ],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "8f0efecef1b7382cc1eff36fe4357a04ceec45f1b89519c5537fe142f49cddb7",
+      "exportSha256": "8f0efecef1b7382cc1eff36fe4357a04ceec45f1b89519c5537fe142f49cddb7",
+      "path": "tools/hybrid-server/Remove-HybridServerReadOnly.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "83bee5b0c8e2c4122d1ed619b622cf7b79928ffa62e55a9524961b306231bfc3",
+      "exportSha256": "83bee5b0c8e2c4122d1ed619b622cf7b79928ffa62e55a9524961b306231bfc3",
+      "path": "tools/hybrid-server/Test-HybridServerReadOnly.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "01f4cedb1c616a8cce37ec5c2e8a8e369bbaa27ad02b27093b79654cfe6f59af",
+      "exportSha256": "01f4cedb1c616a8cce37ec5c2e8a8e369bbaa27ad02b27093b79654cfe6f59af",
+      "path": "tools/hybrid-server/Test-Offline.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "5d6dcc06486889894a5b624de41b4f02c19c918b793aa5f745d355eb49e1b0fc",
+      "exportSha256": "5d6dcc06486889894a5b624de41b4f02c19c918b793aa5f745d355eb49e1b0fc",
+      "path": "tools/hybrid-server/Test-OwnershipOffline.ps1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "e1c543d893e50c1268cbb6db213fe2e219f411fa0c0c491f736f58abd8c5555c",
+      "exportSha256": "e1c543d893e50c1268cbb6db213fe2e219f411fa0c0c491f736f58abd8c5555c",
+      "path": "tools/hybrid-server/HybridServerReadOnly/HybridServerReadOnly.psd1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "27a09dbbc797e71b7fd443c3666778b0edf9c4a5e4b9acffc0b13dbc0390709b",
+      "exportSha256": "27a09dbbc797e71b7fd443c3666778b0edf9c4a5e4b9acffc0b13dbc0390709b",
+      "path": "tools/hybrid-server/HybridServerReadOnly/HybridServerReadOnly.psm1",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "9fc4ee9c3b707a7b17713b0305ffcbc649c3b90d6a67081b9a6ee607831a8aa9",
+      "exportSha256": "9fc4ee9c3b707a7b17713b0305ffcbc649c3b90d6a67081b9a6ee607831a8aa9",
+      "path": "tools/hybrid-server/HybridServerReadOnly/RoleCapabilities/HybridServerReader.psrc",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "55b9f5375278cc1ccadd8f057b9d4cd4144552d11de140a0665db860c904b1b8",
+      "exportSha256": "55b9f5375278cc1ccadd8f057b9d4cd4144552d11de140a0665db860c904b1b8",
+      "path": "tools/private-mcp/.gitignore",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    },
+    {
+      "sourceSha256": "7e0c3475a7e60a83ae24ff1545fc9fbf05d5a2fad1bafcde5a577b049ab08e4d",
+      "exportSha256": "7e0c3475a7e60a83ae24ff1545fc9fbf05d5a2fad1bafcde5a577b049ab08e4d",
+      "path": "tools/private-mcp/servers.example.json",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originHeadContext": "af9d656281a0c33a7b2d45207e4b7255bce7a0e8",
+      "packagingChanges": [],
+      "sourceKind": "source workspace snapshot; not claimed committed"
+    }
+  ]
+}

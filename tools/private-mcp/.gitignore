@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+**/TestResults/
+*.local.json
+publish*/
+*.zip
+__pycache__/

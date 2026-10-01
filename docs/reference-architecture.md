@@ -3,6 +3,12 @@
 Reference design only; reviewed 2026-10-01. No diagram assets or deployed bindings
 are included. Sources: [source register](sources.md).
 
+For executable pieces see the [starter component table](../README.md).
+The ordinary Windows path is domain Kerberos + bounded JEA, optionally exposed
+through a separately accepted MCP host; it does not require Arc or Azure Local.
+The monitoring path is different: supported AMA Heartbeat/Perf collection with
+ARM target IDs is required. MCP source export is currently gated.
+
 | Boundary | Flow and purpose |
 | --- | --- |
 | Built-in health alerts | Azure Local Health Service -> AzureEdgeAlerts -> Azure Monitor; existing health-fault transport, not a custom log collector |

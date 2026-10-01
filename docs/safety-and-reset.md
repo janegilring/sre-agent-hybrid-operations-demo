@@ -2,6 +2,16 @@
 
 Reviewed 2026-10-01. This is a checklist, not a destructive script.
 
+## Included component cleanup
+
+Follow the exact receipt/ownership checks in the
+[SRE starter](../infra/sre-agent-starter/README.md#iac-interface-powershell-72-installed-bicep-and-azure-cli),
+[monitoring baseline](../infra/hybrid-monitoring/README.md#cleanup--partial-deployment),
+and [JEA capability](../tools/hybrid-server/README.md#offline-validation-and-teardown).
+Preview before applying. These scripts do not delete resource groups, adopt
+pre-existing resources, roll back separately owned provider ACLs or clean an
+entire LocalBox deployment. Keep private receipts until cleanup is verified.
+
 ## Offline reset
 
 The documented `python -B` commands read fixtures and write stdout only.

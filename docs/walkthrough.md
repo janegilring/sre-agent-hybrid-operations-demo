@@ -1,5 +1,8 @@
 # Presenter walkthrough and answer key
 
+Optional offline illustration. To build real components, start with the
+[starter quickstarts](../README.md), not these synthetic expected outcomes.
+
 **Presenter-only. Do not ingest into SRE knowledge.**
 Reviewed 2026-10-01. Every fixture is synthetic; no observation is from a live
 system. Prompts below are prepared examples, not requests already executed.

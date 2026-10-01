@@ -1,0 +1,10 @@
+@{
+    GUID = 'c046c0a1-f5ec-452e-bc35-58689380dfca'
+    Author = 'NIC demo contributors'
+    ModulesToImport = @('HybridServerReadOnly')
+    VisibleFunctions = @('Get-HybridServerFacts','Get-HybridServerServiceState','Get-HybridServerEvents')
+    VisibleCmdlets = @()
+    VisibleExternalCommands = @()
+    VisibleProviders = @()
+    AliasesToExport = @()
+}

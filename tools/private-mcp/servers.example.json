@@ -1,0 +1,10 @@
+{
+  "Servers": [
+    {
+      "Id": "server-01",
+      "Hostname": "server01.example.test",
+      "Machine": "SERVER01",
+      "ConnectingIdentity": "EXAMPLE\\mcpRead$"
+    }
+  ]
+}

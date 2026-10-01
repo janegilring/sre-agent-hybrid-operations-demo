@@ -1,0 +1,10 @@
+let Recent = Heartbeat
+| where TimeGenerated > ago(Freshness) and TimeGenerated <= now()
+| where Category == "Azure Monitor Agent" and OSType =~ "Windows"
+| extend _ResourceId = tolower(_ResourceId)
+| where _ResourceId in (Inventory | project _ResourceId)
+| summarize LastSeen = max(TimeGenerated) by _ResourceId;
+Inventory
+| join kind=leftouter Recent on _ResourceId
+| project TimeGenerated = now(), _ResourceId, Signal = "Heartbeat", InstanceName = "",
+          LastSeen, Value = iff(isnull(LastSeen), 1, 0)

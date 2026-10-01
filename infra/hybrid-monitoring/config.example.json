@@ -1,0 +1,16 @@
+{
+  "namePrefix": "hybrid-windows",
+  "location": "westeurope",
+  "enabled": true,
+  "frequencyMinutes": 5,
+  "sustainedMinutes": 15,
+  "freshnessMinutes": 10,
+  "ingestionLagMinutes": 2,
+  "minSamplesPerBin": 3,
+  "memoryCounter": "Available Bytes",
+  "cpuThresholdPercent": 90,
+  "memoryAvailableThresholdPercent": 10,
+  "diskFreeThresholdPercent": 10,
+  "recoveryMinutes": 10,
+  "actionGroupIds": []
+}

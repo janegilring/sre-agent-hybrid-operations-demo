@@ -1,0 +1,7 @@
+[
+  {
+    "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/replace-me/providers/Microsoft.HybridCompute/machines/replace-me",
+    "totalMemoryMiB": 16384,
+    "disks": ["C:"]
+  }
+]

@@ -1,50 +1,116 @@
-# Hybrid operations demonstration kit
+# Build a hybrid operations demo
 
-**PRIVATE - prepublication release candidate 0.1.0, 2026-10-01.**
-Both this repository and the companion runbooks remain private until explicit
-owner approval. **Do not connect this repository to the investigating SRE Agent.**
-It contains presenter prompts, expected outcomes and synthetic exercise inputs.
+Build a new Azure SRE Agent foundation, add five Windows monitoring rules, or
+install a bounded, read-only Windows server diagnostic endpoint. Pick only the
+components you need; **ordinary domain-joined Windows servers do not require
+Azure Local, LocalBox or Arc for JEA diagnostics**.
 
-This first release is a reproducible **offline evidence-interpretation exercise**
-and a preparation guide for separately approved live demonstrations. It is
-**not a reproducible Azure deployment**: no infrastructure installer, private MCP
-server, guest executor, credentials or live environment bindings are included.
-It makes no claim of successful live inventory, incident routing or remediation.
+**Private attendee starter — not publicly released.** Repository access requires
+owner permission. No Azure deployment or live endpoint registration was performed
+while packaging this repository. This is not a tested whole-lab installer.
 
-## Run the offline exercise
+## Choose your starting point
 
-Prerequisite: Python 3.11 or later; standard library only. From the repository
-root, in PowerShell:
+| What you want to build | Runnable component / instructions | Required environment |
+| --- | --- | --- |
+| A new SRE Agent with identity and telemetry resources | [SRE starter](infra/sre-agent-starter/README.md) | Existing approved Azure RG; Azure CLI, Bicep, PowerShell 7.2+ |
+| Five Windows alert rules: heartbeat, CPU, physical memory, disk and counter coverage | [Monitoring baseline](infra/hybrid-monitoring/README.md) | Existing workspace and working AMA Heartbeat/Perf collection, explicit Arc server/Azure VM IDs |
+| Bounded facts, Spooler state and recent System/Application events | [Windows JEA capability](tools/hybrid-server/README.md) | Domain-joined member server, Windows PowerShell 5.1, Kerberos/WSMan and dedicated nonadmin caller |
+| Connect those reads to an SRE Agent over private MCP | [MCP packaging boundary](tools/private-mcp/README.md) | **Source export blocked pending network-constant review; not runnable from this checkout** |
+| Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
+
+### Quickstart: new SRE Agent
+
+From the repository root:
+
+```powershell
+pwsh -NoProfile -File infra\sre-agent-starter\Test-Contracts.ps1
+pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1
+bicep build infra\sre-agent-starter\main.bicep --stdout | Out-Null
+```
+
+Follow the [parameter, validate/what-if, deploy and ownership-checked cleanup
+commands](infra/sre-agent-starter/README.md#iac-interface-powershell-72-installed-bicep-and-azure-cli).
+Use a **new** agent, never adopt a shared one. Target Reader grants are opt-in;
+Reader does not complete connector permissions. Native YAML/configuration is
+**not yet delivered**. OAuth, supported native exports, network configuration
+and end-to-end acceptance remain explicit manual steps in that guide.
+
+### Quickstart: monitoring
+
+```powershell
+Copy-Item infra\hybrid-monitoring\config.example.json infra\hybrid-monitoring\config.local.json
+Copy-Item infra\hybrid-monitoring\targets.example.json infra\hybrid-monitoring\targets.local.json
+python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
+```
+
+Edit the private copies with your own approved bindings. Then follow
+[preflight, preview, apply, validate and cleanup](infra/hybrid-monitoring/README.md#prepare-preview-apply-verify).
+Collection is a prerequisite, **not installed here**; no DCR module is included.
+This does not implement Arc connection-state or service-state alerts.
+
+### Quickstart: ordinary Windows server
+
+Validate the portable source locally:
+
+```powershell
+pwsh -NoProfile -File tools\hybrid-server\Test-Offline.ps1
+powershell.exe -NoProfile -File tools\hybrid-server\Test-Offline.ps1
+pwsh -NoProfile -File tools\hybrid-server\Test-OwnershipOffline.ps1
+```
+
+On an approved member server, copy `tools\hybrid-server`, then use elevated
+Windows PowerShell 5.1:
+
+```powershell
+.\Install-HybridServerReadOnly.ps1 -CallerIdentity 'EXAMPLE\mcpRead$' -WhatIf
+# After approval, repeat without -WhatIf.
+# As the actual dedicated caller, validate effective permissions:
+.\Test-HybridServerReadOnly.ps1 -ComputerName server01.example.test `
+    -ExpectedMachine SERVER01 -ExpectedCaller 'EXAMPLE\mcpRead$'
+# After sessions end and separately owned provider grants are rolled back:
+.\Remove-HybridServerReadOnly.ps1 -WhatIf
+```
+
+Read the [full setup/cleanup contract](tools/hybrid-server/README.md) before
+installation. No arbitrary shell, service remediation, directory account,
+provider ACL grant or live WinRM restart is supplied.
+
+### MCP: exact scope, not an appliance
+
+The approved capability names are `get_server_facts`,
+`get_server_service_state` and `get_server_events`. The supplied
+[server allowlist example](tools/private-mcp/servers.example.json) is only a
+configuration fragment. The reviewed source boundary still embeds lab-specific
+network constraints. Exporting those unchanged conflicts with the private-binding
+exclusion; changing the code would invalidate the approved immutable snapshot.
+Consequently **MCP implementation/build/tests are withheld**, not silently
+generalized. See [requirements and remaining release gate](tools/private-mcp/README.md).
+
+## Guides and optional illustrations
+
+- [Setup, permissions and costs](docs/setup.md)
+- [LocalBox upstream and sequencing](docs/localbox.md)
+- [Reference architecture](docs/reference-architecture.md)
+- [Safety and cleanup](docs/safety-and-reset.md)
+- [Optional offline exercise and presenter walkthrough](docs/walkthrough.md)
+- [Source references](docs/sources.md), [attribution](THIRD-PARTY.md)
+- [Packaging scope and validation](docs/publication-review.md)
+
+The preserved synthetic examples are optional teaching illustrations, not live
+evidence or the purpose of this starter:
 
 ```powershell
 python -B scripts\replay.py --scenario all
 python -B -m unittest discover -s tests -v
 ```
 
-The program reads checked-in synthetic fixtures, emits deterministic JSON to
-stdout and makes no network calls, cloud changes, notifications or file writes.
-It uses fixture-relative timestamps, not the machine clock. The output is
-explicitly **SYNTHETIC**, not cached live evidence.
+**Do not ingest this repository into agent knowledge.** It includes expected
+answers and exercise material. Restrict any knowledge connector to separately
+reviewed neutral runbooks; never ingest fault scripts, private bindings or raw
+operational results. The companion runbooks repository is also private unless
+its owner separately approves release.
 
-## Start here
-
-| Material | Purpose |
-| --- | --- |
-| [Setup, costs and permissions](docs/setup.md) | Offline prerequisites and separate live readiness gates |
-| [Reference architecture](docs/reference-architecture.md) | Separate telemetry, private node and Arc guest paths |
-| [Presenter walkthrough](docs/walkthrough.md) | Prompts, expected outcomes, stop gates and fallbacks |
-| [Safe reset](docs/safety-and-reset.md) | No-op offline reset; approval/ownership-first live cleanup |
-| [Publication review](docs/publication-review.md) | Exact content boundary and remaining acceptance |
-| [Source register](docs/sources.md) | Dated public references and unresolved attribution |
-| [Binding worksheet](examples/bindings.example.json) | Non-executable placeholders; never fill with real values here |
-
-Neutral operating procedures live separately in
-[sre-agent-hybrid-operations-runbooks](https://github.com/janegilring/sre-agent-hybrid-operations-runbooks).
-Only that repository is a candidate for reviewed read-only SRE knowledge
-retrieval. Private visibility alone does not prevent a broadly authorized GitHub
-connector from reading presenter material.
-
-Original sample code and prose are [MIT licensed](LICENSE). Linked third-party
-resources retain their own terms; see [attribution](THIRD-PARTY.md).
-No presentation, Microsoft workbook, internal support document, screenshot,
-private implementation or private history has been imported.
+Original owner-authorized code and prose retain the [MIT license](LICENSE).
+Linked third-party content is not vendored or relicensed.

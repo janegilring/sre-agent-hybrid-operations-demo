@@ -1,0 +1,22 @@
+let Expected = union
+    (Inventory | project _ResourceId, Signal = "CPU", InstanceName = "_total"),
+    (Inventory | project _ResourceId, Signal = "Memory", InstanceName = ""),
+    (Inventory | mv-expand Disks | project _ResourceId, Signal = "Disk", InstanceName = tolower(tostring(Disks)));
+let Observed = Perf
+| where TimeGenerated >= WindowStart and TimeGenerated <= now()
+| extend _ResourceId = tolower(_ResourceId), InstanceName = tolower(InstanceName)
+| join kind=inner (Inventory | project _ResourceId, TotalMemoryMiB) on _ResourceId
+| extend Signal = case(ObjectName == "Processor" and CounterName == "% Processor Time" and InstanceName == "_total", "CPU",
+    ObjectName == "Memory" and CounterName == "__MEMORY_COUNTER__", "Memory",
+    ObjectName == "LogicalDisk" and CounterName == "% Free Space" and InstanceName != "_total", "Disk", "")
+| where Signal != ""
+| extend InstanceName = iff(Signal == "Memory", "", InstanceName),
+    Normalized = iff(Signal == "Memory", 100.0 * iff(CounterName == "Available Bytes", CounterValue / 1048576.0, CounterValue) / TotalMemoryMiB, CounterValue)
+| where Normalized between (0.0 .. 100.0)
+| summarize LastSeen = max(TimeGenerated), Samples = countif(TimeGenerated < WindowEnd) by _ResourceId, Signal, InstanceName, Bucket = bin(TimeGenerated, 5m)
+| summarize LastSeen = max(LastSeen), CoveredBins = countif(Bucket < WindowEnd and Samples >= MinSamples) by _ResourceId, Signal, InstanceName;
+Expected
+| join kind=leftouter Observed on _ResourceId, Signal, InstanceName
+| project TimeGenerated = now(), _ResourceId, Signal, InstanceName, LastSeen,
+    CoveredBins = coalesce(CoveredBins, 0),
+    Value = iff(isnull(LastSeen) or LastSeen <= ago(Freshness) or coalesce(CoveredBins, 0) != RequiredBins, 1, 0)

@@ -1,0 +1,13 @@
+{
+  "TenantId": "00000000-0000-0000-0000-000000000000",
+  "Audience": "00000000-0000-0000-0000-000000000000",
+  "CallerClientId": "00000000-0000-0000-0000-000000000000",
+  "CallerObjectId": "00000000-0000-0000-0000-000000000000",
+  "Hostname": "mcp.example.test",
+  "CertificateThumbprint": "REPLACE-WITH-APPROVED-CERTIFICATE-THUMBPRINT",
+  "ListenAddress": "REQUIRES-SEPARATELY-APPROVED-NETWORK-CONFIGURATION",
+  "Port": 8443,
+  "NodeIdentityEnabled": false,
+  "ReadCapabilitiesEnabled": false,
+  "Servers": []
+}

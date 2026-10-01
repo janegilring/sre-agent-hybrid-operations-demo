@@ -1,0 +1,9 @@
+let Inventory = print Targets = dynamic(__TARGETS__)
+| mv-expand Targets
+| project _ResourceId = tolower(tostring(Targets.resourceId)),
+          TotalMemoryMiB = todouble(Targets.totalMemoryMiB), Disks = Targets.disks;
+let Freshness = __FRESHNESS__m;
+let WindowEnd = bin(now() - __LAG__m, 5m);
+let WindowStart = WindowEnd - __SUSTAINED__m;
+let RequiredBins = tolong(__SUSTAINED__ / 5);
+let MinSamples = __MIN_SAMPLES__;
