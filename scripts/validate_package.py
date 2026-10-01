@@ -9,7 +9,7 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 GUID = re.compile(r"\b[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}\b", re.I)
-IPV4 = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
+IPV4 = re.compile(r"(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])")
 # Synthetic test identities, module identity, and published built-in role IDs.
 ALLOWED_GUIDS = {
     "00000000-0000-0000-0000-000000000000",
@@ -23,10 +23,34 @@ ALLOWED_GUIDS = {
     "b24988ac-6180-42a0-ab88-20f7382dd24c",
     "749f88d5-cbae-40b8-bcfc-e573ddc772fa",
     "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
+    "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+    "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+    "cccccccc-cccc-cccc-cccc-cccccccccccc",
+    "dddddddd-dddd-dddd-dddd-dddddddddddd",
+    "984b1aee-e2db-4c89-bbb0-0ac50b7fa91c",
+    "d7d7f425-620e-419c-bc75-bfe367fc8e56",
+    "e5e4ef24-efc9-43c4-a4f7-0e7d2249f030",
 }
 TEST_ADDRESSES = {"10.0.0.0", "10.1.0.0", "999.0.0.0"}
 TEST_ADDRESS_FILES = {
     "infra/sre-agent-starter/Test-Regression.ps1",
+    "scripts/validate_package.py",
+}
+# Documentation networks, loopback and explicit malformed/unsafe negative tests.
+MCP_TEST_ADDRESSES = {
+    "0.0.0.0", "0.0.0.1", "127.0.0.0", "127.0.0.1", "192.0.0.0",
+    "192.0.2.004", "192.0.2.1", "192.0.2.256", "192.0.2.4", "192.000.2.4",
+    "198.051.100.0", "198.51.100.0", "198.51.100.1", "198.51.100.19",
+    "198.51.100.254", "198.51.100.255", "198.51.100.30", "198.51.100.31",
+    "198.51.100.32", "198.51.256.0", "203.0.113.1", "203.0.113.126",
+    "203.0.113.127", "203.0.113.128", "203.0.113.19", "203.0.113.2",
+    "203.0.113.40", "203.0.113.64", "203.0.113.65",
+    "224.0.0.0", "224.0.0.1", "240.0.0.1", "255.255.255.255",
+}
+MCP_TEST_FILES = {
+    "tools/private-mcp/tests/BoundaryNetworkTests.cs",
+    "tools/private-mcp/tests/BoundaryTests.cs",
+    "tools/private-mcp/tests/ServerTests.cs",
     "scripts/validate_package.py",
 }
 HOSTNAME = re.compile(r"\b(?:[a-z0-9-]+\.)+[a-z]{2,}\b", re.I)
@@ -54,6 +78,8 @@ def main():
             errors.append(f"Export hash mismatch: {entry['path']}")
         if entry["sourceSha256"] != entry["exportSha256"] and path.suffix != ".md":
             errors.append(f"Non-documentation source modification: {entry['path']}")
+        if entry.get("originCommit") != "04fd291baa88a3370ed17f591e22c15214df865c":
+            errors.append(f"Unexpected approved source revision: {entry['path']}")
     for name in names:
         path = ROOT / name
         if not path.is_file():
@@ -62,6 +88,10 @@ def main():
         if any(part in {"bin", "obj", "__pycache__", ".local", ".azure", ".squad", "TestResults"}
                for part in path.relative_to(ROOT).parts) or ".local." in path.name:
             errors.append(f"Excluded export path: {name}")
+        if name.startswith("tools/nic-sre-config/") or (
+            name.startswith("tools/private-mcp/") and path.suffix in {".ps1", ".py"}
+        ):
+            errors.append(f"Unapproved native configuration or lab operator script: {name}")
         text = path.read_text(encoding="utf-8-sig")
         if PRIVATE_KEY.search(text) or any(
             hashlib.sha256(host.lower().encode()).hexdigest() in DENIED_HOST_HASHES
@@ -75,6 +105,14 @@ def main():
             if value == "1.0.0.0":  # ARM contentVersion, not a network binding.
                 continue
             if value in TEST_ADDRESSES and name in TEST_ADDRESS_FILES:
+                continue
+            if value in MCP_TEST_ADDRESSES and name in MCP_TEST_FILES:
+                continue
+            if name == "tools/private-mcp/boundary.example.json" and value in {
+                "192.0.2.4", "198.51.100.0"
+            }:
+                continue
+            if name == "tools/private-mcp/README.md" and value in {"0.0.0.0", "224.0.0.0"}:
                 continue
             errors.append(f"Unallowlisted dotted address: {name}")
         if path.suffix == ".md":

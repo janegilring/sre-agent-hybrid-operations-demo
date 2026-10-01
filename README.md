@@ -8,6 +8,9 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
+This revision exports approved source commit `04fd291`. Five corrected alert
+rules were separately live-verified in the source environment; that is not
+proof of deployment in your environment or end-to-end guest investigation.
 
 ## Choose your starting point
 
@@ -16,7 +19,9 @@ while packaging this repository. This is not a tested whole-lab installer.
 | A new SRE Agent with identity and telemetry resources | [SRE starter](infra/sre-agent-starter/README.md) | Existing approved Azure RG; Azure CLI, Bicep, PowerShell 7.2+ |
 | Five Windows alert rules: heartbeat, CPU, physical memory, disk and counter coverage | [Monitoring baseline](infra/hybrid-monitoring/README.md) | Existing workspace and working AMA Heartbeat/Perf collection, explicit Arc server/Azure VM IDs |
 | Bounded facts, Spooler state and recent System/Application events | [Windows JEA capability](tools/hybrid-server/README.md) | Domain-joined member server, Windows PowerShell 5.1, Kerberos/WSMan and dedicated nonadmin caller |
-| Connect those reads to an SRE Agent over private MCP | [MCP packaging boundary](tools/private-mcp/README.md) | **Source export blocked pending network-constant review; not runnable from this checkout** |
+| Connect those reads to an SRE Agent over private MCP | [Portable MCP source](tools/private-mcp/README.md) | .NET 10 SDK; Windows host, explicit private configuration, TLS/Entra identity, network and JEA setup |
+| Add missing Windows logical-disk counters | [Additive disk collection](infra/hybrid-monitoring-collection/README.md) | Exactly two existing Arc Windows servers in one RG and an existing workspace; ownership fingerprint receipt |
+| Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
 
 ### Quickstart: new SRE Agent
@@ -43,11 +48,14 @@ Copy-Item infra\hybrid-monitoring\config.example.json infra\hybrid-monitoring\co
 Copy-Item infra\hybrid-monitoring\targets.example.json infra\hybrid-monitoring\targets.local.json
 python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 ```
 
 Edit the private copies with your own approved bindings. Then follow
 [preflight, preview, apply, validate and cleanup](infra/hybrid-monitoring/README.md#prepare-preview-apply-verify).
-Collection is a prerequisite, **not installed here**; no DCR module is included.
+Collection is a prerequisite. The optional
+[disk-only DCR component](infra/hybrid-monitoring-collection/README.md) adds one
+counter to exactly two Arc servers; it does not bootstrap all AMA collection.
 This does not implement Arc connection-state or service-state alerts.
 
 ### Quickstart: ordinary Windows server
@@ -77,16 +85,51 @@ Read the [full setup/cleanup contract](tools/hybrid-server/README.md) before
 installation. No arbitrary shell, service remediation, directory account,
 provider ACL grant or live WinRM restart is supplied.
 
-### MCP: exact scope, not an appliance
+### Quickstart: portable MCP source, not an appliance
 
-The approved capability names are `get_server_facts`,
+```powershell
+dotnet restore tools\private-mcp\tests\PrivateMcp.Tests.csproj --locked-mode
+dotnet test tools\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
+dotnet build tools\private-mcp\src\PrivateMcp.csproj --configuration Release --no-restore
+```
+
+The capability names are `get_server_facts`,
 `get_server_service_state` and `get_server_events`. The supplied
 [server allowlist example](tools/private-mcp/servers.example.json) is only a
-configuration fragment. The reviewed source boundary still embeds lab-specific
-network constraints. Exporting those unchanged conflicts with the private-binding
-exclusion; changing the code would invalidate the approved immutable snapshot.
-Consequently **MCP implementation/build/tests are withheld**, not silently
-generalized. See [requirements and remaining release gate](tools/private-mcp/README.md).
+configuration fragment. `ListenAddress` and `AllowedSourceCidrs` are now required
+operator configuration, with no lab-address fallback. The unchanged sample
+intentionally fails identity validation. Follow the [build, TLS, service identity,
+private network and migration instructions](tools/private-mcp/README.md); service
+registration and guest setup are separate, not an instant appliance installer.
+Keep LocalBox node capabilities disabled for ordinary servers.
+
+### Optional: disk collection and fixed service recovery
+
+```powershell
+bicep build infra\hybrid-monitoring-collection\main.bicep --stdout | Out-Null
+pwsh -NoProfile -File infra\hybrid-monitoring-collection\tests\Test-Collection.ps1
+pwsh -NoProfile -File tools\hybrid-service-recovery\Test-Offline.ps1
+pwsh -NoProfile -File tools\hybrid-service-recovery\Test-InstallerOffline.ps1
+```
+
+Read the collection guide's exact three-resource what-if and
+`New-CollectionReceipt` instructions before separately approved deployment.
+Legacy receipts without proven original snapshots/fingerprints do **not**
+authorize cleanup; reconciliation is a separate gate.
+
+Spooler recovery exposes only a fixed state read and `Start-HybridSpooler`.
+It has no fault injection, arbitrary service control, MCP write tool or native
+approval integration. Follow its [installation and ownership cleanup guide](tools/hybrid-service-recovery/README.md);
+do not grant an SRE identity write access until native human-approval behavior
+is independently proved.
+
+### What is not ready
+
+Native configuration (`tools\nic-sre-config`) is deliberately excluded pending
+review. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
+readiness, so no end-to-end guest read or recovery is claimed. Source alert
+verification does not prove native incident routing, approval, final Teams
+notification, guest recovery or a complete attendee lab.
 
 ## Guides and optional illustrations
 

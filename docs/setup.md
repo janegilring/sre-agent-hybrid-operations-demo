@@ -9,7 +9,12 @@ the [SRE starter](../infra/sre-agent-starter/README.md),
 [monitoring baseline](../infra/hybrid-monitoring/README.md), and
 [Windows JEA capability](../tools/hybrid-server/README.md) include their own
 prerequisites, validation, deployment and ownership-checked cleanup commands.
-The [MCP implementation remains withheld](../tools/private-mcp/README.md).
+The [portable MCP implementation](../tools/private-mcp/README.md) now includes
+locked .NET 10 build/test projects and explicit operator-owned network settings.
+Optional [disk collection](../infra/hybrid-monitoring-collection/README.md) and
+[Spooler recovery](../tools/hybrid-service-recovery/README.md) have separate
+collection-ownership and human-approval requirements; neither is a whole-stack
+installer or proof of live guest access.
 For a complete lab foundation use the [pinned LocalBox route](localbox.md).
 
 The remainder of this section describes only the optional synthetic replay.
@@ -44,11 +49,11 @@ still needs owner approval and independent reproduction evidence before use:
    supported authentication, TLS certificate lifecycle, restricted caller,
    nonadmin service, explicit node transport, fixed tools, JEA/provider rights,
    bounded outputs and independent audits. This repository supplies the ordinary
-   Windows JEA guest component, not a portable MCP host deployment, and does
+   Windows JEA guest component and portable MCP source, not a deployed host, and does
    not authorize granting missing rights.
 5. If considering Arc guest execution, verify its separate preview/support,
    agent/network/local-policy prerequisites and action-specific permissions.
-   Arc Connected is not execution proof. No guest command is included here.
+   Arc Connected is not execution proof. No Arc Run Command payload is included.
 6. Before SRE knowledge ingestion, audit all Code Access, Knowledge base and
    GitHub tools. Restrict new retrieval to neutral runbooks, never this answer
    repository or private planning. Verify source citations in a fresh thread.

@@ -74,7 +74,8 @@ Only complete bins ending before `bin(now() - ingestionLag, 5m)` are used.
 Defaults allow two minutes ingestion lag; data and freshness scans are bounded
 to an hour by the rule. Configure frequency 5/10/15 minutes, sustained 15/30
 minutes, freshness 5–30, lag 0–10, and recovery 5/10/15. Validate actual API
-acceptance using the deployment preview before apply.
+acceptance using deployment preview before apply, then verify actual provider
+acceptance and effective settings after apply; preview alone is not proof.
 
 Heartbeat and counter coverage start with expected inventory and **left outer
 join** bounded observations. Never-seen targets, no recent rows and whole-set
@@ -85,8 +86,14 @@ rows to the alert evaluation time filter. Missing tables/query failures remain
 errors (no fuzzy-union success fallback).
 
 All alerts split by resource, instance and signal; the payload's resource ID
-is the actual host ARM ID. `autoMitigate=true` and `resolveConfiguration`
-request ten healthy minutes before resolution by default. **Monitor resolving
+is the actual host ARM ID. `resolveConfiguration.autoResolved=true` and
+`resolveConfiguration.timeToResolve=PT10M` request ten healthy minutes before
+resolution by default (`recoveryMinutes` is configurable). `autoMitigate` is
+deliberately omitted: the resource provider rejects it alongside
+`resolveConfiguration`, even when ARM validate and what-if pass. The API schema
+lists both properties but does not express this runtime constraint. Validation
+requires the explicit recovery configuration; an absent, null or defaulted
+`autoMitigate` in a GET response does not replace that contract. **Monitor resolving
 a performance alert is not proof of guest recovery:** loss of Perf can remove
 that series and must be treated as unknown while coverage/heartbeat is bad.
 Confirm fresh positive samples and current guest condition independently.
@@ -213,6 +220,7 @@ before retrying. Never infer ownership from names alone.
 ```powershell
 python -m unittest discover -s infra\hybrid-monitoring\tests -v
 .\infra\hybrid-monitoring\tests\Test-Scripts.ps1
+.\infra\hybrid-monitoring\tests\Test-Template.ps1
 az bicep build --file infra\hybrid-monitoring\main.bicep --stdout | Out-Null
 ```
 
@@ -220,7 +228,10 @@ Python tests cover inventory all-absent/never-seen/stale/mixed-case behavior,
 sustained CPU units, separate disks, memory conversion and query contracts.
 PowerShell tests parse scripts and exercise exact-coverage failures, rendering,
 CLI-error handling, receipt scope, preview/WhatIf nonmutation, and rejection
-of foreign deployment/cleanup ownership. These are reference/contract tests, not
+of foreign deployment/cleanup ownership. Mock GET tests also cover optional
+`autoMitigate`, required recovery settings and unchanged enabled/name/scope/ownership
+checks. The local compiled-template test verifies the shared five-rule loop,
+exclusive recovery properties and the ten-minute default. These are reference/contract tests, not
 a Kusto emulator. Preflight is the required real KQL/collection test.
 
 ## First-party references (reviewed October 1, 2026)

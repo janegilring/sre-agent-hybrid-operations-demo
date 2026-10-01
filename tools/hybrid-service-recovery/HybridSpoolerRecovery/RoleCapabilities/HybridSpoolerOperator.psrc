@@ -1,0 +1,8 @@
+@{
+    GUID = 'e5e4ef24-efc9-43c4-a4f7-0e7d2249f030'
+    VisibleFunctions = @('Get-HybridSpoolerState','Start-HybridSpooler')
+    VisibleCmdlets = @()
+    VisibleExternalCommands = @()
+    VisibleProviders = @()
+    VisibleAliases = @()
+}

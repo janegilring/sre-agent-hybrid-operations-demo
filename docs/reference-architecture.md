@@ -7,7 +7,8 @@ For executable pieces see the [starter component table](../README.md).
 The ordinary Windows path is domain Kerberos + bounded JEA, optionally exposed
 through a separately accepted MCP host; it does not require Arc or Azure Local.
 The monitoring path is different: supported AMA Heartbeat/Perf collection with
-ARM target IDs is required. MCP source export is currently gated.
+ARM target IDs is required. Portable MCP source is included, while actual host
+deployment, guest reachability and native-agent acceptance remain separate gates.
 
 | Boundary | Flow and purpose |
 | --- | --- |

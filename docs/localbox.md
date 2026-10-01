@@ -28,11 +28,12 @@ release**; upstream status was pending, not a passing certification.
    and native configuration separately.
 4. For Windows telemetry, first provide supported AMA collection and the exact
    workspace/counters/target IDs. Then use the [five-rule baseline](../infra/hybrid-monitoring/README.md).
-   DCR installation is not included.
+   The optional [disk-only DCR](../infra/hybrid-monitoring-collection/README.md)
+   covers exactly two existing Arc servers, not all collection onboarding.
 5. On a selected domain member server, separately install and accept the
    [JEA capability](../tools/hybrid-server/README.md). Do not install it on
    a domain controller or grant administrative rights to obtain green results.
-6. Complete the [private MCP release gate](../tools/private-mcp/README.md), then
+6. Build and configure the [portable private MCP host](../tools/private-mcp/README.md), then
    independently verify the authenticated network boundary, real provider reads,
    denied commands, and fresh native agent tool correlation.
 7. Configure supported native response plans and notification accounts manually.

@@ -1,53 +1,100 @@
-# Private MCP boundary: export gate
+# Private MCP boundary: portable source
 
-The ordinary-server JEA capability is available in
-[hybrid-server](../hybrid-server/README.md). It needs domain Kerberos/WSMan, not
-Arc or Azure Local. The MCP host is a separate deployment.
+One boundary implementation supports ordinary Windows servers without LocalBox.
+The full `src` directory is required; retain the existing node readers and their
+module/credential paths for LocalBox compatibility. No separate MCP fork or
+operator deployment scripts are required in a source export.
 
-**No MCP executable source, installer or native connector configuration is
-delivered in this snapshot.** The reviewed source contains fixed private-network
-listener and source-subnet constants. The export instruction excludes
-unallowlisted private network bindings and prohibits revising approved code.
-Those requirements cannot both be met by copying that implementation today.
-Its original example also contained real identity GUIDs and was not copied.
-An explicit network-constant allowlist or separately reviewed generic source
-revision is needed before export. No code was edited to bypass this gate.
+## Build and test
 
-## Prerequisites of the reviewed implementation
+From this directory with the .NET 10 SDK:
 
-- Windows x64 and .NET 10 SDK; production uses Windows service hosting.
-- Locked packages: JwtBearer/WindowsServices/ProtectedData 10.0.12,
-  ModelContextProtocol.AspNetCore 2.2.0, PowerShell SDK 7.6.6.
-- Dedicated nonadministrator domain service identity/gMSA and Kerberos access
-  to the fixed `HybridServer.ReadOnly` JEA endpoint.
-- Controlled DNS, a trusted LocalMachine certificate with private key, server
-  EKU, matching SAN and working chain/revocation checks; private routing and
-  the reviewed source network boundary. Reverse-proxy headers are not trusted.
-- Explicit tenant, audience, caller client and caller object identifiers;
-  the reviewed app role is `LocalBox.Diagnostics.Read`. These are operator
-  prerequisites, not credentials to paste into source or an agent prompt.
-- A protected runtime `boundary.local.json` beside the executable; environment
-  variables are not a substitute in the reviewed host.
+```powershell
+dotnet restore .\tests\PrivateMcp.Tests.csproj --locked-mode
+dotnet test .\tests\PrivateMcp.Tests.csproj --no-restore
+dotnet build .\src\PrivateMcp.csproj --configuration Release --no-restore
+```
 
-The [sanitized boundary example](boundary.example.json) is intentionally
-incomplete and not runnable. [servers.example.json](servers.example.json)
-illustrates the separate `Servers` allowlist; merge approved entries into the
-private runtime configuration only after a boundary is separately accepted.
+Production requires Windows. Place a protected, operator-authored
+`boundary.local.json` beside the built `PrivateMcp.exe`
+(`src\bin\Release\net10.0` for the build above). Run that executable under the
+approved nonadministrator domain service account/gMSA. Service registration,
+Event Log source provisioning (`LocalBoxPrivateMcp`), private routing, DNS,
+firewall rules and certificate installation are separate operator tasks, not
+performed by build/test. The service name remains `LocalBoxPrivateMcp` for
+compatibility; it does not require a LocalBox machine for ordinary-server reads.
 
-| Tool | Exact arguments |
-| --- | --- |
-| `get_server_facts` | `target` (opaque configured ID) |
-| `get_server_service_state` | `target`, `service: "Spooler"` |
-| `get_server_events` | `target`, `log: "System"` or `"Application"`, `maxCount: 1..50`, `lookbackMinutes: 1..1440` |
+## Explicit configuration and prerequisites
 
-Discovery is enabled only for a nonempty validated server allowlist. No caller
-hostname, script, credential, XPath or arbitrary command is accepted.
+- Start from `boundary.example.json`; all GUIDs are intentionally empty
+  placeholders and validation rejects the unchanged sample. Supply the tenant,
+  API audience, caller client and caller object IDs. Entra application-only v2
+  JWTs must have the exact `LocalBox.Diagnostics.Read` role. Issuer, audience,
+  signature, expiry and caller checks still precede every MCP route.
+- Set `ListenAddress` to one canonical dotted-decimal IPv4 address on the host.
+  Wildcards, unspecified/zero-network, multicast/reserved, IPv6 and abbreviated,
+  hexadecimal or integer address notation are rejected. Port remains **8443**.
+- Set `AllowedSourceCidrs` to **1–16 explicit canonical IPv4 networks** for the
+  actual packet sources (for example the approved delegated subnet).
+  RFC 5737 sample addresses are documentation only, never production defaults.
+  Prefixes `/1`–`/30` are accepted only when the entire range is unicast
+  (outside `0.0.0.0/8` and `224.0.0.0/3`); choose the narrowest approved subnet.
+  Host bits and noncanonical notation are errors. `/0`, `/31` and `/32` are
+  rejected: this policy models subnet hosts, not point-to-point or single-host
+  rules. Each rule excludes its network and broadcast addresses, preserving
+  `/27` host offsets **1–30**. Multiple rules form an explicit union.
+  IPv4-mapped IPv6 packet sources are matched as IPv4; other IPv6 is denied.
+  Loopback is not a bypass and needs an explicitly configured subnet.
+- `Hostname` must be a controlled TLS DNS name. Install its trusted certificate
+  with private key in `LocalMachine\My`; grant only the service identity key
+  read access. Configure its thumbprint. SAN hostname, server EKU, chain,
+  validity and online revocation checks must pass. TLS terminates here using
+  TLS 1.2/1.3; no trusted proxy forwarding or TLS-offload mode is introduced.
+  `Forwarded` and `X-Forwarded-For` cannot authorize a caller. Browser Origin
+  requests, HTTP and mismatched hosts remain denied. Entra metadata and
+  certificate revocation endpoints must be reachable.
+- Keep `NodeIdentityEnabled` and `ReadCapabilitiesEnabled` false for ordinary
+  servers. Merge the `Servers` array from `servers.example.json` into the same
+  private configuration with your approved IDs, FQDNs, machine names and domain
+  connecting identity. Up to eight servers are supported. Omitted/empty
+  `Servers` keeps the three ordinary-server tools unregistered.
+- The target-side **HybridServerReadOnly module and `HybridServer.ReadOnly` JEA
+  endpoint are a separate dependency**: see `..\hybrid-server\README.md`.
+  They require separately reviewed guest installation, domain/Kerberos DNS and
+  SPNs, scoped encrypted WSMan access and effective local read permissions.
+  No fallback authentication, saved node credentials, arbitrary endpoint,
+  command, script, credential, XPath or authority/RPC path is accepted through
+  MCP. Tools remain bounded facts, Spooler state, and System/Application events.
+  LocalBox-specific tool names remain discoverable for API compatibility;
+  disabled node capabilities reject calls, and boundary identity still requires
+  the legacy exact host. Ordinary-server tools do not depend on those calls.
 
-There is deliberately no pretend `dotnet build` quickstart pointing to absent
-projects. Build/test and host setup instructions must accompany the approved
-export. No endpoint registration, service installation, token issuance or Azure
-call was attempted as a substitute.
+## Breaking configuration migration: before any upgrade
 
-On an independently installed host, remove `Servers` and restart its service to
-disable the capability; use the guest's ownership-checked cleanup for JEA.
-This repository has no whole-boundary installer or whole-boundary cleanup.
+Both `ListenAddress` and `AllowedSourceCidrs` are now **required**. Missing,
+empty or invalid values intentionally prevent startup; there is no private
+address or allow-any fallback. Before upgrading, an operator must explicitly
+add the existing approved listener and canonical source subnet to the
+**private** deployment configuration. Reconstruct the previous `/27` policy
+with that subnet's canonical network address: host offsets 1–30 are admitted,
+network offset 0, broadcast offset 31 and outside addresses remain denied.
+Actual deployment values belong only in the private migration receipt/config.
+Preserve all tenant/caller/audience, TLS, role, node and server settings.
+
+Source edits/builds do not modify the deployed binary, configuration or service.
+Configuration is loaded once from the executable directory, not environment
+variables or command-line overrides. Plan a separately approved upgrade and
+restart only after reviewing the private migration and negative tests.
+
+## Export review gate
+
+Export candidates are this README, `src` (excluding `bin`/`obj`), the C# test
+files and test project, project lockfiles and the two documentation-only JSON
+examples. Include the separately reviewed hybrid-server dependency only
+when selecting that component. Exclude `*.local.json`, binaries, `bin`, `obj`,
+`TestResults`, publish output, archives, private receipts, raw logs and all
+private-mcp operator `.ps1`/inventory scripts (including their dependent
+PowerShell/Python tests). Retained LocalBox identifiers,
+app role and module paths are compatibility contracts, not ordinary-server
+deployment bindings. Re-scan the final candidate and obtain review approval
+before packaging or publishing; this change performs neither.

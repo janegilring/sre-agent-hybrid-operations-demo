@@ -5,11 +5,6 @@ remain pending**. This is read-only. It does not remediate Spooler, change a
 service, grant Hyper-V/cluster access, or require Arc/AMA. Existing provider
 denials must remain denials.
 
-**Packaging note:** this folder is runnable independently. MCP source export
-is withheld pending review of embedded network constants; see the
-[MCP release boundary](../private-mcp/README.md). MCP descriptions below document
-the reviewed integration contract, not a delivered host in this checkout.
-
 ## Components and contracts
 
 - `HybridServerReadOnly` is a Windows PowerShell 5.1 module with three exported
@@ -144,18 +139,21 @@ CPU is a provider's current observation, not a benchmark or historical average.
 
 ## Offline validation and teardown
 
+Use a short checkout path for Windows PowerShell 5.1 (for example
+`C:\src\hybrid-demo`); its legacy file-copy path limit affects the ownership
+tests in deeply nested checkouts. Restore the MCP test project using its
+[locked-dependency instructions](../private-mcp/README.md#build-and-test) first.
+
 ```powershell
 pwsh -NoProfile -File .\Test-Offline.ps1
 powershell.exe -NoProfile -File .\Test-Offline.ps1
+dotnet test ..\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
 ```
 
 The offline script parses all assets, validates the manifest, executes bounded
 provider/failure/text tests and rejects invalid parameters without touching
-Windows providers. The original .NET protocol tests are not exported with the
-withheld MCP implementation and are not claimed validated in this package.
-On Windows PowerShell 5.1 use a short checkout path (for example,
-`C:\src\hybrid-demo`): deeply nested checkout paths can exceed its file-copy
-path-length limit during the ownership tests. PowerShell 7 is not affected.
+Windows providers. .NET tests exercise actual authenticated MCP protocol with a
+fake executor, not just source regex. They also preserve the LocalBox suite.
 
 Disable by removing the `Servers` configuration and restarting the boundary.
 After sessions have ended and independently owned provider grants have been

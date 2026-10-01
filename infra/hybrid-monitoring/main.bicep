@@ -79,7 +79,7 @@ resource rules 'Microsoft.Insights/scheduledQueryRules@2023-12-01' = [for rule i
     windowSize: 'PT${sustainedMinutes}M'
     // Includes aligned closed bins, ingestion lag and freshness; never a historical all-time scan.
     overrideQueryTimeRange: 'PT1H'
-    autoMitigate: true
+    // The provider rejects autoMitigate alongside resolveConfiguration.
     resolveConfiguration: {
       autoResolved: true
       timeToResolve: 'PT${recoveryMinutes}M'

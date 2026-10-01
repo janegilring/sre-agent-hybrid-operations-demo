@@ -55,7 +55,11 @@ class QueryTests(unittest.TestCase):
         for name in ["inventory", "heartbeat", "cpu", "memory", "disk", "coverage"]:
             self.assertIn(f"loadTextContent('queries/{name}.kql')", bicep)
         self.assertIn("param enabled bool = true", bicep)
-        self.assertIn("autoMitigate: true", bicep)
+        self.assertNotRegex(bicep, r"\bautoMitigate\s*:")
+        self.assertIn("resolveConfiguration: {", bicep)
+        self.assertIn("autoResolved: true", bicep)
+        self.assertIn("timeToResolve: 'PT${recoveryMinutes}M'", bicep)
+        self.assertIn("param recoveryMinutes int = 10", bicep)
         self.assertIn("resourceIdColumn: '_ResourceId'", bicep)
         self.assertNotIn("Spooler", bicep)
 

@@ -8,9 +8,12 @@ Get-ChildItem "$PSScriptRoot\.." -Filter *.ps1 -Recurse | ForEach-Object {
     $failures += $errors
 }
 if ($failures.Count) { throw ($failures | Out-String) }
-function Must-Fail([scriptblock]$Action) {
+function Must-Fail([scriptblock]$Action, [string]$MessagePattern = '.') {
     $failed=$false
-    try { & $Action } catch { $failed=$true }
+    try { & $Action } catch {
+        if ($_.Exception.Message -notmatch $MessagePattern) { throw }
+        $failed=$true
+    }
     if (-not $failed) { throw 'Expected failure was accepted.' }
 }
 $inputs = @{
@@ -62,6 +65,7 @@ try {
     Must-Fail { Read-Inputs '00000000-0000-0000-0000-000000000000' $workspaceId $targetsPath $configPath }
     $global:HmTestCalls=[System.Collections.Generic.List[string]]::new()
     $global:HmTestForeign=$false
+    $global:HmTestRules=$null
     function az {
         $global:LASTEXITCODE=0
         $a=@($args)
@@ -73,6 +77,9 @@ try {
         if ($a[0] -eq 'deployment') { return '{"changes":[]}' }
         $url=$a[([array]::IndexOf($a,'--url')+1)]
         if ($url -like '*scheduledQueryRules*') {
+            if ($null -ne $global:HmTestRules) {
+                return (@{value=$global:HmTestRules} | ConvertTo-Json -Depth 30 -Compress)
+            }
             if ($global:HmTestForeign) {
                 return (@{value=@(@{id="/subscriptions/$sub/resourceGroups/rg/providers/Microsoft.Insights/scheduledQueryRules/hybrid-windows-cpu"; name='hybrid-windows-cpu'; tags=@{'hybrid-monitoring-owner'='foreign'}})} | ConvertTo-Json -Depth 10 -Compress)
             }
@@ -111,9 +118,72 @@ try {
     $receipt | ConvertTo-Json | Set-Content $receiptPath
     Must-Fail { & "$PSScriptRoot\..\Cleanup.ps1" -SubscriptionId $sub -ResourceGroup rg -ReceiptPath $receiptPath -Confirm:$false }
     if ($global:HmTestCalls.Where({$_ -match '--method delete'}).Count) { throw 'Foreign cleanup was attempted.' }
+    $global:HmTestForeign=$false
+    $global:HmTestRules=@(foreach ($name in $script:Suffixes) {
+        $threshold = switch ($name) {
+            cpu { $validated.Config.cpuThresholdPercent }
+            memory { $validated.Config.memoryAvailableThresholdPercent }
+            disk { $validated.Config.diskFreeThresholdPercent }
+            default { 0 }
+        }
+        @{
+            id="/subscriptions/$sub/resourceGroups/rg/providers/Microsoft.Insights/scheduledQueryRules/hybrid-windows-$name"
+            name="hybrid-windows-$name"; tags=@{'hybrid-monitoring-owner'=$sub}
+            properties=@{
+                enabled=$true; scopes=@($workspaceId)
+                evaluationFrequency='PT5M'; windowSize='PT15M'; overrideQueryTimeRange='PT1H'
+                resolveConfiguration=@{autoResolved=$true;timeToResolve='PT10M'}
+                criteria=@{allOf=@(@{
+                    threshold=$threshold; operator=$(if ($name -in @('memory','disk')) {'LessThan'} else {'GreaterThan'})
+                    timeAggregation='Maximum'; metricMeasureColumn='Value'; resourceIdColumn='_ResourceId'
+                    query=(Expand-Query $validated $name)
+                    dimensions=@(foreach ($dimension in @('_ResourceId','InstanceName','Signal')) {
+                        @{name=$dimension;operator='Include';values=@('*')}
+                    })
+                })}
+            }
+        }
+    })
+    $receipt.createdRuleIds=@($global:HmTestRules | ForEach-Object { $_.id })
+    $receipt | ConvertTo-Json -Depth 10 | Set-Content $receiptPath
+    $baseline=$global:HmTestRules | ConvertTo-Json -Depth 30
+    # Mock GET representations must work under Common.ps1's StrictMode.
+    foreach ($representation in @('absent','null','default')) {
+        $global:HmTestRules=$baseline | ConvertFrom-Json -AsHashtable
+        foreach ($rule in $global:HmTestRules) {
+            if ($representation -eq 'null') { $rule.properties.autoMitigate=$null }
+            if ($representation -eq 'default') { $rule.properties.autoMitigate=$true }
+        }
+        & "$PSScriptRoot\..\Validate.ps1" @deployment
+    }
+    $mutations=@(
+        @{change={param($r) $r.properties.Remove('resolveConfiguration')}; error='Missing recovery configuration'},
+        @{change={param($r) $r.properties.autoMitigate=$true; $r.properties.Remove('resolveConfiguration')}; error='Missing recovery configuration'},
+        @{change={param($r) $r.properties.resolveConfiguration=$null}; error='Missing recovery configuration'},
+        @{change={param($r) $r.properties.resolveConfiguration.Remove('autoResolved')}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.autoResolved=$null}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.autoResolved=$false}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.autoResolved='true'}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.Remove('timeToResolve')}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.timeToResolve=$null}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.resolveConfiguration.timeToResolve='PT5M'}; error='Recovery configuration drift'},
+        @{change={param($r) $r.properties.enabled=$false}; error='Disabled or misconfigured'},
+        @{change={param($r) $r.properties.scopes=@('/foreign')}; error='Disabled or misconfigured'},
+        @{change={param($r) $r.properties.scopes=@($workspaceId,'/extra')}; error='Disabled or misconfigured'},
+        @{change={param($r) $r.name='foreign'}; error='Missing/foreign rule'},
+        @{change={param($r) $r.id='/foreign'}; error='Missing/foreign rule'},
+        @{change={param($r) $r.tags.'hybrid-monitoring-owner'='foreign'}; error='Missing/foreign rule'}
+    )
+    foreach ($index in 0..4) {
+        foreach ($mutation in $mutations) {
+            $global:HmTestRules=$baseline | ConvertFrom-Json -AsHashtable
+            $null = & $mutation.change $global:HmTestRules[$index]
+            Must-Fail { & "$PSScriptRoot\..\Validate.ps1" @deployment } $mutation.error
+        }
+    }
 } finally {
     Remove-Item Function:\az -ErrorAction SilentlyContinue
     Remove-Item $work -Recurse -Force
-    Remove-Variable HmTestCalls,HmTestForeign -Scope Global -ErrorAction SilentlyContinue
+    Remove-Variable HmTestCalls,HmTestForeign,HmTestRules -Scope Global -ErrorAction SilentlyContinue
 }
-Write-Host 'PASS: parse, substitution, exact coverage, CLI failure, receipt scope, WhatIf and foreign ownership tests.'
+Write-Host 'PASS: parse, substitution, exact coverage, CLI failure, receipt scope, WhatIf, foreign ownership and five-rule GET recovery validation tests.'

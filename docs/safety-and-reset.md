@@ -12,6 +12,14 @@ Preview before applying. These scripts do not delete resource groups, adopt
 pre-existing resources, roll back separately owned provider ACLs or clean an
 entire LocalBox deployment. Keep private receipts until cleanup is verified.
 
+For [disk collection](../infra/hybrid-monitoring-collection/README.md), cleanup
+requires exact resource sets and original configuration fingerprints. Legacy
+receipt migration remains held until original-snapshot provenance and comparison
+are proven; never construct ownership from current GET responses.
+For [Spooler recovery](../tools/hybrid-service-recovery/README.md), cleanup must
+verify the owned group, registration, unchanged files and exact service DACL ACE.
+Neither cleanup procedure restores service state or authorizes an outage.
+
 ## Offline reset
 
 The documented `python -B` commands read fixtures and write stdout only.
@@ -28,8 +36,10 @@ and collection budgets, required permissions, independent verification, expected
 effects and exact reversal. Require a cleanup reserve and a stop signal.
 Missing readiness, role/ownership or rollback evidence is a NO-GO.
 
-No fault action, benchmark or guest command is implemented or authorized by this
-kit. A future workload exercise must be bounded and reversible on an identified
+No fault action, benchmark or Arc Run Command operation is implemented or
+authorized by this kit. The optional fixed Spooler start capability has its
+own explicit authorization gates; it is not general guest execution.
+A future workload exercise must be bounded and reversible on an identified
 noncritical workload only. Exclude cluster nodes, Resource Bridge, unknown-role
 objects and unrelated services. Separate collection approval from remediation.
 

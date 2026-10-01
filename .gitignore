@@ -18,3 +18,6 @@ evidence/
 *.zip
 .ownership-offline-*/
 .offline-*/
+original-deployment-resources.json
+receipt.json
+receipt.reconciled.json
