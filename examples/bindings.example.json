@@ -1,0 +1,18 @@
+{
+  "purpose": "NON_EXECUTABLE_WORKSHEET_ONLY",
+  "synthetic": true,
+  "liveExecutionEnabled": false,
+  "subscription": "PLACEHOLDER_SUBSCRIPTION_ID",
+  "resourceGroup": "PLACEHOLDER_RESOURCE_GROUP",
+  "clusterResource": "PLACEHOLDER_CLUSTER_RESOURCE_ID",
+  "sreAgent": "PLACEHOLDER_AGENT_RESOURCE_ID",
+  "privateMcpEndpoint": "PLACEHOLDER_APPROVED_PRIVATE_HTTPS_ENDPOINT",
+  "approvedNodes": ["PLACEHOLDER_NODE_A", "PLACEHOLDER_NODE_B"],
+  "approvedWorkloadId": "PLACEHOLDER_VERIFIED_WORKLOAD_ID",
+  "excludedInfrastructureIds": ["PLACEHOLDER_VERIFIED_INFRASTRUCTURE_IDS"],
+  "approvalReference": "PLACEHOLDER_PRIVATE_APPROVAL_RECORD",
+  "windowStartUtc": "PLACEHOLDER_UTC_START",
+  "windowEndUtc": "PLACEHOLDER_UTC_HARD_STOP",
+  "rollbackOwner": "PLACEHOLDER_OPERATOR_ROLE",
+  "notes": "Keep actual bindings in an approved private operational store, never in this repository. This file is not loaded by the offline replay and cannot deploy or authorize anything."
+}

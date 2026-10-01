@@ -1,0 +1,77 @@
+[
+  {
+    "scenario_id": "provider-denied",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM", "SYNTHETIC_NODE_B_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 0},
+      {"source": "SYNTHETIC_NODE_B_VM", "status": "accessdenied", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": null}
+    ],
+    "expected_result": "UNKNOWN"
+  },
+  {
+    "scenario_id": "complete-empty",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM", "SYNTHETIC_NODE_B_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 0},
+      {"source": "SYNTHETIC_NODE_B_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 0}
+    ],
+    "expected_result": "NO_RESULTS_RETURNED"
+  },
+  {
+    "scenario_id": "missing-source",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM", "SYNTHETIC_NODE_B_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 1}
+    ],
+    "expected_result": "UNKNOWN"
+  },
+  {
+    "scenario_id": "stale-source",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "success", "observed_at_utc": "1999-12-31T23:59:59Z", "row_count": 0}
+    ],
+    "expected_result": "UNKNOWN"
+  },
+  {
+    "scenario_id": "observed-results",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM", "SYNTHETIC_NODE_B_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 2},
+      {"source": "SYNTHETIC_NODE_B_VM", "status": "success", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 1}
+    ],
+    "expected_result": "RESULTS_OBSERVED"
+  },
+  {
+    "scenario_id": "partial-source",
+    "synthetic": true,
+    "as_of_utc": "2000-01-01T00:02:00Z",
+    "max_age_seconds": 120,
+    "future_tolerance_seconds": 5,
+    "required_sources": ["SYNTHETIC_NODE_A_VM"],
+    "observations": [
+      {"source": "SYNTHETIC_NODE_A_VM", "status": "partial", "observed_at_utc": "2000-01-01T00:01:50Z", "row_count": 1}
+    ],
+    "expected_result": "UNKNOWN"
+  }
+]
