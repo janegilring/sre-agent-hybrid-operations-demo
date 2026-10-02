@@ -15,6 +15,7 @@ public sealed record BoundarySettings
     public required string CertificateThumbprint { get; init; }
     public required string ListenAddress { get; init; }
     public required string[] AllowedSourceCidrs { get; init; }
+    public string HostTarget { get; init; } = "LocalBox-Client";
     public int Port { get; init; } = 8443;
     public bool NodeIdentityEnabled { get; init; }
     public bool ReadCapabilitiesEnabled { get; init; }
@@ -24,6 +25,8 @@ public sealed record BoundarySettings
 
     public void Validate()
     {
+        if (HostTarget is null || !System.Text.RegularExpressions.Regex.IsMatch(HostTarget, "^[A-Za-z0-9][A-Za-z0-9-]{0,14}$"))
+            throw new InvalidOperationException("An explicit bounded host identity is required.");
         if (Servers is null || Servers.Length > 8 || Servers.Select(s => s.Id).Distinct(StringComparer.Ordinal).Count() != Servers.Length)
             throw new InvalidOperationException("Invalid server allowlist.");
         foreach (var server in Servers) server.Validate();
@@ -85,8 +88,8 @@ public sealed record BoundarySettings
             var parts = cidr?.Split('/');
             if (parts is not { Length: 2 } ||
                 !int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out var prefix) ||
-                prefix is < 1 or > 30 || parts[1] != prefix.ToString(CultureInfo.InvariantCulture))
-                throw new InvalidOperationException("A canonical IPv4 source CIDR with prefix /1 through /30 is required.");
+                prefix is < 1 or > 32 or 31 || parts[1] != prefix.ToString(CultureInfo.InvariantCulture))
+                throw new InvalidOperationException("A canonical IPv4 source CIDR with prefix /1 through /30 or an exact /32 host is required.");
             var network = ParseAddress(parts[0]);
             var mask = uint.MaxValue << (32 - prefix);
             var broadcast = network | ~mask;
@@ -102,7 +105,7 @@ public sealed record BoundarySettings
             if (address.AddressFamily != AddressFamily.InterNetwork) return false;
             var value = ToUInt32(address);
             // Preserve subnet host semantics: neither the network nor broadcast is a caller.
-            return value > network && value < broadcast;
+            return network == broadcast ? value == network && IsUnicast(value) : value > network && value < broadcast;
         }
 
         internal static uint ParseAddress(string address)

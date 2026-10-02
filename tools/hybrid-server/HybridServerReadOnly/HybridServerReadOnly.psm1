@@ -91,10 +91,10 @@ function Get-HybridServerFacts {
                 ForEach-Object { [ordered]@{
                     Description = ConvertTo-HybridText $_.Description; MACAddress = ConvertTo-HybridText $_.MACAddress 32
                     DHCPEnabled = [bool]$_.DHCPEnabled
-                    IPAddress = @($_.IPAddress | Where-Object { $null -ne $_ } | Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
-                    Subnet = @($_.IPSubnet | Where-Object { $null -ne $_ } | Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
-                    Gateway = @($_.DefaultIPGateway | Where-Object { $null -ne $_ } | Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
-                    DNS = @($_.DNSServerSearchOrder | Where-Object { $null -ne $_ } | Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
+                    IPAddress = @($_.IPAddress | Where-Object { $null -ne $_ } | Microsoft.PowerShell.Utility\Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
+                    Subnet = @($_.IPSubnet | Where-Object { $null -ne $_ } | Microsoft.PowerShell.Utility\Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
+                    Gateway = @($_.DefaultIPGateway | Where-Object { $null -ne $_ } | Microsoft.PowerShell.Utility\Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
+                    DNS = @($_.DNSServerSearchOrder | Where-Object { $null -ne $_ } | Microsoft.PowerShell.Utility\Select-Object -First 8 | ForEach-Object { ConvertTo-HybridText $_ 64 })
                 } }
         }
         Read-HybridProvider Disk 16 -RequireRow {

@@ -48,7 +48,6 @@ public sealed partial class BoundaryTests
     [InlineData("198.51.100.1/27")]
     [InlineData("198.51.100.0")]
     [InlineData("198.51.100.0/31")]
-    [InlineData("198.51.100.19/32")]
     [InlineData("198.51.100.0/33")]
     [InlineData("198.51.100.0/-1")]
     [InlineData("198.51.100.0/+27")]
@@ -102,6 +101,42 @@ public sealed partial class BoundaryTests
             Assert.Equal(last is >= 1 and <= 30, network.Contains(IPAddress.Parse($"198.51.100.{last}")));
         Assert.False(default(Ipv4SourceCidr).Contains(IPAddress.Parse("198.51.100.19")));
     }
+
+    [Theory]
+    [InlineData("198.51.100.19", HttpStatusCode.OK)]
+    [InlineData("::ffff:198.51.100.19", HttpStatusCode.OK)]
+    [InlineData("198.51.100.18", HttpStatusCode.Forbidden)]
+    [InlineData("198.51.100.20", HttpStatusCode.Forbidden)]
+    public async Task ExactProxySourceDoesNotAuthorizeItsNeighbors(string source, HttpStatusCode expected)
+    {
+        await using var host = await TestBoundary.Start(source, configuration:
+            Settings with { AllowedSourceCidrs = ["198.51.100.19/32"] });
+        using var response = await host.Send("tools/list", new { });
+        Assert.Equal(expected, response.StatusCode);
+    }
+
+    [Theory]
+    [InlineData("GUESTBROKER", "GUESTBROKER", true)]
+    [InlineData("GUESTBROKER", "LocalBox-Client", false)]
+    [InlineData("OTHERHOST", "GUESTBROKER", false)]
+    public async Task PortableBoundaryIdentityStillChecksActualHost(string machine, string target, bool allowed)
+    {
+        await using var host = await TestBoundary.Start(machine: machine, configuration:
+            Settings with { HostTarget = "GUESTBROKER" });
+        using var response = await host.Send("tools/call",
+            new { name = "get_boundary_identity", arguments = new { target } });
+        var result = (await ReadRpc(response)).GetProperty("result");
+        Assert.Equal(!allowed, result.TryGetProperty("isError", out var error) && error.GetBoolean());
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("*")]
+    [InlineData("host.example.test")]
+    [InlineData("host;whoami")]
+    public void InvalidHostTargetIsRejected(string? value) =>
+        Assert.Throws<InvalidOperationException>(() => (Settings with { HostTarget = value! }).Validate());
 
     [Theory]
     [InlineData("198.51.100.0", false)]

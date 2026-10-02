@@ -8,11 +8,16 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
-This revision refreshes five monitoring files from `1ceb2a7` and adds the reviewed
-architecture assets from `0a19556`. Other exports retain their approved
-`c086d8d`/`c814605` provenance. Five corrected alert
-rules were separately live-verified in the source environment; that is not
-proof of deployment in your environment or end-to-end guest investigation.
+This **unpublished review batch** refreshes the complete 30-file guest JEA/MCP
+dependency set from committed source `9eb5ddf`: provider-loading/JEA fixes,
+bounded NIC projection, compact endpoint ownership markers and narrow private
+forwarder source rules. Other exports retain their exact mixed provenance.
+Source-environment success does not establish deployment in your environment.
+No private bindings, keys, raw events or authoring traces are included.
+
+**First practice:** [60-minute facilitator guide](docs/practice.md).
+**Build your own reports:** [native report recreation and acceptance](docs/native-reports.md).
+Both use placeholders, not the source environment's identities or report IDs.
 
 ## Choose your starting point
 
@@ -27,6 +32,7 @@ proof of deployment in your environment or end-to-end guest investigation.
 | Observe an English Spooler stopped transition | [Service-event monitoring starter](infra/hybrid-service-monitoring/README.md) | One existing Arc Windows Server guest with working AMA; DCR/association plus optional event rule; **offline source only** |
 | Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
+| Recreate read-only native health/capacity reports | [Report contracts and source checklist](docs/native-reports.md) | Your own approved connector tools, scoped sources and authenticated native save/reopen/Reload verification |
 
 ## Architecture overview
 
@@ -35,11 +41,16 @@ proof of deployment in your environment or end-to-end guest investigation.
 [Open SVG](docs/diagrams/nic2026-demo-environment.svg) ·
 [Editable Excalidraw source](docs/diagrams/nic2026-demo-environment.excalidraw)
 
-This Azure-hosted LocalBox overview shows managed identity → private MCP →
+This **earlier conceptual** Azure-hosted LocalBox overview shows managed identity → private MCP →
 Kerberos/JEA reads on two Azure Local nodes. Optional telemetry is a separate
 path; guest, incident and repair paths are explicitly planned or acceptance-gated.
 It is a reusable design overview, **not a live acceptance or health report**.
 Ordinary-server diagnostics still do not require Azure Local or LocalBox.
+For an ordinary-server deployment today, follow the [current trust-route
+checklist](docs/guest-setup.md): private forwarder if needed → domain-joined
+MCP service identity → fixed guest JEA endpoint. The workgroup forwarder does
+not become a Kerberos execution identity. The historical diagram is not an
+as-built deployment instruction.
 
 ### Quickstart: new SRE Agent
 
@@ -172,7 +183,9 @@ five-rule baseline's cleanup script does not apply to these resources.
 
 Native configuration (`tools\nic-sre-config`) is still unreviewed and deliberately
 excluded. End-to-end Kerberos/WinRM/JEA readiness for the ordinary-server
-candidate remains unverified, so no guest read or recovery is claimed. Source alert
+candidate remains unverified **in an attendee environment**. Native read-only
+guest access was proven in the source lab; that proof does not transfer to a
+new deployment and does not establish recovery. Source alert
 verification does not prove native incident routing, approval, final Teams
 notification, guest recovery or a complete attendee lab.
 

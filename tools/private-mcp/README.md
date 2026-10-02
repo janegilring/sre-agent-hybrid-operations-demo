@@ -39,12 +39,17 @@ compatibility; it does not require a LocalBox machine for ordinary-server reads.
   RFC 5737 sample addresses are documentation only, never production defaults.
   Prefixes `/1`–`/30` are accepted only when the entire range is unicast
   (outside `0.0.0.0/8` and `224.0.0.0/3`); choose the narrowest approved subnet.
-  Host bits and noncanonical notation are errors. `/0`, `/31` and `/32` are
-  rejected: this policy models subnet hosts, not point-to-point or single-host
-  rules. Each rule excludes its network and broadcast addresses, preserving
+  Host bits and noncanonical notation are errors. Exact `/32` unicast host
+  rules are also supported for a narrowly scoped private TCP forwarder.
+  `/0` and `/31` remain rejected. Subnet rules exclude network and broadcast, preserving
   `/27` host offsets **1–30**. Multiple rules form an explicit union.
   IPv4-mapped IPv6 packet sources are matched as IPv4; other IPv6 is denied.
-  Loopback is not a bypass and needs an explicitly configured subnet.
+  Loopback is not a bypass and needs an explicitly configured source rule.
+- `HostTarget` is the operator-configured boundary identity (1–15 ASCII
+  alphanumeric/hyphen characters, starting alphanumeric), independently checked
+  against the running machine. It defaults to `LocalBox-Client` for backwards
+  compatibility. Set it to the exact approved computer name on another host;
+  callers cannot choose an arbitrary boundary hostname.
 - `Hostname` must be a controlled TLS DNS name. Install its trusted certificate
   with private key in `LocalMachine\My`; grant only the service identity key
   read access. Configure its thumbprint. SAN hostname, server EKU, chain,
@@ -66,8 +71,8 @@ compatibility; it does not require a LocalBox machine for ordinary-server reads.
   command, script, credential, XPath or authority/RPC path is accepted through
   MCP. Tools remain bounded facts, Spooler state, and System/Application events.
   LocalBox-specific tool names remain discoverable for API compatibility;
-  disabled node capabilities reject calls, and boundary identity still requires
-  the legacy exact host. Ordinary-server tools do not depend on those calls.
+  disabled node capabilities reject calls, and boundary identity requires the
+  configured exact host. Ordinary-server tools do not depend on node calls.
 
 ## Breaking configuration migration: before any upgrade
 

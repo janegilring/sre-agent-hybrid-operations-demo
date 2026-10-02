@@ -22,7 +22,7 @@ function Get-TestScript {
 function Get-CimInstance { param($ClassName) [pscustomobject]@{ DomainRole = 1 } }
 function Get-LocalGroup { param($Name) $script:runtime }
 function New-LocalGroup {
-    param($Name,$Description)
+    param($Name,[ValidateLength(0,48)][string]$Description)
     $script:runtime = [pscustomobject]@{ Name = $Name; Description = $Description
         SID = [Security.Principal.SecurityIdentifier]::new('S-1-5-21-111-222-333-1002') }
     $script:runtime

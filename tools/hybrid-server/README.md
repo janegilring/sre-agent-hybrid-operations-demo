@@ -1,14 +1,17 @@
 # Ordinary Windows server read capability
 
-Implemented, offline-tested source; **guest installation and native agent acceptance
-remain pending**. This is read-only. It does not remediate Spooler, change a
-service, grant Hyper-V/cluster access, or require Arc/AMA. Existing provider
-denials must remain denials.
+Read-only, offline-tested Windows JEA source. Installation and native SRE
+acceptance in your environment require the explicit steps below. This is
+not a whole-lab installer or a service remediation tool. It grants no
+Hyper-V/cluster rights and requires neither Arc nor AMA.
 
 ## Components and contracts
 
 - `HybridServerReadOnly` is a Windows PowerShell 5.1 module with three exported
   functions, an exact role capability, and an installer-generated `.pssc`.
+  Its manifest explicitly loads CimCmdlets and System.ServiceProcess for the
+  fixed internal providers; this does not expose arbitrary CIM/service commands
+  to the JEA caller. Qualified NIC projection preserves bounds under JEA proxies.
 - `New-HybridServerConfiguration.ps1` generates and validates that configuration
   without registration; offline tests exercise the same generator as installation.
 - `Install-HybridServerReadOnly.ps1` creates the fixed `HybridServer.ReadOnly`
@@ -106,22 +109,22 @@ CPU is a provider's current observation, not a benchmark or historical average.
 
    This creates a Kerberos session, verifies identity/correlation/nonadmin
    execution, reads Spooler/events, rejects an unlisted service/log, excessive
-   count/window, `Get-Service` and arbitrary host parameters, then closes the
+   count/window, `Get-Service`, direct/qualified arbitrary CIM and host parameters, then closes the
    session. It makes no configuration changes. Inspect all provider statuses;
    passing identity/negative tests alone is not complete data-access proof.
 
-5. On the existing MCP host merge the dummy `Servers` array from
+5. On the approved **domain-joined MCP host** merge the dummy `Servers` array from
    `..\private-mcp\servers.example.json` into the protected `boundary.local.json`,
-   substituting independently approved values. Restart the existing service
-   under its approved nonadmin domain runtime identity. Do not change existing
-   node credentials or widen existing node JEA/provider access.
+   substituting independently approved values. Run that service under its
+   approved nonadmin domain runtime identity. Do not switch the shared WORKGROUP
+   LocalBox-Client service identity, reuse node credentials or widen node access;
+   use a separate domain-joined service host when the existing host is WORKGROUP.
 
-   The current host retains its original fixed listener address, SRE source
-   subnet policy, TLS checks and `LocalBox.Diagnostics.Read` app role. **This
-   increment makes the guest capability reusable, not the entire LocalBox
-   boundary deployment portable**. An attendee without that host must separately
-   provision/adapt an equivalent authenticated private MCP deployment under
-   review; copying the dummy JSON is not a standalone boundary installer.
+   Set explicit listener/source policy and `HostTarget` as documented by the
+   [portable boundary source](../private-mcp/README.md); retain exact TLS/caller/
+   `LocalBox.Diagnostics.Read` checks. Host provisioning, certificates, network
+   controls and managed service identities remain separately reviewed operator
+   responsibilities; copying dummy JSON is not a standalone boundary installer.
 
 6. Use the already authenticated native MCP connector to discover the three
    tools and call, for example:
@@ -138,11 +141,6 @@ CPU is a provider's current observation, not a benchmark or historical average.
    **never commit/publish raw logs or paste them into public reports**.
 
 ## Offline validation and teardown
-
-Use a short checkout path for Windows PowerShell 5.1 (for example
-`C:\src\hybrid-demo`); its legacy file-copy path limit affects the ownership
-tests in deeply nested checkouts. Restore the MCP test project using its
-[locked-dependency instructions](../private-mcp/README.md#build-and-test) first.
 
 ```powershell
 pwsh -NoProfile -File .\Test-Offline.ps1
@@ -166,7 +164,13 @@ rolled back, use elevated Windows PowerShell on the guest:
 
 Removal requires matching ownership marker, group SID/description, empty group,
 unchanged file hashes, no extra files/reparse points and matching registered
-endpoint identity, path and SHA-256. Windows PowerShell 5.1 copies the source
+endpoint identity, path and SHA-256.
+The Windows group description uses a short `HybridJEA:<GUID>` marker within
+the 48-character limit; the receipt retains the full installation Owner and exact
+GroupDescription. Removal also understands receipts using the original Owner
+description, without relaxing SID or ownership validation.
+
+Windows PowerShell 5.1 copies the source
 PSSC into its SessionConfig directory: the installer records the **actual**
 registered path only after registration succeeds and the copy matches the
 source hash and per-installation configuration GUID. The protected version-2

@@ -1,5 +1,24 @@
 # Public first-party sources
 
+## October 2 private review refresh
+
+The complete 30-file ordinary-server JEA/MCP dependency set is refreshed from
+committed source `9eb5ddfd2fd1058185e2387afdb54d0379c479a3`. Per-file Git blob,
+source SHA-256, export SHA-256 and documentation-only sanitization are recorded
+in `packaging/source-manifest.json`; the other 62 records preserve prior origins.
+New facilitator, guest integration and native-report guides are original kit
+documentation, not exported operational receipts.
+
+[Azure Local LENS at d70c577](https://github.com/Azure/AzureLocal-LENS-Workbook/blob/d70c5775701e0372b15d4983e5b6a6b1b20a8a28/README.md)
+is a **community-maintained** reference, not an officially supported Microsoft
+product. Its retained LAW telemetry and ARG inventory are different data paths.
+Link only: no external workbook, DCR, code or license is copied.
+
+The live report's account-specific bindings and the manual collector's fixed
+privileged scope are excluded pending a reviewed portable implementation.
+See [native recreation and held-source boundaries](native-reports.md).
+This is an unpublished working-tree review batch; no release or live acceptance.
+
 Retrieved/reviewed 2026-10-01 UTC. Learn source version is the live page on this
 date unless a documentation view is specified; those views are not immutable
 revisions or installed-release evidence. These links ground original prose,

@@ -1,13 +1,16 @@
 # Packaging scope and reproduction
 
 **Private, not publicly released.** Begin with the [component quickstarts](../README.md).
-This follow-up refreshes exactly five monitoring files from
+**Historical packaging baseline, before the current guest refresh:** that
+follow-up refreshed exactly five monitoring files from
 `1ceb2a76fd9efbf0bf736da10d665488f331afb6` and adds two reviewed diagram assets
 from `0a195563ebb866c2f2da39b00cd9b11973a801c4` (unchanged at `1ceb2a7`).
-All other exports and their provenance remain unchanged at `c086d8d`/`c814605`,
+At that time, all other exports and their provenance remained at `c086d8d`/`c814605`,
 including monitoring recovery semantics, cleanup WhatIf and per-machine Arc scope.
-No later private-doc commit, source workspace changes, private history or live receipts are
-imported. Earlier kit snapshots are superseded by this manifest.
+No later private-doc commit, source workspace changes, private history or live
+receipts were imported in that batch. For the subsequent 30-file guest/MCP
+provenance refresh, use [current sources](sources.md) and the
+[current manifest](../packaging/source-manifest.json), not this historical note.
 
 ## Included and immutable provenance
 

@@ -19,6 +19,8 @@ try {
     Invoke-Command -Session $session -ScriptBlock { Get-HybridServerEvents -CorrelationId $using:id -Log System -MaxCount 5 -LookbackMinutes 60 }
     foreach ($probe in @(
         { Get-Service Spooler },
+        { Get-CimInstance Win32_OperatingSystem },
+        { CimCmdlets\Get-CimInstance Win32_OperatingSystem },
         { Get-HybridServerServiceState -CorrelationId $using:id -Service WinRM },
         { Get-HybridServerEvents -CorrelationId $using:id -Log Security -MaxCount 5 -LookbackMinutes 60 },
         { Get-HybridServerEvents -CorrelationId $using:id -Log System -MaxCount 51 -LookbackMinutes 60 },

@@ -4,6 +4,8 @@
     GUID = '1ec52169-b20b-4094-9937-2adb96c98d85'
     Author = 'NIC demo contributors'
     PowerShellVersion = '5.1'
+    RequiredModules = @('CimCmdlets')
+    RequiredAssemblies = @('System.ServiceProcess')
     FunctionsToExport = @('Get-HybridServerFacts','Get-HybridServerServiceState','Get-HybridServerEvents')
     CmdletsToExport = @()
     VariablesToExport = @()

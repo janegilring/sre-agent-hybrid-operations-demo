@@ -213,15 +213,15 @@ public sealed class BoundaryTools(IHttpContextAccessor accessor, BoundarySetting
     }
 
     [McpServerTool(Name = "get_boundary_identity", ReadOnly = true, Destructive = false, OpenWorld = false)]
-    [Description("Read the identity of the MCP host LocalBox-Client. Does not execute commands or contact nested nodes.")]
+    [Description("Read the identity of the server-configured MCP host. Does not execute commands or contact nested nodes.")]
     public BoundaryIdentity GetBoundaryIdentity(
-        [Description("Exact allowlisted host: LocalBox-Client.")] string target)
+        [Description("Exact operator-configured host target.")] string target)
     {
         var context = accessor.HttpContext;
         if (context is null || !BoundaryApplication.IsAuthorized(context.User, settings))
             throw new McpException("Caller not authorized.");
         var correlation = (string)context.Items["correlation"]!;
-        if (target != "LocalBox-Client")
+        if (target != settings.HostTarget)
         {
             logger.LogInformation("Boundary tool {Correlation} outcome TargetDenied", correlation);
             throw new McpException("Target not allowed.");
@@ -236,7 +236,7 @@ public sealed class BoundaryTools(IHttpContextAccessor accessor, BoundarySetting
             "Boundary tool {Correlation} outcome ReadSucceeded source {Source} callerObject {CallerObject} callerClient {CallerClient} audience {Audience}",
             correlation, context.Connection.RemoteIpAddress?.ToString(), settings.CallerObjectId,
             settings.CallerClientId, settings.Audience);
-        return new("LocalBox-Client", machine, OperatingSystem.IsWindows(), correlation);
+        return new(settings.HostTarget, machine, OperatingSystem.IsWindows(), correlation);
     }
 }
 

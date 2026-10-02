@@ -8,9 +8,14 @@ Get-ChildItem $PSScriptRoot -Recurse -File | Where-Object { $_.Extension -in '.p
     if ($errors) { $failures += $errors }
 }
 if ($failures.Count) { throw ($failures -join "`n") }
+$providerSource = Get-Content "$PSScriptRoot\HybridServerReadOnly\HybridServerReadOnly.psm1" -Raw
+if ($providerSource -match '(?<!\\)Select-Object -First') { throw 'JEA provider limits must use module-qualified Select-Object.' }
 $manifest = Test-ModuleManifest "$PSScriptRoot\HybridServerReadOnly\HybridServerReadOnly.psd1"
 if ($manifest.ExportedFunctions.Count -ne 3) { throw 'Unexpected exported capability.' }
 $module = Import-Module "$PSScriptRoot\HybridServerReadOnly\HybridServerReadOnly.psd1" -Force -PassThru
+if (!(Get-Command CimCmdlets\Get-CimInstance) -or !('System.ServiceProcess.ServiceController' -as [type])) {
+    throw 'Required Windows provider dependencies unavailable.'
+}
 & $module {
     $r = Read-HybridProvider Test 2 { 1; 2; 3 }
     if ($r.Status -ne 'partial' -or !$r.Truncated -or $r.Rows.Count -ne 2) { throw 'Bounded provider test failed.' }

@@ -8,8 +8,13 @@ $root = 'C:\ProgramData\HybridServerReadOnly'
 $module = 'C:\Program Files\WindowsPowerShell\Modules\HybridServerReadOnly'
 $group = Get-LocalGroup HybridServerReaders
 $state = Get-Content "$root\Ownership.json" -Raw | ConvertFrom-Json
+$description = $state.Owner
+if ($state.PSObject.Properties['GroupDescription']) {
+    $description = 'HybridJEA:1ec52169-b20b-4094-9937-2adb96c98d85'
+    if ($state.GroupDescription -cne $description) { throw 'Group description receipt drift; no removal.' }
+}
 if ($state.Owner -ne 'HybridServerReadOnly:1ec52169-b20b-4094-9937-2adb96c98d85' -or
-    $group.Description -ne $state.Owner -or $group.SID.Value -ne $state.GroupSid -or
+    $group.Description -ne $description -or $group.SID.Value -ne $state.GroupSid -or
     @(Get-LocalGroupMember $group).Count -ne 0) { throw 'Ownership/group drift; no removal.' }
 $actual = @(Get-ChildItem $root,$module -Recurse -File -Force | Where-Object { $_.FullName -ne "$root\Ownership.json" })
 if (@(Get-Item $root,$module | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }).Count -or
