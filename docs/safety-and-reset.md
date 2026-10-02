@@ -26,6 +26,12 @@ has no automated cleanup wrapper. Verify its receipt and exact DCR, association
 and optional alert IDs independently. Never use the five-rule baseline's cleanup
 script for these different resources. An event expiring is not service recovery.
 
+The [Arc-connectivity component](../infra/hybrid-arc-connectivity/README.md#manual-preflight-and-application-gate)
+has no automatic apply or cleanup. Four selected machines have four separately
+owned rules; retain each original full GET and compare configuration before any
+separately approved rollback. Do not reuse other components' cleanup scripts.
+No live action is authorized by this final packaging closeout.
+
 ## Offline reset
 
 The documented `python -B` commands read fixtures and write stdout only.

@@ -15,6 +15,7 @@ deployment, guest reachability and native-agent acceptance remain separate gates
 | Built-in health alerts | Azure Local Health Service -> AzureEdgeAlerts -> Azure Monitor; existing health-fault transport, not a custom log collector |
 | Observability | Existing Insights/logs/metrics -> authorized queries; actual export/ingestion must be proved |
 | Optional Spooler transition | Existing AMA -> scoped English SCM 7036 collection -> bounded stopped-transition rule; zero events is UNKNOWN, not a current-state signal |
+| Arc connectivity transition | Resource Health Available → Unavailable -> one activity-log rule per exact machine ID; independent of AMA and not current-state inventory |
 | Bounded node diagnostics | SRE identity -> approved private HTTPS MCP -> nonadmin service -> explicit Kerberos/WinRM JEA -> fixed node/provider reads |
 | Guest execution | Azure control plane -> Connected Machine agent -> separately approved guest operation; not the private node path |
 | Knowledge | Restricted read-only retrieval of neutral runbooks; presenter answers and bindings excluded |

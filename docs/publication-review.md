@@ -1,8 +1,9 @@
 # Packaging scope and reproduction
 
 **Private, not publicly released.** Begin with the [component quickstarts](../README.md).
-This refresh exports approved committed source
-`c086d8d38f1a2d2db9242889ec715dad704749c2`, retaining monitoring correction
+The final closeout adds exactly five approved Arc-connectivity source files from
+`c814605a2a78f4289314bae527a8fcf16f95bbb1`. All prior exported components remain
+unchanged at `c086d8d38f1a2d2db9242889ec715dad704749c2`, retaining monitoring correction
 `8e823e7` and adding the cleanup WhatIf fix and service-event starter.
 No later private-doc commit, source workspace changes, private history or live receipts are
 imported. Earlier kit snapshots are superseded by this manifest.
@@ -12,7 +13,8 @@ imported. Earlier kit snapshots are superseded by this manifest.
 - SRE starter, corrected five-rule monitoring, ordinary-server JEA, portable
   MCP C# source/tests/locked dependencies, additive disk collection and
   independently approved Spooler-only recovery, plus the six-file English
-  Spooler stopped-transition monitoring starter.
+  Spooler stopped-transition monitoring starter and five-file per-machine
+  Arc-connectivity component.
 - Exact reviewed paths in [export-paths.json](../packaging/export-paths.json).
 - Original blob IDs, source commit and source/export SHA-256 hashes in
   [source-manifest.json](../packaging/source-manifest.json).
@@ -26,8 +28,7 @@ imported. Earlier kit snapshots are superseded by this manifest.
 
 ## Excluded and remaining gates
 
-Native configuration under `tools/nic-sre-config` and the unreviewed Arc-connectivity
-increment remain excluded.
+Native configuration under `tools/nic-sre-config` remains unreviewed and excluded.
 Also excluded: lab-bound private-MCP root operator scripts and their dependent
 PowerShell/Python tests, migration receipts, deployment bindings, binaries,
 build output, raw operational evidence, internal plans, presentations, fault
@@ -62,12 +63,25 @@ native approval or recovery is proven. Its optional English 7036 rule reports
 an observed stopped transition. Zero matching events is UNKNOWN, and neither
 event expiry nor an alert's user state establishes recovery.
 
+The Arc component creates one rule per exact selected machine, with one machine
+scope and a matching flat resource-ID equality. Four targets require four rules
+and four activity-log rule slots, never a broad-scope substitute. The owner
+reports successful source-environment deployment of the revised four-rule set.
+No live verification was repeated during packaging, and no IDs, raw failed
+candidate history or private receipts are included. The authoring-time README
+acceptance gate remains relevant to each new deployment. Event absence is
+UNKNOWN; deployment success is not native routing or notification proof.
+The live operating window is closed and this closeout authorizes no live action.
+
 ## Reproduce local validation
 
 From the repository root:
 
 ```powershell
 python -B scripts\validate_package.py
+bicep build infra\hybrid-arc-connectivity\main.bicep --stdout | Out-Null
+bicep build-params infra\hybrid-arc-connectivity\main.example.bicepparam --stdout | Out-Null
+python -B -m unittest discover -s infra\hybrid-arc-connectivity -p 'test_*.py' -v
 python -B -m unittest discover -s tests -v
 python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
 python -B infra\hybrid-service-monitoring\tests\test_contract.py
@@ -101,9 +115,28 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Current increment verification — source c086d8d, 2026-10-02
+## Final closeout verification — Arc source c814605, 2026-10-02
 
-The current package contains **105 tracked files and 85 source-manifest entries**.
+The final private package contains **110 tracked files and 90 source hashes**.
+All previous 85 exports and their provenance entries were verified unchanged
+against kit commit `e8ee288`. The five new files exactly match committed source
+blobs at `c814605`, and all 90 source origins were hash-verified.
+
+A fresh Git clone passed the 15 Arc input/template/transition tests, Bicep
+compilation and example-parameter compilation, all export hashes, relative
+Markdown file links and the scoped binding profile. Tests include four-machine
+exact sets, similarly named machines/descendants, flat equality, invalid/broad
+scope rejection, deterministic names and absence of implicit recovery.
+The clone stayed clean and was removed afterward.
+
+Unchanged component suites were not rerun for this five-file closeout.
+No Azure calls, deployment, live verification, Teams messages, resource cleanup
+or public release occurred. Native configuration remains excluded. Source-lab
+deployment success is owner-reported context, not an attendee end-to-end claim.
+
+## Previous increment verification — source c086d8d, 2026-10-02
+
+That package contained **105 tracked files and 85 source-manifest entries**.
 Every entry was verified against its committed blob at `c086d8d`; executable
 files are byte-identical. Only the six approved service-monitoring files and
 the two monitoring cleanup/test files changed in executable source scope.

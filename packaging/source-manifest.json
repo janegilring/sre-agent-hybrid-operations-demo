@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "capturedUtc": "2026-10-02T00:52:43.201599+02:00",
+  "capturedUtc": "2026-10-02T04:33:50.490562+00:00",
   "attribution": "Owner-authorized original components from Jan Egil Ring; destination MIT retained. Exact committed blobs exported without private repository history.",
   "files": [
     {
@@ -857,6 +857,56 @@
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "c91aa218e3467bf74ee0d44c14a6da20107ce042",
+      "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-arc-connectivity/README.md",
+      "sourceSha256": "e1f3bba6defc4b37b41f4ce3ab308ab23e32237e251b2a980b334263d9f916e5",
+      "exportSha256": "e1f3bba6defc4b37b41f4ce3ab308ab23e32237e251b2a980b334263d9f916e5",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
+      "originBlob": "7fabd070bdcb8d98fc4d539a298d39f71d43d7da",
+      "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-arc-connectivity/main.bicep",
+      "sourceSha256": "5e8809e68ef54af292922f942c26598dce9f8fafc0e76013c3f3384b02e234d8",
+      "exportSha256": "5e8809e68ef54af292922f942c26598dce9f8fafc0e76013c3f3384b02e234d8",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
+      "originBlob": "7c9703001e5aaa6cb9855eac356ef3c16c3ee021",
+      "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-arc-connectivity/main.example.bicepparam",
+      "sourceSha256": "e2811aa325fb700d68f310b957880a03b4e86f101d206951147ea0f06e89ae7f",
+      "exportSha256": "e2811aa325fb700d68f310b957880a03b4e86f101d206951147ea0f06e89ae7f",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
+      "originBlob": "0046d91256178b5ec6629152830ff905d24b05bc",
+      "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-arc-connectivity/test_connectivity.py",
+      "sourceSha256": "07c7ae1b4f0dde6583324b499671f53198964dda5038cb18fe6ba412b6943cf0",
+      "exportSha256": "07c7ae1b4f0dde6583324b499671f53198964dda5038cb18fe6ba412b6943cf0",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
+      "originBlob": "6fabaad9f6b0b2dd780d7ff91b4df39c3cfefd90",
+      "packagingChanges": []
+    },
+    {
+      "path": "infra/hybrid-arc-connectivity/validate_inputs.py",
+      "sourceSha256": "aaae8bdd481cae2c7ee103eb9f2bd17b9d87b161ca39ef81518a6d79e2d9a32a",
+      "exportSha256": "aaae8bdd481cae2c7ee103eb9f2bd17b9d87b161ca39ef81518a6d79e2d9a32a",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
+      "originBlob": "d399b499c0632d46ab2be8b680f276aac7b08666",
       "packagingChanges": []
     }
   ]

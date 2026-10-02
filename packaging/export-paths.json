@@ -1,4 +1,9 @@
 [
+  "infra/hybrid-arc-connectivity/README.md",
+  "infra/hybrid-arc-connectivity/main.bicep",
+  "infra/hybrid-arc-connectivity/main.example.bicepparam",
+  "infra/hybrid-arc-connectivity/test_connectivity.py",
+  "infra/hybrid-arc-connectivity/validate_inputs.py",
   "infra/hybrid-monitoring/.gitignore",
   "infra/hybrid-monitoring/Cleanup.ps1",
   "infra/hybrid-monitoring/Common.ps1",

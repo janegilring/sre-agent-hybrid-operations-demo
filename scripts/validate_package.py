@@ -32,6 +32,8 @@ ALLOWED_GUIDS = {
     "e5e4ef24-efc9-43c4-a4f7-0e7d2249f030",
     "11111111-1111-4111-8111-111111111111",
     "00000000-0000-4000-8000-000000000000",
+    "22222222-2222-4222-8222-222222222222",
+    "11fb06fb-712d-4ddd-98c7-e71bbd588830",
 }
 TEST_ADDRESSES = {"10.0.0.0", "10.1.0.0", "999.0.0.0"}
 TEST_ADDRESS_FILES = {
@@ -80,7 +82,12 @@ def main():
             errors.append(f"Export hash mismatch: {entry['path']}")
         if entry["sourceSha256"] != entry["exportSha256"] and path.suffix != ".md":
             errors.append(f"Non-documentation source modification: {entry['path']}")
-        if entry.get("originCommit") != "c086d8d38f1a2d2db9242889ec715dad704749c2":
+        expected_commit = (
+            "c814605a2a78f4289314bae527a8fcf16f95bbb1"
+            if entry["path"].startswith("infra/hybrid-arc-connectivity/")
+            else "c086d8d38f1a2d2db9242889ec715dad704749c2"
+        )
+        if entry.get("originCommit") != expected_commit:
             errors.append(f"Unexpected approved source revision: {entry['path']}")
     for name in names:
         path = ROOT / name

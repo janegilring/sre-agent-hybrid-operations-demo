@@ -19,6 +19,9 @@ The [service-event monitoring starter](../infra/hybrid-service-monitoring/README
 adds scoped DCR/association source and an optional English 7036 transition
 rule. AMA installation is a prerequisite, zero events is UNKNOWN, and neither
 current-state monitoring nor native approval is delivered.
+The [Arc-connectivity component](../infra/hybrid-arc-connectivity/README.md)
+adds one exact-scope transition rule per machine, without requiring Log Analytics.
+Four targets require four activity-log rule slots; no broad scope is substituted.
 For a complete lab foundation use the [pinned LocalBox route](localbox.md).
 
 The remainder of this section describes only the optional synthetic replay.

@@ -8,7 +8,8 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
-This revision exports approved source checkpoint `c086d8d`. Five corrected alert
+This revision adds the five approved Arc-connectivity files from `c814605`,
+preserving all previous component exports from `c086d8d`. Five corrected alert
 rules were separately live-verified in the source environment; that is not
 proof of deployment in your environment or end-to-end guest investigation.
 
@@ -18,6 +19,7 @@ proof of deployment in your environment or end-to-end guest investigation.
 | --- | --- | --- |
 | A new SRE Agent with identity and telemetry resources | [SRE starter](infra/sre-agent-starter/README.md) | Existing approved Azure RG; Azure CLI, Bicep, PowerShell 7.2+ |
 | Five Windows alert rules: heartbeat, CPU, physical memory, disk and counter coverage | [Monitoring baseline](infra/hybrid-monitoring/README.md) | Existing workspace and working AMA Heartbeat/Perf collection, explicit Arc server/Azure VM IDs |
+| Observe Arc Available → Unavailable transitions | [Per-machine Arc connectivity](infra/hybrid-arc-connectivity/README.md) | Exact existing Arc machine IDs; **one rule per machine**, no workspace or broad-scope fallback |
 | Bounded facts, Spooler state and recent System/Application events | [Windows JEA capability](tools/hybrid-server/README.md) | Domain-joined member server, Windows PowerShell 5.1, Kerberos/WSMan and dedicated nonadmin caller |
 | Connect those reads to an SRE Agent over private MCP | [Portable MCP source](tools/private-mcp/README.md) | .NET 10 SDK; Windows host, explicit private configuration, TLS/Entra identity, network and JEA setup |
 | Add missing Windows logical-disk counters | [Additive disk collection](infra/hybrid-monitoring-collection/README.md) | Exactly two existing Arc Windows servers in one RG and an existing workspace; ownership fingerprint receipt |
@@ -147,11 +149,33 @@ five-rule baseline's cleanup script does not apply to these resources.
 
 ### What is not ready
 
-Native configuration (`tools\nic-sre-config`) and the unreviewed Arc-connectivity
-increment are deliberately excluded. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
+Native configuration (`tools\nic-sre-config`) is still unreviewed and deliberately
+excluded. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
 readiness, so no end-to-end guest read or recovery is claimed. Source alert
 verification does not prove native incident routing, approval, final Teams
 notification, guest recovery or a complete attendee lab.
+
+### Optional: per-machine Arc connectivity
+
+```powershell
+bicep build infra\hybrid-arc-connectivity\main.bicep --stdout | Out-Null
+bicep build-params infra\hybrid-arc-connectivity\main.example.bicepparam --stdout | Out-Null
+python -B -m unittest discover -s infra\hybrid-arc-connectivity -p 'test_*.py' -v
+```
+
+Each rule has one exact machine scope and a flat `resourceId` equality for that
+same machine. **Four targets create four rules and consume four activity-log
+rule slots**, not one. There is no resource-group/subscription scope fallback.
+Follow the component's offline parameter gate and separately authorized manual
+preflight; compilation never authorizes deployment.
+
+The owner reports successful deployment of four revised rules in the source
+environment. No actual IDs, failed-candidate raw history, receipts or live
+bindings are exported. The source README retains its authoring-time provider
+acceptance gate; every attendee must validate their own environment. This signal
+is an Available → Unavailable event, not current inventory: zero events is
+UNKNOWN, and native routing, Teams delivery and recovery remain separate gates.
+The operating window is closed; this packaging refresh performs no live action.
 
 ## Guides and optional illustrations
 
