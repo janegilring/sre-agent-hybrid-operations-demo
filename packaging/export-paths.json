@@ -1,4 +1,6 @@
 [
+  "docs/diagrams/nic2026-demo-environment.svg",
+  "docs/diagrams/nic2026-demo-environment.excalidraw",
   "infra/hybrid-arc-connectivity/README.md",
   "infra/hybrid-arc-connectivity/main.bicep",
   "infra/hybrid-arc-connectivity/main.example.bicepparam",

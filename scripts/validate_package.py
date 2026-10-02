@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import xml.etree.ElementTree as ET
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,7 +83,18 @@ def main():
             errors.append(f"Export hash mismatch: {entry['path']}")
         if entry["sourceSha256"] != entry["exportSha256"] and path.suffix != ".md":
             errors.append(f"Non-documentation source modification: {entry['path']}")
+        monitoring_refresh = {
+            "infra/hybrid-monitoring/Common.ps1",
+            "infra/hybrid-monitoring/main.bicep",
+            "infra/hybrid-monitoring/README.md",
+            "infra/hybrid-monitoring/tests/Test-Scripts.ps1",
+            "infra/hybrid-monitoring/tests/Test-Template.ps1",
+        }
         expected_commit = (
+            "1ceb2a76fd9efbf0bf736da10d665488f331afb6"
+            if entry["path"] in monitoring_refresh else
+            "0a195563ebb866c2f2da39b00cd9b11973a801c4"
+            if entry["path"].startswith("docs/diagrams/") else
             "c814605a2a78f4289314bae527a8fcf16f95bbb1"
             if entry["path"].startswith("infra/hybrid-arc-connectivity/")
             else "c086d8d38f1a2d2db9242889ec715dad704749c2"
@@ -104,6 +116,26 @@ def main():
         if name.startswith(("infra/", "tools/")) and name not in allowlist:
             errors.append(f"Unreviewed component path outside export allowlist: {name}")
         text = path.read_text(encoding="utf-8-sig")
+        if name.startswith("docs/diagrams/") and name not in allowlist:
+            errors.append(f"Unapproved diagram asset: {name}")
+        if path.suffix == ".svg":
+            diagram = ET.fromstring(text)
+            for element in diagram.iter():
+                if element.tag.rsplit("}", 1)[-1] in {"script", "foreignObject", "image"} or any(
+                    key.rsplit("}", 1)[-1] == "href" for key in element.attrib
+                ):
+                    errors.append(f"Active or externally referenced SVG content: {name}")
+        if path.suffix == ".excalidraw":
+            diagram = json.loads(text)
+            if diagram.get("type") != "excalidraw" or diagram.get("files"):
+                errors.append(f"Unexpected diagram format or embedded assets: {name}")
+            for element in diagram["elements"]:
+                if element.get("link"):
+                    errors.append(f"Unexpected diagram link: {name}")
+                if element.get("type") == "text" and (
+                    element.get("width", 0) <= 0 or element.get("height", 0) <= 0
+                ):
+                    errors.append(f"Invisible diagram text: {name}")
         if PRIVATE_KEY.search(text) or any(
             hashlib.sha256(host.lower().encode()).hexdigest() in DENIED_HOST_HASHES
             for host in HOSTNAME.findall(text)

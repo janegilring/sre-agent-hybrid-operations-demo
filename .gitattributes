@@ -1,3 +1,4 @@
 # Preserve reviewed snapshot bytes, including line endings, on every platform.
 /infra/** -text
 /tools/** -text
+/docs/diagrams/** -text

@@ -15,6 +15,8 @@ if (($suffixes -join ',') -ne 'heartbeat,cpu,memory,disk,coverage' -or
     $rule.type -ne 'Microsoft.Insights/scheduledQueryRules' -or
     $rule.copy.count -ne "[length(variables('definitions'))]") { throw 'Five-rule loop drift.' }
 $p = $rule.properties
+if ($p.criteria.allOf[0].query -notmatch "trim\(variables\('inventory'\)\)" -or
+    $p.criteria.allOf[0].query -notmatch 'trim\(replace\(') { throw 'Query file boundaries must not introduce a portal current-query separator.' }
 if ($p.PSObject.Properties.Name -contains 'autoMitigate') { throw 'Incompatible autoMitigate emitted with resolveConfiguration.' }
 if ($p.resolveConfiguration.autoResolved -ne $true -or
     $p.resolveConfiguration.timeToResolve -ne "[format('PT{0}M', parameters('recoveryMinutes'))]" -or

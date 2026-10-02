@@ -8,8 +8,9 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
-This revision adds the five approved Arc-connectivity files from `c814605`,
-preserving all previous component exports from `c086d8d`. Five corrected alert
+This revision refreshes five monitoring files from `1ceb2a7` and adds the reviewed
+architecture assets from `0a19556`. Other exports retain their approved
+`c086d8d`/`c814605` provenance. Five corrected alert
 rules were separately live-verified in the source environment; that is not
 proof of deployment in your environment or end-to-end guest investigation.
 
@@ -26,6 +27,19 @@ proof of deployment in your environment or end-to-end guest investigation.
 | Observe an English Spooler stopped transition | [Service-event monitoring starter](infra/hybrid-service-monitoring/README.md) | One existing Arc Windows Server guest with working AMA; DCR/association plus optional event rule; **offline source only** |
 | Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
+
+## Architecture overview
+
+![Azure-hosted LocalBox demonstration architecture](docs/diagrams/nic2026-demo-environment.svg)
+
+[Open SVG](docs/diagrams/nic2026-demo-environment.svg) ·
+[Editable Excalidraw source](docs/diagrams/nic2026-demo-environment.excalidraw)
+
+This Azure-hosted LocalBox overview shows managed identity → private MCP →
+Kerberos/JEA reads on two Azure Local nodes. Optional telemetry is a separate
+path; guest, incident and repair paths are explicitly planned or acceptance-gated.
+It is a reusable design overview, **not a live acceptance or health report**.
+Ordinary-server diagnostics still do not require Azure Local or LocalBox.
 
 ### Quickstart: new SRE Agent
 
@@ -56,6 +70,13 @@ pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 
 Edit the private copies with your own approved bindings. Then follow
 [preflight, preview, apply, validate and cleanup](infra/hybrid-monitoring/README.md#prepare-preview-apply-verify).
+For portal Logs, select the **entire query with Ctrl+A**, including its final
+tabular expression. The generator now trims file boundaries before joining with
+one newline to avoid an unintended current-query block separator. See the
+[full-query guidance](infra/hybrid-monitoring/README.md#running-the-complete-query-in-azure-logs).
+Full-query API execution and portal current-block execution are distinct;
+the original browser selection was not observed. This source refresh does not
+modify deployed rules.
 Collection is a prerequisite. The optional
 [disk-only DCR component](infra/hybrid-monitoring-collection/README.md) adds one
 counter to exactly two Arc servers; it does not bootstrap all AMA collection.

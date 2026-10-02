@@ -1,10 +1,11 @@
 # Packaging scope and reproduction
 
 **Private, not publicly released.** Begin with the [component quickstarts](../README.md).
-The final closeout adds exactly five approved Arc-connectivity source files from
-`c814605a2a78f4289314bae527a8fcf16f95bbb1`. All prior exported components remain
-unchanged at `c086d8d38f1a2d2db9242889ec715dad704749c2`, retaining monitoring correction
-`8e823e7` and adding the cleanup WhatIf fix and service-event starter.
+This follow-up refreshes exactly five monitoring files from
+`1ceb2a76fd9efbf0bf736da10d665488f331afb6` and adds two reviewed diagram assets
+from `0a195563ebb866c2f2da39b00cd9b11973a801c4` (unchanged at `1ceb2a7`).
+All other exports and their provenance remain unchanged at `c086d8d`/`c814605`,
+including monitoring recovery semantics, cleanup WhatIf and per-machine Arc scope.
 No later private-doc commit, source workspace changes, private history or live receipts are
 imported. Earlier kit snapshots are superseded by this manifest.
 
@@ -25,6 +26,9 @@ imported. Earlier kit snapshots are superseded by this manifest.
   Those changes are identified separately in the manifest.
 - Git attributes preserve exported source line endings on clean clones.
 - Existing synthetic exercises remain optional offline illustrations.
+- Two sanitized, original diagram assets (SVG and editable Excalidraw) provide
+  a reusable Azure-hosted LocalBox overview, not a live acceptance report.
+  Private presentation notes, planning documents and raw evidence are excluded.
 
 ## Excluded and remaining gates
 
@@ -33,6 +37,9 @@ Also excluded: lab-bound private-MCP root operator scripts and their dependent
 PowerShell/Python tests, migration receipts, deployment bindings, binaries,
 build output, raw operational evidence, internal plans, presentations, fault
 scripts, private history and third-party templates.
+The approved standalone architecture assets are the only diagram additions;
+no presentation deck, private demo architecture notes or native configuration
+is included.
 
 The portable MCP source no longer supplies private listener or source-network
 defaults. Operators must explicitly configure both; there is no allow-any
@@ -115,9 +122,38 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Final closeout verification — Arc source c814605, 2026-10-02
+## Current follow-up verification — 2026-10-02
 
-The final private package contains **110 tracked files and 90 source hashes**.
+This package has **112 tracked files and 92 source-hash entries**:
+80 retain `c086d8d`, five retain `c814605`, five monitoring files use `1ceb2a7`,
+and two diagram assets use `0a19556`. All 85 unaffected prior entries and export
+bytes were verified unchanged against kit commit `de59153`. All 92 source
+hashes were verified against their original committed blobs; the seven
+refreshed/new files are exact byte copies.
+
+A fresh Git clone passed:
+
+- Monitoring PowerShell regressions, including trimmed inventory/signal joins,
+  absence of blank current-query block separators and final tabular expressions.
+- Bicep compilation and compiled-template checks that both query boundaries
+  are trimmed, alongside the existing five-rule/recovery contracts.
+- All nine monitoring Python tests.
+- All source/export hashes, relative Markdown links and scoped binding checks.
+  SVG XML and Excalidraw JSON checks found no embedded images, external links,
+  active SVG elements or zero-size text.
+
+The independent visual approval was inherited from the exact approved diagram
+source; no new visual acceptance or live environment status is asserted.
+The clone stayed clean and was removed. Unchanged component suites were not
+rerun. This refresh made no Azure call or live query patch and did not reproduce
+the user's portal browser selection. Full-query API behavior and portal
+current-block execution remain distinct, as the updated component README
+explains. Private notes, planning, raw receipts and native configuration remain
+excluded; repository visibility remains private.
+
+## Previous closeout verification — Arc source c814605, 2026-10-02
+
+That private package contained **110 tracked files and 90 source hashes**.
 All previous 85 exports and their provenance entries were verified unchanged
 against kit commit `e8ee288`. The five new files exactly match committed source
 blobs at `c814605`, and all 90 source origins were hash-verified.

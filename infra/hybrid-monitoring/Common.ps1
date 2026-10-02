@@ -63,8 +63,8 @@ function Read-Inputs {
 
 function Expand-Query {
     param($Inputs, [ValidateSet('heartbeat','cpu','memory','disk','coverage')][string]$Name)
-    $query = (Get-Content (Join-Path $script:ModuleRoot 'queries\inventory.kql') -Raw) + "`n" +
-        (Get-Content (Join-Path $script:ModuleRoot "queries\$Name.kql") -Raw)
+    $query = (Get-Content (Join-Path $script:ModuleRoot 'queries\inventory.kql') -Raw).Trim() + "`n" +
+        (Get-Content (Join-Path $script:ModuleRoot "queries\$Name.kql") -Raw).Trim()
     $replacements = @{
         '__TARGETS__' = ConvertTo-Json -InputObject @($Inputs.Targets) -Depth 20 -Compress
         '__FRESHNESS__' = $Inputs.Config.freshnessMinutes

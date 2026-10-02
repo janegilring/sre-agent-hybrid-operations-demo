@@ -23,6 +23,8 @@ $inputs = @{
 foreach ($name in $script:Suffixes) {
     $q = Expand-Query $inputs $name
     if ($q -match '__[A-Z_]+__') { throw "Unexpanded query: $name" }
+    if ($q -match '\r?\n[ \t]*\r?\n') { throw "Portal current-query separator in expanded query: $name" }
+    if (($q -split ';')[-1].Trim() -notmatch '^(Inventory|Expected|Perf)\b') { throw "Missing final tabular expression: $name" }
 }
 $h = @([pscustomobject]@{_ResourceId='/a'; Signal='Heartbeat'; InstanceName=''; LastSeen='2026-01-01'; Value=0})
 $c = @(

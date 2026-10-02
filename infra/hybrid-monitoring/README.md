@@ -102,6 +102,33 @@ network diagnosis or service stopped.
 
 ## Prepare, preview, apply, verify
 
+### Running the complete query in Azure Logs
+
+Use KQL mode in the alert's configured workspace. Copy the **entire deployed**
+`properties.criteria.allOf[0].query` into a dedicated query tab. Focus the
+editor, press **Ctrl+A**, then **Run** (or **Shift+Enter**). Include the final
+tabular expression after the `let` declarations; declarations alone do not
+return a table.
+
+Log Analytics uses blank lines to separate the current query when running
+without an explicit selection. Earlier versions of this module inserted a
+blank line between the inventory declarations and the signal query. Thus,
+the full query can succeed through the API while running only the first
+editor block produces **“No tabular expression statement found”**. The
+generator now trims both file boundaries before joining with one newline.
+This is an editor-compatibility fix, not evidence of operator error.
+
+The full-query API success and the let-only error were independently reproduced;
+the user's exact browser selection was not observed. If selecting everything
+still fails, retain the complete submitted text and error/correlation ID rather
+than assuming the same cause. Existing deployed rules are **not** changed by
+this source fix: use Ctrl+A immediately, and obtain separate approval for any
+live query-only update. Full-query execution does not prove alert firing,
+incident routing, Teams delivery, or overall host health.
+
+See [Microsoft's Log Analytics tutorial](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-tutorial#visualize-query-results-as-charts)
+for the editor's blank-line/current-query behavior.
+
 PowerShell 7.2+, Azure CLI and Bicep CLI are required. Authenticate separately
 beforehand. Scripts do not login, change default subscription or install
 extensions. REST queries avoid the optional CLI Log Analytics extension.

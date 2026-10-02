@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="590" viewBox="0 0 1440 590" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">NIC demo environment: private investigation and independent telemetry</title>
+<desc id="diagram-desc">Azure-hosted LocalBox nested lab. Cloud SRE Agent uses managed identity over private VNet outbound to MCP, then Kerberos to JEA on two Azure Local nodes. Selected reads are proved, not full provider inventory. Optional guest JEA is planned and unverified. Arc with configured AMA sends outbound telemetry independently. Dashed incident, Teams and human-approved repair workflows remain acceptance-gated. Resource Bridge is infrastructure, not a workload guest. Arc registration does not imply AMA collection.</desc>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#98f8fe" stroke-width="2"/></marker><marker id="arrowhead-start" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#98f8fe" stroke-width="2"/></marker></defs>
+<rect width="1440" height="590" fill="#1a1b1b"/>
+<rect id="cloud-plane" x="8" y="4" width="330" height="318" rx="10" fill="none" stroke="#98f8fe" stroke-width="2"/>
+<rect id="private-plane" x="358" y="4" width="1070" height="318" rx="10" fill="none" stroke="#98f8fe" stroke-width="2"/>
+<text id="cloud-label" x="24" y="34" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="24" dy="0">AZURE / CLOUD PLANE</tspan>
+</text>
+<text id="private-label" x="378" y="34" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="378" dy="0">PRIVATE NETWORK / AZURE-HOSTED LOCALBOX NESTED LAB</tspan>
+</text>
+<rect id="agent" x="28" y="64" width="282" height="92" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2"/>
+<text id="agent-title" x="44" y="103" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="44" dy="0">Azure SRE Agent</tspan>
+</text>
+<text id="agent-detail" x="44" y="137" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="44" dy="0">Scoped tools + identity</tspan>
+</text>
+<rect id="mcp" x="550" y="64" width="274" height="92" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2"/>
+<text id="mcp-title" x="566" y="103" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="566" dy="0">Private MCP endpoint</tspan>
+</text>
+<text id="mcp-detail" x="566" y="137" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="566" dy="0">Authenticated tools</tspan>
+</text>
+<rect id="node1" x="1040" y="64" width="168" height="92" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2"/>
+<text id="node1-title" x="1056" y="103" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="1056" dy="0">JEA / node 1</tspan>
+</text>
+<text id="node1-detail" x="1056" y="137" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="1056" dy="0">Azure Local</tspan>
+</text>
+<rect id="node2" x="1230" y="64" width="168" height="92" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2"/>
+<text id="node2-title" x="1246" y="103" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="1246" dy="0">JEA / node 2</tspan>
+</text>
+<text id="node2-detail" x="1246" y="137" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="1246" dy="0">Azure Local</tspan>
+</text>
+<polyline id="private-outbound" points="310,106 550,106" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text id="outbound-label" x="378" y="71" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="378" dy="0">VNet outbound</tspan>
+</text>
+<text id="identity-label" x="378" y="139" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="20">
+<tspan x="378" dy="0">Managed identity</tspan>
+</text>
+<polyline id="kerberos-node1" points="824,106 1040,106" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)"/>
+<polyline id="kerberos-node2" points="925,106 925,176 1310,176 1310,157" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text id="kerberos-label" x="845" y="71" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="845" dy="0">Kerberos</tspan>
+</text>
+<text id="read-proof" x="992" y="209" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="992" dy="0">Identity / selected reads proved</tspan>
+</text>
+<rect id="telemetry" x="28" y="222" width="282" height="80" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2"/>
+<text id="telemetry-title" x="44" y="261" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="44" dy="0">Log Analytics</tspan>
+</text>
+<text id="telemetry-detail" x="44" y="295" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="44" dy="0">AMA collection on nodes</tspan>
+</text>
+<rect id="guests" x="1010" y="236" width="388" height="66" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2" stroke-dasharray="8 7"/>
+<text id="guests-title" x="1026" y="275" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="1026" dy="0">Guests (Arc optional)</tspan>
+</text>
+<polyline id="guest-planned" points="687,156 687,266 1010,266" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="8 7"/>
+<text id="guest-label" x="715" y="248" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="715" dy="0">Guest JEA: planned</tspan>
+</text>
+<text id="guest-unverified" x="715" y="296" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="20">
+<tspan x="715" dy="0">Not verified</tspan>
+</text>
+<polyline id="telemetry-outbound" points="170,303 170,364 1414,364 1414,110 1398,110" fill="none" stroke="#98f8fe" stroke-width="2" marker-start="url(#arrowhead-start)"/>
+<text id="telemetry-label" x="378" y="348" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="378" dy="0">Arc + configured AMA: node telemetry outbound, separate from MCP</tspan>
+</text>
+<text id="boundary" x="28" y="403" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="28" dy="0">No public guest forwarding  •  HealthFault / Get-VM still blocked  •  Arc / Azure Local optional in the general story</tspan>
+</text>
+<rect id="monitor" x="28" y="414" width="300" height="62" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2" stroke-dasharray="8 7"/>
+<text id="monitor-title" x="44" y="453" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="44" dy="0">Azure Monitor alerts</tspan>
+</text>
+<rect id="incident" x="450" y="414" width="284" height="62" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2" stroke-dasharray="8 7"/>
+<text id="incident-title" x="466" y="453" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="466" dy="0">SRE incident</tspan>
+</text>
+<rect id="teams" x="856" y="414" width="226" height="62" rx="10" fill="#193233" stroke="#98f8fe" stroke-width="2" stroke-dasharray="8 7"/>
+<text id="teams-title" x="872" y="453" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="26">
+<tspan x="872" dy="0">Teams updates</tspan>
+</text>
+<polyline id="alert-incident" points="328,446 450,446" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="8 7"/>
+<polyline id="incident-teams" points="734,446 856,446" fill="none" stroke="#98f8fe" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="8 7"/>
+<text id="workflow-state" x="1108" y="440" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="20">
+<tspan x="1108" dy="0">Conceptual route</tspan>
+<tspan x="1108" dy="25.0">Acceptance gated</tspan>
+</text>
+<text id="workflow-input" x="28" y="508" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="22">
+<tspan x="28" dy="0">Human-defined rules + optional Health Service signals; exact incident / connector route not accepted.</tspan>
+</text>
+<text id="repair-gate" x="28" y="550" fill="#c3fbfe" font-family="Segoe UI,Arial,sans-serif" font-size="24">
+<tspan x="28" dy="0">Reviewed runbook   →   Human approval   →   Bounded repair   →   Positive recovery check   (planned)</tspan>
+</text>
+</svg>

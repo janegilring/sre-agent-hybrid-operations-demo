@@ -87,7 +87,7 @@ resource rules 'Microsoft.Insights/scheduledQueryRules@2023-12-01' = [for rule i
     skipQueryValidation: false
     criteria: {
       allOf: [{
-        query: '${inventory}\n${replace(rule.body, '__MEMORY_COUNTER__', memoryCounter)}'
+        query: '${trim(inventory)}\n${trim(replace(rule.body, '__MEMORY_COUNTER__', memoryCounter))}'
         timeAggregation: 'Maximum'
         metricMeasureColumn: 'Value'
         resourceIdColumn: '_ResourceId'

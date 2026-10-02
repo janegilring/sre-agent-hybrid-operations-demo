@@ -19,6 +19,9 @@ license is asserted. The repository owner licenses these authorized original
 files under this destination's existing MIT license. Private history is not
 imported. Exact committed-source hashes and packaging-only documentation
 changes are recorded in [the manifest](packaging/source-manifest.json).
+The two owner-approved architecture assets are original SVG/Excalidraw drawings
+under the same destination license, not copied third-party diagram templates
+or presentation assets. Both editable source and rendered SVG are retained.
 The MCP projects reference NuGet dependencies rather than vendoring their source
 or binaries. Their licenses and transitive notices remain applicable; inspect the
 pinned project/lock files and retain required notices when distributing binaries.
