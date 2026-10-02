@@ -171,8 +171,8 @@ five-rule baseline's cleanup script does not apply to these resources.
 ### What is not ready
 
 Native configuration (`tools\nic-sre-config`) is still unreviewed and deliberately
-excluded. The ordinary-server candidate lacks usable domain/Kerberos/WinRM
-readiness, so no end-to-end guest read or recovery is claimed. Source alert
+excluded. End-to-end Kerberos/WinRM/JEA readiness for the ordinary-server
+candidate remains unverified, so no guest read or recovery is claimed. Source alert
 verification does not prove native incident routing, approval, final Teams
 notification, guest recovery or a complete attendee lab.
 
@@ -207,6 +207,24 @@ The operating window is closed; this packaging refresh performs no live action.
 - [Optional offline exercise and presenter walkthrough](docs/walkthrough.md)
 - [Source references](docs/sources.md), [attribution](THIRD-PARTY.md)
 - [Packaging scope and validation](docs/publication-review.md)
+
+### Microsoft SRE Agent hands-on labs
+
+Explore Microsoft's [SRE Agent labs feature branch](https://github.com/microsoft/sre-agent/tree/feature/onboarding-agent-workflows/labs)
+and the [five pinned lab/connector references](docs/sources.md#microsoft-sre-agent-labs-and-report-connectors).
+The reviewed snapshot is `1b30297529fcef0411ad64c56e60500a5a3a8e61`
+(September 18, 2026), not a release. These are **external links only**: no lab
+code/configuration is copied, deployed or added to the export provenance.
+The existing 92 source-manifest entries remain unchanged.
+
+Use the scheduled-health and report examples as separate learning exercises.
+The scheduled instructions prohibit updating reports; successful subagent
+queries do not establish report-tool eligibility. Verify your actual configured
+connector, supported report tools and scoped queries before separately approving
+one read-only report save → gallery → reopen → Reload test. Do not import
+autonomous incident routes, broad policies, enabled schedules or email settings
+from the lab. This kit remains private; linked public material is not a public
+release or an end-to-end acceptance claim.
 
 The preserved synthetic examples are optional teaching illustrations, not live
 evidence or the purpose of this starter:

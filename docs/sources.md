@@ -26,6 +26,43 @@ commit `c47b91ef5fc732f4c09821b69ff6057ae0a2e35f`, blob
 export/ingestion, and its severity representation must not be silently equated
 with the Learn fault-property values or Azure Monitor Sev0-Sev4.
 
+## Microsoft SRE Agent labs and report connectors
+
+Supplied [Microsoft labs branch](https://github.com/microsoft/sre-agent/tree/feature/onboarding-agent-workflows/labs),
+reviewed October 2, 2026 at **`1b30297529fcef0411ad64c56e60500a5a3a8e61`**
+(September 18). The branch is a mutable preview recipe, not a release; when
+reviewed it was 17 commits ahead / 79 behind main. Use the pinned links below
+for this reading list; revalidate compatibility before adopting configuration.
+
+| Pinned source | What to learn / limit |
+| --- | --- |
+| [Scheduled health check and Live Report scenario](https://github.com/microsoft/sre-agent/blob/1b30297529fcef0411ad64c56e60500a5a3a8e61/labs/onboardinglab/README.md#scenario-2-scheduled-health-check-and-live-report) | Report example uses App Insights. Scheduled instructions expressly prohibit updating reports; this is not same-report scheduled-refresh proof. |
+| [Log Analytics / App Insights recipe](https://github.com/microsoft/sre-agent/blob/1b30297529fcef0411ad64c56e60500a5a3a8e61/sreagent-templates/recipes/azmon-lawappinsights/README.md) | Candidate recipe inputs: `enableLogAnalyticsConnector`, `lawResourceId`. An example is not permission to deploy. |
+| [Connector declarations](https://github.com/microsoft/sre-agent/blob/1b30297529fcef0411ad64c56e60500a5a3a8e61/sreagent-templates/recipes/azmon-lawappinsights/connectors.json) | Native `dataConnectorType: LogAnalytics`, workspace ARM ID and system identity; bind only your approved workspace. |
+| [Connector Bicep, lines 40–87](https://github.com/microsoft/sre-agent/blob/1b30297529fcef0411ad64c56e60500a5a3a8e61/sreagent-templates/bicep/agent-extensions.bicep#L40-L87) | Preview `Microsoft.App/agents/connectors@2025-05-01-preview`; verify installed compatibility and permissions separately. |
+| [Team onboarding](https://github.com/microsoft/sre-agent/blob/1b30297529fcef0411ad64c56e60500a5a3a8e61/labs/README.md#team-onboarding) | Learning sequence, not a tested whole-lab installer or blanket import instruction. |
+
+The installer discovers healthy LAW/App Insights connectors and
+`QueryLogAnalyticsByWorkspaceId` / `QueryAppInsightsUsingAppId` for **subagents**,
+not proof of report `allowedTools`. This review establishes no report JSON
+schema, widget-provisioning contract or save API.
+
+Read the current [connectors guidance](https://learn.microsoft.com/en-us/azure/sre-agent/connectors)
+for built-in LAW querying versus configured connectors; Azure Data Explorer is
+distinct from Log Analytics. [Live Reports](https://learn.microsoft.com/en-us/azure/sre-agent/live-reports)
+is preview and documents configured connectors, save/gallery and Reload.
+Before claiming report acceptance: inspect existing connector health and actual
+report-eligible tools, verify narrowly scoped real KQL with timestamps, then
+separately authorize one read-only save → gallery → reopen → Reload test.
+Account for coverage, unknowns and caching; scheduled output alone is not report
+proof. Do not invent `allowedTools` or import autonomous Sev0/Sev1 routing, broad
+policies, enabled schedules or email settings from these examples.
+
+**Provenance:** external references only; no Microsoft code, templates or lab
+assets are copied or relicensed. These original resource notes do not change
+the 92 exported-source records in `packaging/source-manifest.json`. No source-
+environment bindings or private research references are included.
+
 ## Unresolved title attribution
 
 The exact requested source title **"Power Azure SRE Agent with MCP tools"** was
