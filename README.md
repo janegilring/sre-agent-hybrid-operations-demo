@@ -33,6 +33,7 @@ Both use placeholders, not the source environment's identities or report IDs.
 | Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
 | Recreate read-only native health/capacity reports | [Report contracts and source checklist](docs/native-reports.md) | Your own approved connector tools, scoped sources and authenticated native save/reopen/Reload verification |
+| Plan independent recovery when guest Arc is unavailable | [HIMDS recovery scenario and gates](docs/himds-recovery-demo.md) | Dedicated test guests and private remoting; **not an accepted end-to-end repair**, custom writes stay disabled without trusted human approval |
 
 ## Architecture overview
 
