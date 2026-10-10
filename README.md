@@ -218,6 +218,9 @@ The operating window is closed; this packaging refresh performs no live action.
 - [Reference architecture](docs/reference-architecture.md)
 - [Safety and cleanup](docs/safety-and-reset.md)
 - [Optional offline exercise and presenter walkthrough](docs/walkthrough.md)
+- [Optional Copilot/Claude → SRE Agent MCP bonus](docs/sre-agent-mcp-client-bonus-demo.md)
+  — documentation-verified client setup and bounded existing-thread reads;
+  integration remains untested, with no new investigation or remediation.
 - [Source references](docs/sources.md), [attribution](THIRD-PARTY.md)
 - [Packaging scope and validation](docs/publication-review.md)
 
