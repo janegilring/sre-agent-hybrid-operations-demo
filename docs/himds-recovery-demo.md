@@ -5,6 +5,31 @@ This optional scenario demonstrates why the recovery channel must not depend
 on the component being repaired. It is separate from the recorded alert and
 local offline application exercises.
 
+## Consolidated preparation outcome - October 10, 2026
+
+APP01 has partial query-only endpoint preparation, not an accepted runtime.
+The attempted registration/resume caused an **unexpected WinRM restart at
+14:24 UTC**, violating the approved no-service-action boundary. Read-only
+service/process evidence confirmed the restart; WinRM subsequently recovered
+to Running. HIMDS was unchanged and DB01 was untouched. No intentional fault
+was injected. Native diagnosis and recovery are **not accepted**; runtime
+and writes remain disabled, with native human approval binding unresolved.
+
+[Windows PowerShell 5.1 documents `Register-PSSessionConfiguration -NoServiceRestart` as not implemented](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-pssessionconfiguration?view=powershell-5.1#-noservicerestart).
+Passing the switch does not guarantee preservation of WinRM. Do not execute
+or retry registration, an installer/resume, cleanup or a service repair based
+on this guide. Partial-state reconciliation is read-only until a separately
+authorized and reviewed next step.
+
+An independent **source-only** correction now unconditionally defers endpoint
+registration and firewall creation, records `EndpointRegistrationDeferred`,
+and returns a blocking error rather than success. 149 offline checks passed
+independently on Windows PowerShell 5.1 and PowerShell 7. Source review remains
+pending; no revised remote apply occurred. Tests do not establish a live
+endpoint, accepted private diagnosis, approval binding or recovery.
+Existing alerts and other demos remain preserved; the new alert candidate
+is disabled and no duplicate incident route has been enabled.
+
 ## Intended flow
 
 ```text
