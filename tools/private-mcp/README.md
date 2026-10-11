@@ -13,15 +13,21 @@ From this directory with the .NET 10 SDK:
 dotnet restore .\tests\PrivateMcp.Tests.csproj --locked-mode
 dotnet test .\tests\PrivateMcp.Tests.csproj --no-restore
 dotnet build .\src\PrivateMcp.csproj --configuration Release --no-restore
+dotnet publish .\src\PrivateMcp.csproj --configuration Release --runtime win-x64 `
+    --self-contained false --no-restore --output .\src\bin\publish\win-x64
 ```
 
-Production requires Windows. Place a protected, operator-authored
-`boundary.local.json` beside the built `PrivateMcp.exe`
-(`src\bin\Release\net10.0` for the build above). Run that executable under the
-approved nonadministrator domain service account/gMSA. Service registration,
-Event Log source provisioning (`LocalBoxPrivateMcp`), private routing, DNS,
-firewall rules and certificate installation are separate operator tasks, not
-performed by build/test. The service name remains `LocalBoxPrivateMcp` for
+Production requires Windows. Deploy the complete **publish** directory, not
+just the executable or the build directory. This explicit framework-dependent
+choice requires supported x64 .NET 10 and ASP.NET Core 10 runtimes on the host.
+Place a protected operator-authored `boundary.local.json` beside the published
+`PrivateMcp.exe`. Follow the [compiled service installation guide](../../docs/mcp-service-install.md)
+for artifact/config ACLs, TLS private-key Read access, Event Log source,
+quoted SCM registration as gMSA, first start, acceptance and scoped uninstall.
+Create/test the [dedicated nonadmin gMSA](../../docs/guest-setup.md) separately.
+`AddWindowsService` is hosting integration, **not service registration**.
+Private routing, DNS, firewall and native token provisioning remain manual
+operator responsibilities. The service name remains `LocalBoxPrivateMcp` for
 compatibility; it does not require a LocalBox machine for ordinary-server reads.
 
 ## Explicit configuration and prerequisites

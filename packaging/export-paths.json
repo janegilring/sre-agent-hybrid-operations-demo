@@ -90,5 +90,6 @@
   "tools/hybrid-service-recovery/README.md",
   "tools/hybrid-service-recovery/Remove-HybridSpoolerRecovery.ps1",
   "tools/hybrid-service-recovery/Test-InstallerOffline.ps1",
-  "tools/hybrid-service-recovery/Test-Offline.ps1"
+  "tools/hybrid-service-recovery/Test-Offline.ps1",
+  "skills/azure-local-operations-triage/SKILL.md"
 ]

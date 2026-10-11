@@ -14,6 +14,28 @@ provenance refresh, use [current sources](sources.md) and the
 
 ## Included and immutable provenance
 
+### October 11 attendee follow-up
+
+The [readiness audit](attendee-readiness.md), expanded [gMSA/guest guide](guest-setup.md),
+[Windows service installation runbook](mcp-service-install.md), schedule guidance,
+[skill import guide](custom-skill.md) and `scripts\Test-AttendeeDocs.ps1` are
+original portable kit documentation/checks, not exported lab operator scripts.
+They perform no live configuration. The two JEA/MCP README export hashes now
+record their additional attendee links/publish wording; their original source
+blob IDs, source hashes and origin commits remain intact. All exported
+executable source is unchanged.
+
+One neutral `skills/azure-local-operations-triage/SKILL.md` file is newly
+allowlisted from committed source `908912037636dcfb61ce9593a4f2b9d71ec9df55`.
+Its instruction text matches the committed blob, with only CRLF normalization;
+the source README, private receipts and native configuration are not copied.
+The manifest now has **93** entries. The validator requires that exact skill
+path/revision and rejects other unreviewed `skills/` additions, just as it
+already rejects unreviewed `tools/` and `infra/` files. No exclusions were
+relaxed to admit deployment scripts.
+
+### Earlier component exports
+
 - SRE starter, corrected five-rule monitoring, ordinary-server JEA, portable
   MCP C# source/tests/locked dependencies, additive disk collection and
   independently approved Spooler-only recovery, plus the six-file English
@@ -23,7 +45,7 @@ provenance refresh, use [current sources](sources.md) and the
 - Original blob IDs, source commit and source/export SHA-256 hashes in
   [source-manifest.json](../packaging/source-manifest.json).
   Source is read directly from committed Git blobs, not a dirty worktree.
-- Only README packaging changes differ from original source bytes: generic
+- Only documented Markdown packaging changes differ from original source bytes: generic
   attendee wording, short-path guidance, removal of private receipt paths and
   explicit legacy reconciliation HELD status.
   Those changes are identified separately in the manifest.
@@ -58,8 +80,11 @@ Five corrected alert rules were separately live-verified in the source lab.
 No private RG, subscription or proof receipt is needed to use this package.
 That observation does not prove a fresh attendee deployment, complete collection,
 native incident routing, guest recovery or notification completion.
-The ordinary guest candidate lacks usable domain/Kerberos/WinRM readiness;
-end-to-end guest investigation and service recovery remain unproven.
+These historical packaging observations are not current source-lab status.
+End-to-end guest investigation, real gMSA/provider acceptance and service
+recovery remain unproven **in an attendee environment**. Configured connector
+visibility is not evidence that a main-agent conversation can discover and
+invoke its tools; require a fresh operational trace.
 
 Spooler recovery is offline-tested source, not a connected MCP write tool or
 proof of native human approval. Do not grant SRE write access until that
@@ -105,6 +130,13 @@ pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1
 dotnet restore tools\private-mcp\tests\PrivateMcp.Tests.csproj --locked-mode
 dotnet test tools\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
 dotnet build tools\private-mcp\src\PrivateMcp.csproj --configuration Release --no-restore
+dotnet publish tools\private-mcp\src\PrivateMcp.csproj --configuration Release `
+    --runtime win-x64 --self-contained false --no-restore `
+    --output tools\private-mcp\src\bin\publish\win-x64
+pwsh -NoProfile -File scripts\Test-AttendeeDocs.ps1 `
+    -PublishDirectory tools\private-mcp\src\bin\publish\win-x64
+powershell.exe -NoProfile -File scripts\Test-AttendeeDocs.ps1 `
+    -PublishDirectory tools\private-mcp\src\bin\publish\win-x64
 pwsh -NoProfile -File tools\hybrid-server\Test-Offline.ps1
 powershell.exe -NoProfile -File tools\hybrid-server\Test-Offline.ps1
 pwsh -NoProfile -File tools\hybrid-service-recovery\Test-Offline.ps1
@@ -125,7 +157,7 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Current follow-up verification — 2026-10-02
+## Historical follow-up verification — 2026-10-02
 
 This package has **112 tracked files and 92 source-hash entries**:
 80 retain `c086d8d`, five retain `c814605`, five monitoring files use `1ceb2a7`,

@@ -1,6 +1,8 @@
 # Setup, prerequisites, costs and permissions
 
-Reviewed 2026-10-01. Product sources: [source register](sources.md).
+Baseline reviewed 2026-10-01; attendee installation/coverage follow-up 2026-10-11.
+Product sources: [source register](sources.md).
+Start with [attendee readiness](attendee-readiness.md) to select a feasible path.
 
 ## Reproducible offline scope
 
@@ -11,6 +13,10 @@ the [SRE starter](../infra/sre-agent-starter/README.md),
 prerequisites, validation, deployment and ownership-checked cleanup commands.
 The [portable MCP implementation](../tools/private-mcp/README.md) now includes
 locked .NET 10 build/test projects and explicit operator-owned network settings.
+The [gMSA/guest guide](guest-setup.md) and [compiled Windows service runbook](mcp-service-install.md)
+now supply the manual domain identity and host installation sequence. They do
+not deploy a host, provision native authentication, or establish real provider
+or native-agent acceptance.
 Optional [disk collection](../infra/hybrid-monitoring-collection/README.md) and
 [Spooler recovery](../tools/hybrid-service-recovery/README.md) have separate
 collection-ownership and human-approval requirements; neither is a whole-stack
@@ -22,7 +28,9 @@ current-state monitoring nor native approval is delivered.
 The [Arc-connectivity component](../infra/hybrid-arc-connectivity/README.md)
 adds one exact-scope transition rule per machine, without requiring Log Analytics.
 Four targets require four activity-log rule slots; no broad scope is substituted.
-For a complete lab foundation use the [pinned LocalBox route](localbox.md).
+For an optional nested Azure Local foundation use the [pinned LocalBox route](localbox.md).
+For ordinary guest reads, an existing domain/DC plus broker and member server
+is sufficient; the Azure Local-specific steps below do not apply.
 
 The remainder of this section describes only the optional synthetic replay.
 Use Python 3.11+ and the two replay commands in the [README](../README.md).
@@ -40,7 +48,9 @@ policy, not a universal product guarantee.
 ## Additional whole-lab readiness
 
 The component scripts do not automate this whole sequence. A live environment
-still needs owner approval and independent reproduction evidence before use:
+still needs owner approval and independent reproduction evidence before use.
+Step 1 and Azure Local health/cluster details apply only to the optional Azure
+Local scenario, not to every Windows/JEA attendee:
 
 1. Establish supported Azure Local deployment type/release, registered system,
    exact read targets and verified infrastructure/workload classification.

@@ -1,5 +1,23 @@
 # Public first-party sources
 
+## October 11 attendee follow-up
+
+Original attendee procedures now cite Microsoft gMSA/KDS/service-logon guidance,
+.NET publish/Windows service and SCM/native-quoting contracts, plus the current
+SRE network/MCP, schedule and skill documentation. Exact links and
+documentation-versus-live-acceptance limits are in
+[guest setup](guest-setup.md#first-party-references),
+[broker installation](mcp-service-install.md#sources-and-validation-scope),
+[native route/auth reconciliation](mcp-service-install.md#native-sre-connector-is-a-separate-availability-gate),
+[schedules](native-reports.md#scheduled-checks-are-separate-from-reports) and
+[custom skill import](custom-skill.md).
+
+The neutral skill is one newly authorized committed-source Markdown export at
+`908912037636dcfb61ce9593a4f2b9d71ec9df55`; see its exact blob/hashes and the two
+README-only attendee adaptations in the current 93-entry manifest. No executable
+component, private identity, operator script or source-lab receipt is imported
+by this follow-up. The earlier source counts below describe their dated batches.
+
 ## October 2 private review refresh
 
 The complete 30-file ordinary-server JEA/MCP dependency set is refreshed from
@@ -17,7 +35,7 @@ Link only: no external workbook, DCR, code or license is copied.
 The live report's account-specific bindings and the manual collector's fixed
 privileged scope are excluded pending a reviewed portable implementation.
 See [native recreation and held-source boundaries](native-reports.md).
-This is an unpublished working-tree review batch; no release or live acceptance.
+This was an unpublished review batch; no release or attendee live acceptance.
 
 Retrieved/reviewed 2026-10-01 UTC. Learn source version is the live page on this
 date unless a documentation view is specified; those views are not immutable

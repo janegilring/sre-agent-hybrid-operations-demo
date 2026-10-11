@@ -92,6 +92,8 @@ def main():
             "infra/hybrid-monitoring/tests/Test-Template.ps1",
         }
         expected_commit = (
+            "908912037636dcfb61ce9593a4f2b9d71ec9df55"
+            if entry["path"] == "skills/azure-local-operations-triage/SKILL.md" else
             "9eb5ddfd2fd1058185e2387afdb54d0379c479a3"
             if entry["path"].startswith(("tools/hybrid-server/", "tools/private-mcp/")) else
             "1ceb2a76fd9efbf0bf736da10d665488f331afb6"
@@ -116,7 +118,7 @@ def main():
             name.startswith("tools/private-mcp/") and path.suffix in {".ps1", ".py"}
         ):
             errors.append(f"Unapproved native configuration or lab operator script: {name}")
-        if name.startswith(("infra/", "tools/")) and name not in allowlist:
+        if name.startswith(("infra/", "tools/", "skills/")) and name not in allowlist:
             errors.append(f"Unreviewed component path outside export allowlist: {name}")
         text = path.read_text(encoding="utf-8-sig")
         if name.startswith("docs/diagrams/") and name not in allowlist:

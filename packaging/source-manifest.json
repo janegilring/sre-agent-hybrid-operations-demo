@@ -480,13 +480,14 @@
     {
       "path": "tools/hybrid-server/README.md",
       "sourceSha256": "95ae81c75417a0706417273a32237139204d3e269e72c7d677b1fba3a94b77ba",
-      "exportSha256": "0371d210dcfb03e7389d7c37dfd8b8ca1a29cd743209ee0f4b26dd73b4564c47",
+      "exportSha256": "5ae3a28fd77749a7f5076cfba6e943cc774cc39c60f1d27ae7da0628c1882cf2",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "9eb5ddfd2fd1058185e2387afdb54d0379c479a3",
       "originBlob": "143d1f7c6f20b0c649389ef8113eb155d16d889e",
       "packagingChanges": [
-        "Removed source-environment acceptance and private receipt link; generalized domain-host setup sentence."
+        "Removed source-environment acceptance and private receipt link; generalized domain-host setup sentence.",
+        "Linked original attendee gMSA/service installation guides and clarified noninteractive gMSA acceptance."
       ]
     },
     {
@@ -592,12 +593,14 @@
     {
       "path": "tools/private-mcp/README.md",
       "sourceSha256": "1060e817d7ed1ea010f4e77e45cf4055a76ce14a5970fc978355e9e6cad01b27",
-      "exportSha256": "1060e817d7ed1ea010f4e77e45cf4055a76ce14a5970fc978355e9e6cad01b27",
+      "exportSha256": "9e37ae6c76d3e441879e0195dd966e132ace6a0032694661902eb8d0f129125d",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "9eb5ddfd2fd1058185e2387afdb54d0379c479a3",
       "originBlob": "71b55676867e4222cc52ef9ce41cdf4d0bbcd06b",
-      "packagingChanges": []
+      "packagingChanges": [
+        "Documented explicit framework-dependent win-x64 publish and linked original attendee installation/identity runbooks."
+      ]
     },
     {
       "path": "tools/private-mcp/src/BoundaryApplication.cs",
@@ -928,7 +931,19 @@
       "originCommit": "0a195563ebb866c2f2da39b00cd9b11973a801c4",
       "originBlob": "a4450e5a30b4440dd836f9e9d629924fd6a03bb8",
       "packagingChanges": []
+    },
+    {
+      "path": "skills/azure-local-operations-triage/SKILL.md",
+      "sourceSha256": "400f7996eb9471a9aba669139475b14a209a11402b9314b479b7b5520e5042d0",
+      "exportSha256": "fd6e54fe63423f4693aadfdd627f17a0ae69b48809532190e5a0115f083f1b00",
+      "sourceKind": "committed source blob",
+      "originRepository": "janegilring/session-azure-sre-agent",
+      "originCommit": "908912037636dcfb61ce9593a4f2b9d71ec9df55",
+      "originBlob": "fdf495a8db3c9e34393a12a1af62003216a79649",
+      "packagingChanges": [
+        "Normalized documentation line endings to CRLF; instruction text is unchanged. Source environment README and receipts excluded."
+      ]
     }
   ],
-  "reviewState": "Private working-tree review batch; not committed, pushed or publicly released"
+  "reviewState": "Private attendee review; no public release or attendee live acceptance. Original source origins preserved."
 }

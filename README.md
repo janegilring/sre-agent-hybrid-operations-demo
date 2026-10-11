@@ -8,16 +8,21 @@ Azure Local, LocalBox or Arc for JEA diagnostics**.
 **Private attendee starter — not publicly released.** Repository access requires
 owner permission. No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
-This **unpublished review batch** refreshes the complete 30-file guest JEA/MCP
+The earlier guest source refresh brought in the complete 30-file guest JEA/MCP
 dependency set from committed source `9eb5ddf`: provider-loading/JEA fixes,
 bounded NIC projection, compact endpoint ownership markers and narrow private
 forwarder source rules. Other exports retain their exact mixed provenance.
+The attendee follow-up adds portable installation guidance and one neutral
+native skill; executable exports retain their exact source provenance.
 Source-environment success does not establish deployment in your environment.
 No private bindings, keys, raw events or authoring traces are included.
 
-**First practice:** [60-minute facilitator guide](docs/practice.md).
+**Start here as an attendee:** [readiness, minimum lab and scenario coverage](docs/attendee-readiness.md).
+**One-server setup:** [gMSA and JEA](docs/guest-setup.md) ->
+[publish and register the Windows MCP service](docs/mcp-service-install.md).
+**Presenter practice:** [60-minute facilitator guide](docs/practice.md).
 **Build your own reports:** [native report recreation and acceptance](docs/native-reports.md).
-Both use placeholders, not the source environment's identities or report IDs.
+The guides use placeholders, not the source environment's identities or report IDs.
 
 ## Choose your starting point
 
@@ -33,6 +38,7 @@ Both use placeholders, not the source environment's identities or report IDs.
 | Separately authorize a fixed Spooler start | [Spooler-only JEA recovery](tools/hybrid-service-recovery/README.md) | Approved noncritical member server and dedicated caller; **not connected to SRE** |
 | Build an entire nested Azure Local learning environment | [Pinned official LocalBox and integration sequence](docs/localbox.md) | Upstream Azure, capacity, licensing, network and cost prerequisites |
 | Recreate read-only native health/capacity reports | [Report contracts and source checklist](docs/native-reports.md) | Your own approved connector tools, scoped sources and authenticated native save/reopen/Reload verification |
+| Add Azure Local triage knowledge without granting tools | [Neutral native skill and import/readback](docs/custom-skill.md) | Your own approved SRE Agent; additive skill save and activation check, no new tools or privileges |
 | Plan independent recovery when guest Arc is unavailable | [HIMDS recovery scenario and gates](docs/himds-recovery-demo.md) | Dedicated test guests and private remoting; **not an accepted end-to-end repair**, custom writes stay disabled without trusted human approval |
 
 ## Architecture overview
@@ -112,7 +118,7 @@ Windows PowerShell 5.1:
 ```powershell
 .\Install-HybridServerReadOnly.ps1 -CallerIdentity 'EXAMPLE\mcpRead$' -WhatIf
 # After approval, repeat without -WhatIf.
-# As the actual dedicated caller, validate effective permissions:
+# For a caller with an approved process under its own identity:
 .\Test-HybridServerReadOnly.ps1 -ComputerName server01.example.test `
     -ExpectedMachine SERVER01 -ExpectedCaller 'EXAMPLE\mcpRead$'
 # After sessions end and separately owned provider grants are rolled back:
@@ -122,6 +128,8 @@ Windows PowerShell 5.1:
 Read the [full setup/cleanup contract](tools/hybrid-server/README.md) before
 installation. No arbitrary shell, service remediation, directory account,
 provider ACL grant or live WinRM restart is supplied.
+For a gMSA, follow the [account creation and actual-service testing route](docs/guest-setup.md):
+do not run that probe as the installer or try to log on interactively as the gMSA.
 
 ### Quickstart: portable MCP source, not an appliance
 
@@ -129,6 +137,9 @@ provider ACL grant or live WinRM restart is supplied.
 dotnet restore tools\private-mcp\tests\PrivateMcp.Tests.csproj --locked-mode
 dotnet test tools\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
 dotnet build tools\private-mcp\src\PrivateMcp.csproj --configuration Release --no-restore
+dotnet publish tools\private-mcp\src\PrivateMcp.csproj --configuration Release `
+    --runtime win-x64 --self-contained false --no-restore `
+    --output tools\private-mcp\src\bin\publish\win-x64
 ```
 
 The capability names are `get_server_facts`,
@@ -140,6 +151,10 @@ intentionally fails identity validation. Follow the [build, TLS, service identit
 private network and migration instructions](tools/private-mcp/README.md); service
 registration and guest setup are separate, not an instant appliance installer.
 Keep LocalBox node capabilities disabled for ordinary servers.
+The [installation guide](docs/mcp-service-install.md) covers runtime prerequisites,
+directory/config/key permissions, quoted gMSA SCM registration and scoped removal.
+Native private routing and renewable app-only authentication require separate
+attendee-specific acceptance; a working source-lab connector is not its provisioning recipe.
 
 ### Optional: disk collection and fixed service recovery
 
@@ -185,8 +200,11 @@ five-rule baseline's cleanup script does not apply to these resources.
 Native configuration (`tools\nic-sre-config`) is still unreviewed and deliberately
 excluded. End-to-end Kerberos/WinRM/JEA readiness for the ordinary-server
 candidate remains unverified **in an attendee environment**. Native read-only
-guest access was proven in the source lab; that proof does not transfer to a
-new deployment and does not establish recovery. Source alert
+guest access was demonstrated in earlier source-lab work; that dated proof
+does not establish current tool discovery, transfer to a new deployment, or
+establish recovery. A registered connector with configured tool visibility can
+still be undiscoverable in an actual main-agent conversation. Require fresh
+operational calls, not only configuration readback. Source alert
 verification does not prove native incident routing, approval, final Teams
 notification, guest recovery or a complete attendee lab.
 
@@ -232,7 +250,7 @@ and the [five pinned lab/connector references](docs/sources.md#microsoft-sre-age
 The reviewed snapshot is `1b30297529fcef0411ad64c56e60500a5a3a8e61`
 (September 18, 2026), not a release. These are **external links only**: no lab
 code/configuration is copied, deployed or added to the export provenance.
-The existing 92 source-manifest entries remain unchanged.
+The Microsoft lab links do not add files to the source manifest.
 
 Use the scheduled-health and report examples as separate learning exercises.
 The scheduled instructions prohibit updating reports; successful subagent

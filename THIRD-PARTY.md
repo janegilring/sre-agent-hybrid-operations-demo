@@ -12,7 +12,8 @@ logo or raw diagnostic evidence is included.
 
 The owner explicitly authorized narrow export of original monitoring, collection,
 per-machine Arc connectivity, service-event monitoring,
-SRE starter, Windows JEA, Spooler recovery and portable MCP components from
+SRE starter, Windows JEA, Spooler recovery, portable MCP components and the
+neutral Azure Local operations triage skill from
 `janegilring/session-azure-sre-agent`.
 That private source repository declares no license; no implicit upstream MIT
 license is asserted. The repository owner licenses these authorized original

@@ -4,6 +4,13 @@ Reviewed 2026-10-01. This is a checklist, not a destructive script.
 
 ## Included component cleanup
 
+For the newly documented manual broker installation, use [SCM/artifact/key-ACE
+cleanup](mcp-service-install.md#rollback-and-uninstall), then [guest/gMSA teardown](guest-setup.md#scoped-teardown).
+No script owns the forest-wide KDS key or shared GPO/certificate infrastructure.
+For optional native content, remove only your [skill](custom-skill.md) or
+[scheduled task/report](native-reports.md#scheduled-checks-are-separate-from-reports)
+after comparing its recorded identity, content and consumers.
+
 Follow the exact receipt/ownership checks in the
 [SRE starter](../infra/sre-agent-starter/README.md#iac-interface-powershell-72-installed-bicep-and-azure-cli),
 [monitoring baseline](../infra/hybrid-monitoring/README.md#cleanup--partial-deployment),

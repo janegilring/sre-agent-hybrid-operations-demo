@@ -52,6 +52,10 @@ CPU is a provider's current observation, not a benchmark or historical average.
 
 ## Setup (operator actions; not executed by source validation)
 
+For a fresh attendee environment, start with [domain/KDS/gMSA preparation and
+service-logon policy](../../docs/guest-setup.md). The [broker installation guide](../../docs/mcp-service-install.md)
+covers publishing and Windows service registration; neither is done by this installer.
+
 1. Select a noncritical ordinary, domain-joined Windows server. Independently
    validate private DNS/WSMan reachability, SPNs, firewall scope and the dedicated
    service identity. Do not enable Basic, TrustedHosts, CredSSP, SSH or public
@@ -112,6 +116,9 @@ CPU is a provider's current observation, not a benchmark or historical average.
    count/window, `Get-Service`, direct/qualified arbitrary CIM and host parameters, then closes the
    session. It makes no configuration changes. Inspect all provider statuses;
    passing identity/negative tests alone is not complete data-access proof.
+   A gMSA is not an interactive login: do not run this as the installer and
+   claim gMSA acceptance. Use the [actual service-identity testing path](../../docs/guest-setup.md#testing-as-the-actual-gmsa);
+   a separate owner-approved launcher is needed for the full script under a gMSA.
 
 5. On the approved **domain-joined MCP host** merge the dummy `Servers` array from
    `..\private-mcp\servers.example.json` into the protected `boundary.local.json`,
