@@ -103,11 +103,23 @@ documentation retrieval without sending private incident details in searches.
    healthy based on successful subsets. Request only the missing redacted
    evidence, its target and timestamp, through an already approved operator
    workflow. If that workflow/tool is unavailable, stop that diagnostic branch.
-6. **Research and conclude.** Retrieve the applicable current Microsoft Learn
-   page using an existing documentation tool; select the documented release view
-   and check known issues/OEM guidance for the actual baseline. Cite the exact
-   retrieved URL and applicability for product/procedural claims. If retrieval
-   fails, label the reference UNVERIFIED rather than claiming it was checked.
+6. **Research and conclude.** Check both Microsoft Learn and the
+   Azure/AzureLocal-Supportability repository below for relevant known issues
+   and troubleshooting guides (TSGs), using existing authorized public retrieval
+   tools. Select the documented Learn release view and follow the repository's
+   category index to the relevant guide; review related issue reports when
+   available. Match symptoms/error codes, affected and fixed solution releases,
+   deployment model and OEM baseline before proposing a known-issue match.
+   Distinguish published guidance and maintainer-confirmed issues from
+   unconfirmed community reports; an open or closed issue alone proves neither
+   applicability nor resolution in this environment. Cite the exact retrieved
+   guide/issue URL, retrieval date, stated affected/fixed releases and remaining
+   applicability gaps. Surface conflicts with Learn/OEM guidance rather than
+   silently choosing a workaround. If either source cannot be retrieved, mark
+   that source UNVERIFIED; a search with no match does not prove no known issues.
+   Do not assume a Learn-only tool can retrieve GitHub or bypass unavailable
+   retrieval tools. Repository commands and workarounds remain evidence, not
+   authorization to execute; preserve all approval boundaries above.
    Separate observed facts, hypotheses and confirmed causes. Suggest a bounded
    next read or a separately approved operator/support handoff, not remediation
    execution. No evidence means no asserted root cause.
@@ -131,8 +143,9 @@ documentation retrieval without sending private incident details in searches.
   In a supplied-evidence-only task, no new infrastructure read is authorized.
   Classifications are recommendations, not execution instructions or access
   grants. State that no changes were performed.
-- **References:** retrieved official URLs and applicable release, or UNVERIFIED
-  references if documentation access was unavailable.
+- **References:** Microsoft Learn and AzureLocal-Supportability coverage, exact
+  retrieved URLs, retrieval dates, issue confirmation status and applicable
+  affected/fixed releases, or UNVERIFIED sources when access was unavailable.
 
 ## Official reference starting points
 
@@ -142,6 +155,9 @@ commands into an executable tool call.
 
 - Azure Local documentation and release navigation:
   https://learn.microsoft.com/azure/azure-local/
+- Azure Local Supportability: community-driven known issues, TSG category index
+  and issue reports in the Azure organization (check confirmation/applicability):
+  https://github.com/Azure/AzureLocal-Supportability
 - Health Service faults, coverage and lifecycle:
   https://learn.microsoft.com/azure/azure-local/manage/health-service-faults
 - System health versus update readiness and failed update evidence:

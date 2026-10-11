@@ -1,5 +1,17 @@
 # Public first-party sources
 
+## October 11 neutral skill reference refresh
+
+The current skill export is pinned to source commit
+`05304111ec9eb6c237156f68d4a915ae7f99fed8`, blob
+`0c512da528e3f8c1b2f3fa64ff4114e48789bc76`. It adds
+[Azure/AzureLocal-Supportability](https://github.com/Azure/AzureLocal-Supportability)
+beside the five Learn references for dated, applicability-checked TSG/known-issue
+research. Community issue status is not confirmation or environment resolution;
+unavailable retrieval is UNVERIFIED and no workaround is authorized.
+Only this neutral file was refreshed, with CRLF normalization and exact hashes
+in the manifest; no companion README, receipt or validator was imported.
+
 ## October 11 PowerShell-first follow-up
 
 The [tooling guide](powershell-tooling.md) records the PowerShell 7.5 minimum,
@@ -8,7 +20,8 @@ Four exported validators/tests are translated derivatives; one regression
 runner is narrowly adapted to separate attendee and maintainer invocation.
 Their original source path, commit, blob and hash remain in the 93-entry
 manifest alongside the new export hash and exact transformation identifier.
-The native skill and deployed C#/JEA/ARM components are unchanged.
+The deployed C#/JEA/ARM components are unchanged. The separate neutral skill
+refresh above supersedes its previous source pin.
 
 ## Earlier October 11 attendee onboarding follow-up
 

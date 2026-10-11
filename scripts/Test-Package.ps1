@@ -55,7 +55,7 @@ function Test-Package {
             $errors.Add("Non-documentation source modification: $name")
         }
         if (!$isDerivative -and ($entry.Contains('sourcePath') -or $entry.Contains('transformation'))) { $errors.Add("Unapproved derivative metadata: $name") }
-        $expectedCommit = if ($name -ceq 'skills/azure-local-operations-triage/SKILL.md') { '908912037636dcfb61ce9593a4f2b9d71ec9df55' }
+        $expectedCommit = if ($name -ceq 'skills/azure-local-operations-triage/SKILL.md') { '05304111ec9eb6c237156f68d4a915ae7f99fed8' }
         elseif ($name.StartsWith('tools/hybrid-server/') -or $name.StartsWith('tools/private-mcp/')) { '9eb5ddfd2fd1058185e2387afdb54d0379c479a3' }
         elseif ($name -cin $monitoringRefresh) { '1ceb2a76fd9efbf0bf736da10d665488f331afb6' }
         elseif ($name.StartsWith('docs/diagrams/')) { '0a195563ebb866c2f2da39b00cd9b11973a801c4' }

@@ -944,12 +944,12 @@
     },
     {
       "path": "skills/azure-local-operations-triage/SKILL.md",
-      "sourceSha256": "400f7996eb9471a9aba669139475b14a209a11402b9314b479b7b5520e5042d0",
-      "exportSha256": "fd6e54fe63423f4693aadfdd627f17a0ae69b48809532190e5a0115f083f1b00",
+      "sourceSha256": "a53a80e01ebad5fd0b6c6302c0cda6322bef29154fade6fdbd2518ea4fde8c65",
+      "exportSha256": "2c2fb75da11c3a964999f107ab59dafa9ee6dac5d162c6a54f3ebf755dce07ad",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "originCommit": "908912037636dcfb61ce9593a4f2b9d71ec9df55",
-      "originBlob": "fdf495a8db3c9e34393a12a1af62003216a79649",
+      "originCommit": "05304111ec9eb6c237156f68d4a915ae7f99fed8",
+      "originBlob": "0c512da528e3f8c1b2f3fa64ff4114e48789bc76",
       "packagingChanges": [
         "Normalized documentation line endings to CRLF; instruction text is unchanged. Source environment README and receipts excluded."
       ]

@@ -72,5 +72,7 @@ Each retains the original source commit/blob/hash, records the original
 `sourcePath`, and declares `powershell-tooling-port-v1` with an updated export
 hash. The package validator permits these exact path/source-hash pairs only;
 this is not a general permission to modify executable exports.
-Deployed C#/JEA/ARM component source and the native skill are unchanged.
+Deployed C#/JEA/ARM component source is unchanged. A separately authorized
+[neutral skill reference refresh](custom-skill.md) updates only that item's
+source pin and coupled documentation checks.
 Older validation records describe the implementations tested at that time.

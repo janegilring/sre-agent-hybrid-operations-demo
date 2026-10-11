@@ -14,6 +14,19 @@ provenance refresh, use [current sources](sources.md) and the
 
 ## Included and immutable provenance
 
+### October 11 neutral skill reference refresh
+
+The separately authorized skill refresh imports only
+`skills/azure-local-operations-triage/SKILL.md` at source `0530411`, with exact
+committed instruction text and intentional CRLF export. Its source SHA-256 is
+`a53a80e01ebad5fd0b6c6302c0cda6322bef29154fade6fdbd2518ea4fde8c65`;
+export SHA-256 is
+`2c2fb75da11c3a964999f107ab59dafa9ee6dac5d162c6a54f3ebf755dce07ad`.
+This single source pin supersedes the earlier skill origin below; every other
+source origin is preserved. Six exact reference URLs and **13 negative skill
+mutations** pass on PowerShell 5.1 and 7.6. No native attendee import or runtime
+acceptance is claimed.
+
 ### October 11 PowerShell-first follow-up
 
 Attendee replay, package checks, Arc inputs and component reference-model tests
@@ -29,7 +42,8 @@ invocation adaptation. Their original commit/blob/source hashes are retained
 with original source paths and individually allowlisted transformation metadata.
 Four component README export hashes reflect the new commands.
 All other exported bytes, including the retained SDK test, C#/JEA/ARM components
-and native skill, remain unchanged from the preceding attendee snapshot.
+remain unchanged from the preceding attendee snapshot. The skill was unchanged
+by the tooling migration and subsequently refreshed as described above.
 
 ### Earlier October 11 attendee onboarding follow-up
 
@@ -177,7 +191,7 @@ This is **not a general secret scanner** or a substitute for human release revie
 
 ## PowerShell-first verification - 2026-10-11
 
-The revised package contains **126 files / 93 source-hash entries**. All 93
+The tooling-migration snapshot `249c77c` contains **126 files / 93 source-hash entries**. All 93
 original commit/blob/source-hash identities were compared with `3841e9f` and
 preserved; only five tooling derivatives and four component README exports
 changed. The retained SDK test and native skill are byte-identical.
