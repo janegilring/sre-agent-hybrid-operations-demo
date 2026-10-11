@@ -119,10 +119,18 @@ configuration first. A changed/missing ownership tag stops cleanup.
 Cleanup enumerates each target/deployment RG and the agent resource separately,
 using exact-scope CLI listing (without `--all` or inherited assignments).
 The regression suite exercises subnet responses with omitted optional fields,
-mocked cleanup including post-delete checks, and the installed Azure CLI's real
-role-list validator and filtering against SDK-paged offline responses. It makes
-no Azure/authentication calls or user-profile changes. On non-MSI installations,
-pass `-AzureCliPython` pointing to a Python executable with Azure CLI installed.
+mocked cleanup including post-delete checks, and PowerShell role-command argument
+contracts. The attendee run requires no Python. It explicitly reports the SDK
+test as NOT RUN; mocks do not prove the installed SDK.
+
+Maintainers must additionally run `.\Test-Regression.ps1 -IncludeMaintainerSdk`
+before merge. This retained Python test exercises the installed Azure CLI's real
+role-list validator and filtering against SDK-paged offline responses, with
+transport replaced and sockets blocked. It makes no Azure/authentication calls
+or user-profile changes. On non-MSI installations, also pass `-AzureCliPython`
+pointing to the Azure CLI installation's Python executable. See the
+[maintainer gate](../../docs/powershell-tooling.md); do not substitute the
+attendee-only run for SDK coverage.
 
 ## Native network: separate reviewed configuration
 

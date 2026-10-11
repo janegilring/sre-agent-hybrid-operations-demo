@@ -41,9 +41,11 @@ No live action is authorized by this final packaging closeout.
 
 ## Offline reset
 
-The documented `python -B` commands read fixtures and write stdout only.
-No cloud session, service, files or synthetic fault is created. Re-run the
-commands to reset the exercise. If you redirected stdout to a file yourself,
+The documented `Invoke-Replay.ps1` command reads fixtures and writes stdout only.
+No cloud session, service, files or synthetic fault is created by replay. The
+offline tests may create and remove their own temporary fixtures; they do not
+change a service or cloud resource. Re-run replay to reset the exercise.
+If you redirected stdout to a file yourself,
 remove only that exact file after reviewing its path; no wildcard cleanup is
 required. The supplied code never reads the placeholder binding worksheet.
 

@@ -1,6 +1,6 @@
 # Third-party sources and rights
 
-The sample Python code, synthetic fixtures and repository prose are newly
+The sample replay code, synthetic fixtures and repository prose are newly
 authored original material. Microsoft Learn, the official Azure-Samples workbook
 and the identified related Microsoft blog are linked and credited in the
 [source register](docs/sources.md); they are not vendored or relicensed.

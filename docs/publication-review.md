@@ -14,7 +14,24 @@ provenance refresh, use [current sources](sources.md) and the
 
 ## Included and immutable provenance
 
-### October 11 attendee follow-up
+### October 11 PowerShell-first follow-up
+
+Attendee replay, package checks, Arc inputs and component reference-model tests
+now use PowerShell 7.5+. The only retained Python entry point is the installed
+Azure CLI SDK test, explicitly required for maintainers with
+`Test-Regression.ps1 -IncludeMaintainerSdk`, not for attendees.
+There is no existing checked-in CI workflow; future CI must retain that gate.
+See [tooling and derivative provenance](powershell-tooling.md).
+
+The manifest still has 93 entries. Four former exported Python tools are
+explicit PowerShell derivatives, and the SRE regression runner has a narrow
+invocation adaptation. Their original commit/blob/source hashes are retained
+with original source paths and individually allowlisted transformation metadata.
+Four component README export hashes reflect the new commands.
+All other exported bytes, including the retained SDK test, C#/JEA/ARM components
+and native skill, remain unchanged from the preceding attendee snapshot.
+
+### Earlier October 11 attendee onboarding follow-up
 
 The [readiness audit](attendee-readiness.md), expanded [gMSA/guest guide](guest-setup.md),
 [Windows service installation runbook](mcp-service-install.md), schedule guidance,
@@ -45,7 +62,7 @@ relaxed to admit deployment scripts.
 - Original blob IDs, source commit and source/export SHA-256 hashes in
   [source-manifest.json](../packaging/source-manifest.json).
   Source is read directly from committed Git blobs, not a dirty worktree.
-- Only documented Markdown packaging changes differ from original source bytes: generic
+- Before the PowerShell-first follow-up, only documented Markdown packaging changes differed from original source bytes: generic
   attendee wording, short-path guidance, removal of private receipt paths and
   explicit legacy reconciliation HELD status.
   Those changes are identified separately in the manifest.
@@ -113,20 +130,21 @@ The live operating window is closed and this closeout authorizes no live action.
 From the repository root:
 
 ```powershell
-python -B scripts\validate_package.py
+pwsh -NoProfile -File scripts\Test-Package.ps1
+pwsh -NoProfile -File tests\Test-Package.ps1
 bicep build infra\hybrid-arc-connectivity\main.bicep --stdout | Out-Null
 bicep build-params infra\hybrid-arc-connectivity\main.example.bicepparam --stdout | Out-Null
-python -B -m unittest discover -s infra\hybrid-arc-connectivity -p 'test_*.py' -v
-python -B -m unittest discover -s tests -v
-python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
-python -B infra\hybrid-service-monitoring\tests\test_contract.py
+pwsh -NoProfile -File infra\hybrid-arc-connectivity\Test-Connectivity.ps1
+pwsh -NoProfile -File tests\Test-Replay.ps1
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Queries.ps1
+pwsh -NoProfile -File infra\hybrid-service-monitoring\tests\Test-Contract.ps1
 bicep build-params infra\hybrid-service-monitoring\example.bicepparam --stdout | Out-Null
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring-collection\tests\Test-Collection.ps1
 bicep build infra\hybrid-monitoring-collection\main.bicep --stdout | Out-Null
 pwsh -NoProfile -File infra\sre-agent-starter\Test-Contracts.ps1
-pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1
+pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1 -IncludeMaintainerSdk
 dotnet restore tools\private-mcp\tests\PrivateMcp.Tests.csproj --locked-mode
 dotnet test tools\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
 dotnet build tools\private-mcp\src\PrivateMcp.csproj --configuration Release --no-restore
@@ -157,7 +175,32 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Attendee follow-up verification - 2026-10-11
+## PowerShell-first verification - 2026-10-11
+
+The revised package contains **126 files / 93 source-hash entries**. All 93
+original commit/blob/source-hash identities were compared with `3841e9f` and
+preserved; only five tooling derivatives and four component README exports
+changed. The retained SDK test and native skill are byte-identical.
+
+On PowerShell 7.6, the replay, package checker, **38 rejecting package mutations**,
+Arc inputs/template suite, nine monitoring and eleven service-event contract
+groups, and attendee SRE regression all passed with `python`, `python3` and `py`
+absent from the process PATH. Strict JSON, malformed UTF-8, diagram activity,
+source/derivative tampering, unreviewed exports, scoped addresses/GUIDs, synthetic
+hostname-digest detection and broken links were exercised without editing the
+real package. Replay preserves unknown/null counts and rejects invalid scopes,
+statuses, budgets and timestamps; Arc naming matches a fixed prior UUIDv5 vector.
+
+The separate mandatory maintainer run also passed: **12 production argument
+sets**, real installed Azure CLI validation, genuine SDK two-page iteration and
+exact-scope filtering with transport replaced. The existing SRE suite passed
+34 subnet cases and mocked ownership cleanup. Existing monitoring/collection
+contracts and **210 MCP tests** passed. The 16 onboarding PowerShell blocks,
+source/skill contracts and five skill mutations still passed on both Windows
+PowerShell 5.1 and PowerShell 7.6. The new tooling requires 7.5+ and is not claimed
+to execute on 5.1. No Azure, AD, service or live endpoint operation was performed.
+
+## Earlier attendee onboarding verification - 2026-10-11
 
 The attendee snapshot has **122 tracked files and 93 source-hash entries**.
 All 92 previous source-origin records remain unchanged against kit commit

@@ -245,13 +245,13 @@ before retrying. Never infer ownership from names alone.
 ## Tests
 
 ```powershell
-python -m unittest discover -s infra\hybrid-monitoring\tests -v
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Queries.ps1
 .\infra\hybrid-monitoring\tests\Test-Scripts.ps1
 .\infra\hybrid-monitoring\tests\Test-Template.ps1
 az bicep build --file infra\hybrid-monitoring\main.bicep --stdout | Out-Null
 ```
 
-Python tests cover inventory all-absent/never-seen/stale/mixed-case behavior,
+The PowerShell 7.5+ reference-model tests cover inventory all-absent/never-seen/stale/mixed-case behavior,
 sustained CPU units, separate disks, memory conversion and query contracts.
 PowerShell tests parse scripts and exercise exact-coverage failures, rendering,
 CLI-error handling, receipt scope, preview/WhatIf nonmutation, and rejection

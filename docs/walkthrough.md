@@ -29,7 +29,7 @@ passed off as an actual authenticated call.
 Run from the repository root:
 
 ```powershell
-python -B scripts\replay.py --scenario provider-denied
+pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario provider-denied
 ```
 
 Prepared evidence-review prompt:
@@ -45,7 +45,7 @@ tool replay. Do not upload presenter answer keys to the investigating agent.
 ## Segment 3: empty, missing and stale are different
 
 ```powershell
-python -B scripts\replay.py --scenario all
+pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario all
 ```
 
 | Synthetic case | Expected computed result | Point to explain |
@@ -61,7 +61,7 @@ The fixture reference clock and freshness policy are explicit and deterministic.
 Do not compare fixtures against today's clock and then claim live freshness.
 No numeric Health Service-to-Azure Monitor severity mapping is implemented.
 
-Fallback if Python is unavailable: show the
+Fallback if PowerShell 7.5+ is unavailable: show the
 [checked-in fixture and expected labels](../examples/scenarios.json) as a static
 synthetic example. Do not describe that as an executed test or a recording.
 

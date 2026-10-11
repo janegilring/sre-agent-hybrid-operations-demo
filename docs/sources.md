@@ -1,6 +1,16 @@
 # Public first-party sources
 
-## October 11 attendee follow-up
+## October 11 PowerShell-first follow-up
+
+The [tooling guide](powershell-tooling.md) records the PowerShell 7.5 minimum,
+strict JSON behavior and the explicit maintainer-only Azure CLI SDK exception.
+Four exported validators/tests are translated derivatives; one regression
+runner is narrowly adapted to separate attendee and maintainer invocation.
+Their original source path, commit, blob and hash remain in the 93-entry
+manifest alongside the new export hash and exact transformation identifier.
+The native skill and deployed C#/JEA/ARM components are unchanged.
+
+## Earlier October 11 attendee onboarding follow-up
 
 Original attendee procedures now cite Microsoft gMSA/KDS/service-logon guidance,
 .NET publish/Windows service and SCM/native-quoting contracts, plus the current

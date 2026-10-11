@@ -33,7 +33,9 @@ For ordinary guest reads, an existing domain/DC plus broker and member server
 is sufficient; the Azure Local-specific steps below do not apply.
 
 The remainder of this section describes only the optional synthetic replay.
-Use Python 3.11+ and the two replay commands in the [README](../README.md).
+Use PowerShell 7.5+ and the two replay commands in the [README](../README.md).
+No Python installation is needed for attendee workflows. The one retained
+Azure CLI SDK test is a [maintainer-only requirement](powershell-tooling.md).
 No package installation, Azure subscription, GitHub write token, SRE service,
 model deployment or cloud login is required once the files are available.
 The exercise does not load environment variables, credentials or a binding file.

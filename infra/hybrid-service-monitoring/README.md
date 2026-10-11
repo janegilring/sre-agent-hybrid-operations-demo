@@ -135,7 +135,7 @@ never delete the guest/workspace/resource group, foreign association or shared
 collection. Preserve an audit receipt; verify terminal deletion and dated 404s.
 Serialize changes during cleanup; snapshots alone are not atomic concurrency control.
 
-With Python 3 and Bicep CLI on PATH, run `python -B .\tests\test_contract.py`
+With PowerShell 7.5+ and Bicep CLI on PATH, run `pwsh -NoProfile -File .\tests\Test-Contract.ps1`
 and the Bicep compile commands above (use the unchanged `example.bicepparam`
 instead of `demo.local.bicepparam` for a completely offline sample check).
 Tests use explicitly synthetic Event-schema fixtures, canonical-query shape checks

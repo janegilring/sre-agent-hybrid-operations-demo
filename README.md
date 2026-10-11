@@ -13,7 +13,8 @@ dependency set from committed source `9eb5ddf`: provider-loading/JEA fixes,
 bounded NIC projection, compact endpoint ownership markers and narrow private
 forwarder source rules. Other exports retain their exact mixed provenance.
 The attendee follow-up adds portable installation guidance and one neutral
-native skill; executable exports retain their exact source provenance.
+native skill. The PowerShell-first follow-up translates validation tooling with
+explicit derivative provenance; deployed component source remains unchanged.
 Source-environment success does not establish deployment in your environment.
 No private bindings, keys, raw events or authoring traces are included.
 
@@ -23,6 +24,13 @@ No private bindings, keys, raw events or authoring traces are included.
 **Presenter practice:** [60-minute facilitator guide](docs/practice.md).
 **Build your own reports:** [native report recreation and acceptance](docs/native-reports.md).
 The guides use placeholders, not the source environment's identities or report IDs.
+
+**PowerShell-first:** use PowerShell **7.5+** (`pwsh`) for the offline replay,
+package checks and translated component tests; no Python installation is needed
+for attendee workflows. Windows PowerShell 5.1 remains the guest JEA host.
+Azure CLI/Bicep and .NET are required only for the components that use them.
+One real Azure CLI SDK regression remains a **maintainer-only Python exception**,
+not an attendee prerequisite; see [maintainer validation](docs/powershell-tooling.md).
 
 ## Choose your starting point
 
@@ -81,7 +89,7 @@ and end-to-end acceptance remain explicit manual steps in that guide.
 ```powershell
 Copy-Item infra\hybrid-monitoring\config.example.json infra\hybrid-monitoring\config.local.json
 Copy-Item infra\hybrid-monitoring\targets.example.json infra\hybrid-monitoring\targets.local.json
-python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Queries.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 ```
@@ -181,7 +189,7 @@ is independently proved.
 ### Optional: English Spooler stopped-transition monitoring
 
 ```powershell
-python -B infra\hybrid-service-monitoring\tests\test_contract.py
+pwsh -NoProfile -File infra\hybrid-service-monitoring\tests\Test-Contract.ps1
 bicep build infra\hybrid-service-monitoring\main.bicep --stdout | Out-Null
 bicep build-params infra\hybrid-service-monitoring\example.bicepparam --stdout | Out-Null
 ```
@@ -213,7 +221,7 @@ notification, guest recovery or a complete attendee lab.
 ```powershell
 bicep build infra\hybrid-arc-connectivity\main.bicep --stdout | Out-Null
 bicep build-params infra\hybrid-arc-connectivity\main.example.bicepparam --stdout | Out-Null
-python -B -m unittest discover -s infra\hybrid-arc-connectivity -p 'test_*.py' -v
+pwsh -NoProfile -File infra\hybrid-arc-connectivity\Test-Connectivity.ps1
 ```
 
 Each rule has one exact machine scope and a flat `resourceId` equality for that
@@ -265,8 +273,8 @@ The preserved synthetic examples are optional teaching illustrations, not live
 evidence or the purpose of this starter:
 
 ```powershell
-python -B scripts\replay.py --scenario all
-python -B -m unittest discover -s tests -v
+pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario all
+pwsh -NoProfile -File tests\Test-Replay.ps1
 ```
 
 **Do not ingest this repository into agent knowledge.** It includes expected

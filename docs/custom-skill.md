@@ -88,7 +88,7 @@ From the repository root:
 
 ```powershell
 pwsh -NoProfile -File scripts\Test-AttendeeDocs.ps1
-python -B scripts\validate_package.py
+pwsh -NoProfile -File scripts\Test-Package.ps1
 ```
 
 These check the neutral front matter, no attached tools, required boundaries,

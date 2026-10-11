@@ -76,12 +76,12 @@
     {
       "path": "infra/hybrid-monitoring/README.md",
       "sourceSha256": "ee4cfefb995b842d569805e80258ac33b59bf911e06bc64d877b56f71d93ce01",
-      "exportSha256": "ee4cfefb995b842d569805e80258ac33b59bf911e06bc64d877b56f71d93ce01",
+      "exportSha256": "bdebc37fd3ebec311c6aa1faab03735bcf277c1cd0fbe92e8cb67d742eddaeec",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "1ceb2a76fd9efbf0bf736da10d665488f331afb6",
       "originBlob": "f26318f5aaa9830345732874f3693ff95ddfe9bc",
-      "packagingChanges": []
+      "packagingChanges": ["README only: invoke translated PowerShell reference-model tests."]
     },
     {
       "path": "infra/hybrid-monitoring/targets.example.json",
@@ -164,14 +164,16 @@
       "packagingChanges": []
     },
     {
-      "path": "infra/hybrid-monitoring/tests/test_queries.py",
+      "path": "infra/hybrid-monitoring/tests/Test-Queries.ps1",
+      "sourcePath": "infra/hybrid-monitoring/tests/test_queries.py",
+      "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "03788334a7a2a97e5eae588a0609a978b7e3c943202b370c023a5fd8f66cbb32",
-      "exportSha256": "03788334a7a2a97e5eae588a0609a978b7e3c943202b370c023a5fd8f66cbb32",
-      "sourceKind": "committed source blob",
+      "exportSha256": "c84c415aa07e1693ddc502ffba04098c1491428f71970b5883e649f7b04848c6",
+      "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "9fe004b4ea21b26f256df68a3fbd5ad71ce70fd0",
-      "packagingChanges": []
+      "packagingChanges": ["Translate all nine reference-model/contract groups to PowerShell; retain original source identity."]
     },
     {
       "path": "infra/hybrid-monitoring/tests/Test-Scripts.ps1",
@@ -268,10 +270,10 @@
     {
       "path": "infra/hybrid-service-monitoring/README.md",
       "sourceSha256": "d019f8fb40e4fe060187241994a93861585412453be24c111ae540199da9c280",
-      "exportSha256": "d019f8fb40e4fe060187241994a93861585412453be24c111ae540199da9c280",
+      "exportSha256": "58500605aa9d5d0b382cc708837a76be8ad4c51a683d7eb480eaef425585432e",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "packagingChanges": [],
+      "packagingChanges": ["README only: invoke translated PowerShell contracts."],
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a29dd1f918be090b6a399e612bab068a14904a3a"
     },
@@ -306,12 +308,14 @@
       "originBlob": "7f0c32f0851aab218c5e263db9c382ae4dc219d7"
     },
     {
-      "path": "infra/hybrid-service-monitoring/tests/test_contract.py",
+      "path": "infra/hybrid-service-monitoring/tests/Test-Contract.ps1",
+      "sourcePath": "infra/hybrid-service-monitoring/tests/test_contract.py",
+      "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "7cfe438841e8c229eed51f1c0252db12ffdab3d411b31926663538ab9fb74a98",
-      "exportSha256": "7cfe438841e8c229eed51f1c0252db12ffdab3d411b31926663538ab9fb74a98",
-      "sourceKind": "committed source blob",
+      "exportSha256": "610bbea5693537517800cb2535f6b4727dbac3d8c7c192b55d2d168eaa80ea35",
+      "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
-      "packagingChanges": [],
+      "packagingChanges": ["Translate all eleven compiled/query/reference-model contract groups to PowerShell; retain original source identity."],
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "a3e42b2a923689f590dc2f7927829496e06ea064"
     },
@@ -388,13 +392,13 @@
     {
       "path": "infra/sre-agent-starter/README.md",
       "sourceSha256": "0c0ba4250148b77e7dd44e3d7204f65b2dc01d81bd39709b2e76485397ec5b38",
-      "exportSha256": "e2465a2ea1ad039ac0579e42df2b59a9bbc84cc3ef641e16ea7e985cc4e7ffee",
+      "exportSha256": "96667d22fd331f21c4b4d2da84c98e8091975a498a8abee034ec8e206f3452b5",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "6d2b37a7db3b4a798af7b059aeb52227fa380fdd",
       "packagingChanges": [
-        "README only: generic attendee wording, private receipt path removal or short-checkout guidance."
+        "README only: generic attendee wording, private receipt path removal or short-checkout guidance; distinguish attendee PowerShell and mandatory maintainer SDK runs."
       ]
     },
     {
@@ -429,13 +433,15 @@
     },
     {
       "path": "infra/sre-agent-starter/Test-Regression.ps1",
+      "sourcePath": "infra/sre-agent-starter/Test-Regression.ps1",
+      "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "1efaed6479f36f5e592152fab136074ddf92af9fc84b246bc183b68b8c47f303",
-      "exportSha256": "1efaed6479f36f5e592152fab136074ddf92af9fc84b246bc183b68b8c47f303",
-      "sourceKind": "committed source blob",
+      "exportSha256": "00ca55c017f6832819263cd21a0139f644589a055d7cae5557f8991437210da9",
+      "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "41b0a6b10aab5f6eb1da26ee978d73defc0b674c",
-      "packagingChanges": []
+      "packagingChanges": ["Add PowerShell argument contracts and explicit maintainer SDK switch; retain mandatory maintainer real-SDK coverage and report NOT RUN in attendee mode."]
     },
     {
       "path": "infra/sre-agent-starter/Validate.ps1",
@@ -865,12 +871,12 @@
     {
       "path": "infra/hybrid-arc-connectivity/README.md",
       "sourceSha256": "e1f3bba6defc4b37b41f4ce3ab308ab23e32237e251b2a980b334263d9f916e5",
-      "exportSha256": "e1f3bba6defc4b37b41f4ce3ab308ab23e32237e251b2a980b334263d9f916e5",
+      "exportSha256": "867bc8ca0bc215766bf307df972d2639df89e88bfbe02c801bdb152f54b320cf",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
       "originBlob": "7fabd070bdcb8d98fc4d539a298d39f71d43d7da",
-      "packagingChanges": []
+      "packagingChanges": ["README only: invoke translated PowerShell tests and literal input validator."]
     },
     {
       "path": "infra/hybrid-arc-connectivity/main.bicep",
@@ -893,24 +899,28 @@
       "packagingChanges": []
     },
     {
-      "path": "infra/hybrid-arc-connectivity/test_connectivity.py",
+      "path": "infra/hybrid-arc-connectivity/Test-Connectivity.ps1",
+      "sourcePath": "infra/hybrid-arc-connectivity/test_connectivity.py",
+      "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "07c7ae1b4f0dde6583324b499671f53198964dda5038cb18fe6ba412b6943cf0",
-      "exportSha256": "07c7ae1b4f0dde6583324b499671f53198964dda5038cb18fe6ba412b6943cf0",
-      "sourceKind": "committed source blob",
+      "exportSha256": "5ae6b632703982e9f7d7f9556783aefac7d66a0cb4856d8d8658e2d2acf211b0",
+      "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
       "originBlob": "6fabaad9f6b0b2dd780d7ff91b4df39c3cfefd90",
-      "packagingChanges": []
+      "packagingChanges": ["Translate all fifteen input/template groups to PowerShell; add fixed UUIDv5 parity vector and preserve rejecting fixtures."]
     },
     {
-      "path": "infra/hybrid-arc-connectivity/validate_inputs.py",
+      "path": "infra/hybrid-arc-connectivity/Test-Inputs.ps1",
+      "sourcePath": "infra/hybrid-arc-connectivity/validate_inputs.py",
+      "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "aaae8bdd481cae2c7ee103eb9f2bd17b9d87b161ca39ef81518a6d79e2d9a32a",
-      "exportSha256": "aaae8bdd481cae2c7ee103eb9f2bd17b9d87b161ca39ef81518a6d79e2d9a32a",
-      "sourceKind": "committed source blob",
+      "exportSha256": "5c564f1fb1d58e016f793956332be6ed0c4c288cd30a8758ac5577c400319300",
+      "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
       "originBlob": "d399b499c0632d46ab2be8b680f276aac7b08666",
-      "packagingChanges": []
+      "packagingChanges": ["Translate literal input gate and ARM UUIDv5 naming to PowerShell built-in APIs; preserve original source identity."]
     },
     {
       "path": "docs/diagrams/nic2026-demo-environment.svg",

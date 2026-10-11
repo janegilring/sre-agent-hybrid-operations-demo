@@ -15,8 +15,8 @@ portable implementation here. A lab success is evidence for that lab only.
 
 | Path | What you need | Honest stopping point |
 | --- | --- | --- |
-| Offline, no Azure | Repository access and Python 3.11+ | Run synthetic replay and tests below. No sign-in, external data, packages, infrastructure or Azure/model cost. |
-| Local component development | Windows, PowerShell 7.4+ and Windows PowerShell 5.1; .NET 10 SDK/cache for MCP | Parse/test JEA; locked restore/test/publish MCP. Tests fake transport and mutations, not a working broker. |
+| Offline, no Azure | Repository access and PowerShell 7.5+ | Run synthetic replay and tests below. No sign-in, external data, packages, infrastructure or Azure/model cost. |
+| Local component development | Windows, PowerShell 7.5+ and Windows PowerShell 5.1; .NET 10 SDK/cache for MCP | Parse/test JEA; locked restore/test/publish MCP. Tests fake transport and mutations, not a working broker. |
 | One real non-Arc Windows guest | Existing AD DS/DNS/DC, one domain-joined broker and one member-server guest; directory, host and PKI owners | Follow [gMSA/guest setup](guest-setup.md) and [compiled service installation](mcp-service-install.md). No LocalBox/cluster/Arc/AMA needed. Real gMSA/JEA/client acceptance remains manual. |
 | Native SRE investigation | Previous path plus your approved SRE agent, Entra application caller/role and private remote-MCP route | Prove supported renewable app-only authentication, route, exact tools and live correlation before calling it connected. No presenter bindings are needed or supplied. |
 | Windows performance/alerts | Existing Azure VM or Arc server IDs, working AMA Heartbeat/Perf, workspace and scoped permissions | Add only the selected monitoring component after collection preflight. Non-Arc JEA reads do not supply AMA data. |
@@ -25,9 +25,9 @@ portable implementation here. A lab success is evidence for that lab only.
 Run from the repository root:
 
 ```powershell
-python -B scripts\replay.py --scenario all
-python -B -m unittest discover -s tests -v
-python -B scripts\validate_package.py
+pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario all
+pwsh -NoProfile -File tests\Test-Replay.ps1
+pwsh -NoProfile -File scripts\Test-Package.ps1
 ```
 
 Replay output is computed from synthetic fixtures and compared with expected
