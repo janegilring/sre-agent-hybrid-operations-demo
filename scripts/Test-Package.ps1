@@ -15,6 +15,16 @@ function Read-PackageText([string]$Path) {
     if ($text.Length -gt 0 -and $text[0] -eq [char]0xfeff) { $text=$text.Substring(1) }
     return $text
 }
+function Test-JsonTruthy($Value) {
+    # Python JSON truthiness counts containers, rather than testing their members.
+    if ($Value -is [Collections.IDictionary] -or $Value -is [array]) { return $Value.Count -gt 0 }
+    return [bool]$Value
+}
+function Test-JsonNumber($Value) {
+    # Python accepts JSON booleans in numeric comparisons (true == 1).
+    return ($Value -is [long] -or $Value -is [int] -or $Value -is [double] -or
+        $Value -is [decimal] -or $Value -is [bigint] -or $Value -is [bool])
+}
 function Test-Package {
     param([string]$Root)
     $Root = [IO.Path]::GetFullPath($Root)
@@ -24,6 +34,17 @@ function Test-Package {
     $names = @((($gitOutput -join "`n") -split "`0") | Where-Object { $_ } | Sort-Object -Unique -CaseSensitive)
     $manifest = ConvertFrom-KitJson (Read-PackageText "$Root\packaging\source-manifest.json")
     $allowlist = ConvertFrom-KitJson (Read-PackageText "$Root\packaging\export-paths.json")
+    if ($manifest -isnot [Collections.IDictionary] -or $manifest['files'] -isnot [array]) { throw 'Invalid source manifest: files must be a JSON array' }
+    if ($allowlist -isnot [array]) { throw 'Invalid export allowlist: expected a JSON array' }
+    foreach ($allowedPath in $allowlist) {
+        if ($allowedPath -isnot [string]) { throw 'Invalid export allowlist path: expected a scalar string' }
+    }
+    foreach ($entry in $manifest.files) {
+        if ($entry -isnot [Collections.IDictionary]) { throw 'Invalid source manifest entry: expected a JSON object' }
+        foreach ($field in @('path','exportSha256','sourceSha256','originCommit','originRepository','originBlob')) {
+            if ($entry[$field] -isnot [string]) { throw "Invalid manifest $field scalar string" }
+        }
+    }
     $manifestPaths = @($manifest.files | ForEach-Object { $_.path })
     if (($allowlist | Sort-Object -CaseSensitive | ConvertTo-Json -Compress) -cne ($manifestPaths | Sort-Object -CaseSensitive | ConvertTo-Json -Compress)) {
         $errors.Add('Source manifest differs from explicit export path allowlist')
@@ -46,10 +67,15 @@ function Test-Package {
         $isDerivative=$derivatives.ContainsKey($name)
         if ($isDerivative) {
             $origin=$derivatives[$name]
-            if ($entry['sourcePath'] -cne $origin[0] -or $entry.sourceSha256 -cne $origin[1] -or
+            if ($entry['sourcePath'] -isnot [string] -or $entry['sourceKind'] -isnot [string] -or
+                $entry['transformation'] -isnot [string] -or $entry['packagingChanges'] -isnot [array] -or
+                $entry['sourcePath'] -cne $origin[0] -or $entry.sourceSha256 -cne $origin[1] -or
                 $entry.sourceKind -cne 'PowerShell tooling derivative of committed source blob' -or
                 $entry['transformation'] -cne 'powershell-tooling-port-v1' -or !$entry.packagingChanges.Count) {
                 $errors.Add("Invalid tooling derivative provenance: $name")
+            }
+            foreach ($change in $entry['packagingChanges']) {
+                if ($change -isnot [string] -or !$change.Length) { $errors.Add("Invalid tooling derivative provenance: $name") }
             }
         } elseif ($entry.sourceSha256 -cne $entry.exportSha256 -and [IO.Path]::GetExtension($name) -cne '.md') {
             $errors.Add("Non-documentation source modification: $name")
@@ -113,12 +139,16 @@ function Test-Package {
         }
         if ($extension -ceq '.excalidraw') {
             $diagram=ConvertFrom-KitJson $text
-            $assets=$diagram['files']
-            $hasAssets=if ($assets -is [Collections.IDictionary] -or $assets -is [array]) { $assets.Count -gt 0 } else { [bool]$assets }
-            if ($diagram.type -cne 'excalidraw' -or $hasAssets) { $errors.Add("Unexpected diagram format or embedded assets: $name") }
+            if ($diagram -isnot [Collections.IDictionary]) { throw "Unexpected diagram format: $name must be a JSON object" }
+            if ($diagram['type'] -isnot [string] -or $diagram['type'] -cne 'excalidraw' -or
+                (Test-JsonTruthy $diagram['files'])) { $errors.Add("Unexpected diagram format or embedded assets: $name") }
+            if ($diagram['elements'] -isnot [array]) { throw "Unexpected diagram elements: $name must contain a JSON array" }
             foreach ($element in $diagram.elements) {
-                if ($element['link']) { $errors.Add("Unexpected diagram link: $name") }
-                if ($element['type'] -ceq 'text' -and ($element['width'] -le 0 -or $element['height'] -le 0)) { $errors.Add("Invisible diagram text: $name") }
+                if ($element -isnot [Collections.IDictionary]) { throw "Unexpected diagram element: $name must contain JSON objects" }
+                if (Test-JsonTruthy $element['link']) { $errors.Add("Unexpected diagram link: $name") }
+                if ($element['type'] -is [string] -and $element['type'] -ceq 'text' -and
+                    (!(Test-JsonNumber $element['width']) -or !(Test-JsonNumber $element['height']) -or
+                    $element['width'] -le 0 -or $element['height'] -le 0)) { $errors.Add("Invisible diagram text: $name") }
             }
         }
         $privateBinding = $text -cmatch '-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'

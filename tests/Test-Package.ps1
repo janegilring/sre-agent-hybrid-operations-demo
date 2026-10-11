@@ -2,7 +2,7 @@
 . "$PSScriptRoot\..\scripts\TestSupport.ps1"
 . "$PSScriptRoot\..\scripts\Test-Package.ps1"
 $validatorPath = [IO.Path]::GetFullPath("$PSScriptRoot\..\scripts\Test-Package.ps1")
-$scratch = Join-Path ([IO.Path]::GetTempPath()) "package-contract-$([guid]::NewGuid())"
+$scratch = Join-Path (Split-Path $PSScriptRoot) ".package-contract-$([guid]::NewGuid())"
 $null = New-Item -ItemType Directory -Path "$scratch\packaging" -Force
 $script:checks = 0
 function Write-Fixture([string]$Name, [string]$Text) {
@@ -29,6 +29,11 @@ function Reject([scriptblock]$Change,[string]$Pattern,[scriptblock]$Reset) {
         Assert-Rejected { Test-Package $scratch } $Pattern
         $script:checks++
     } finally { & $Reset }
+}
+function Reject-Cli([string]$Pattern) {
+    $output=& pwsh -NoProfile -File $validatorPath -Root $scratch 2>&1
+    Assert-That ($LASTEXITCODE -ne 0 -and "$output" -match $Pattern) "CLI must reject fixture with diagnostic: $Pattern"
+    $script:checks++
 }
 try {
     & git -C $scratch init --quiet
@@ -73,6 +78,50 @@ try {
     )) {
         Reject { Write-Fixture 'test.excalidraw' (ConvertTo-Json $diagram -Depth 10) } 'diagram format|diagram link|Invisible diagram text' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
     }
+    foreach ($value in @('[]','["excalidraw"]','[false]','false','true','0','1','{}','{"bad":1}','null')) {
+        Reject { Write-Fixture 'test.excalidraw' "{`"type`":$value,`"elements`":[]}" } 'diagram format:|diagram format or' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+    }
+    foreach ($value in @('{}','{"bad":1}','""','"text"','false','true','0','1','null')) {
+        Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":$value}" } 'diagram elements: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+    }
+    foreach ($value in @('[]','"text"','false','0','null')) {
+        Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":[$value]}" } 'diagram element: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+        Reject { Write-Fixture 'test.excalidraw' $value } 'diagram format: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+    }
+    foreach ($value in @('[false]','[0]','[""]','[null]','[[]]','{"bad":false}','true','1')) {
+        Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":[{`"link`":$value}]}" } 'diagram link: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+        Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"files`":$value,`"elements`":[]}" } 'diagram format or embedded assets: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+    }
+    foreach ($field in @('width','height')) {
+        foreach ($value in @('"1"','""','[]','[1]','[false]','{}','{"bad":1}','null','false','0','-1')) {
+            Reject {
+                $diagram=ConvertFrom-KitJson '{"type":"excalidraw","elements":[{"type":"text","width":1,"height":1}]}'
+                $diagram.elements[0][$field]=ConvertFrom-KitJson $value
+                Write-Fixture 'test.excalidraw' (ConvertTo-Json $diagram -Depth 20)
+            } 'Invisible diagram text: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+        }
+    }
+    # Preserve Python's falsey JSON values and numeric booleans, not PowerShell coercion.
+    foreach ($value in @('null','false','0','""','[]','{}')) {
+        Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"files`":$value,`"elements`":[{`"type`":`"text`",`"link`":$value,`"width`":true,`"height`":1.5}]}"
+        $null=Test-Package $scratch
+    }
+    foreach ($value in @('["text"]','[]','false','1','{}','null')) {
+        Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":[{`"type`":$value}]}"
+        $null=Test-Package $scratch
+    }
+    Remove-Item -LiteralPath "$scratch\test.excalidraw"
+    foreach ($value in @('{}','{"bad":1}','false','0','""','null')) {
+        Reject { Write-Fixture 'packaging\source-manifest.json' "{`"files`":$value}" } 'Invalid source manifest: files' { Write-Manifest }
+        Reject { Write-Fixture 'packaging\export-paths.json' $value } 'Invalid export allowlist:' { Write-Manifest }
+    }
+    foreach ($value in @('[]','false','0','""','null')) {
+        Reject { Write-Fixture 'packaging\source-manifest.json' $value } 'Invalid source manifest:' { Write-Manifest }
+        Reject { Write-Fixture 'packaging\source-manifest.json' "{`"files`":[$value]}" } 'Invalid source manifest entry:' { Write-Manifest }
+    }
+    foreach ($value in @('[]','["path"]','false','0','{}','null')) {
+        Reject { Write-Fixture 'packaging\export-paths.json' "[$value]" } 'Invalid export allowlist path:' { Write-Manifest }
+    }
     $name='tools/hybrid-server/fixture.ps1'
     Write-Fixture $name "'safe'"
     $entry=New-Entry $name; Write-Manifest @($entry)
@@ -80,6 +129,32 @@ try {
     Reject { Write-Fixture $name "'changed'" } 'Export hash mismatch' { Write-Fixture $name "'safe'" }
     Reject { $e=Copy-JsonValue $entry; $e.sourceSha256='b'*64; Write-Manifest @($e) } 'Non-documentation source modification' { Write-Manifest @($entry) }
     Reject { $e=Copy-JsonValue $entry; $e.originCommit='b'*40; Write-Manifest @($e) } 'Unexpected approved source revision' { Write-Manifest @($entry) }
+    foreach ($field in @('path','exportSha256','sourceSha256','originCommit','originRepository','originBlob')) {
+        $validValue=ConvertTo-Json -InputObject $entry[$field] -Compress
+        foreach ($value in @('[]',"[$validValue]","[[$validValue]]",'[false]','false','true','0','1','{}','{"bad":1}','null')) {
+            Reject {
+                $e=Copy-JsonValue $entry; $e[$field]=ConvertFrom-KitJson $value; Write-Manifest @($e)
+                if ($field -ceq 'path') { Write-Fixture 'packaging\export-paths.json' (ConvertTo-Json -InputObject @($entry.path)) }
+            } "Invalid manifest $field scalar string" { Write-Manifest @($entry) }
+        }
+    }
+    foreach ($field in @('originCommit','sourceSha256')) {
+        Reject {
+            $e=Copy-JsonValue $entry; $e[$field]=@(); Write-Manifest @($e)
+            Reject-Cli "Invalid manifest $field scalar string"
+        } "Invalid manifest $field scalar string" { Write-Manifest @($entry) }
+    }
+    foreach ($diagram in @(
+        '{"type":["excalidraw"],"elements":[]}',
+        '{"type":"excalidraw","elements":[{"link":[false]}]}',
+        '{"type":"excalidraw","elements":[{"type":"text","width":"1","height":1}]}',
+        '{"type":"excalidraw","elements":{"bad":1}}'
+    )) {
+        Reject {
+            Write-Fixture 'test.excalidraw' $diagram
+            Reject-Cli 'diagram format|diagram link|Invisible diagram text|diagram elements'
+        } 'diagram format|diagram link|Invisible diagram text|diagram elements' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
+    }
     Reject { $e=Copy-JsonValue $entry; $e.transformation='powershell-tooling-port-v1'; Write-Manifest @($e) } 'Unapproved derivative metadata' { Write-Manifest @($entry) }
     Reject { Write-Fixture 'packaging\export-paths.json' '[]' } 'differs from explicit export' { Write-Manifest @($entry) }
     Reject { Write-Manifest @($entry,$entry) } 'Duplicate manifest path' { Write-Manifest @($entry) }
@@ -99,6 +174,19 @@ try {
     $null=Test-Package $scratch
     foreach ($field in @('sourcePath','sourceSha256','sourceKind','transformation')) {
         Reject { $e=Copy-JsonValue $derived; $e[$field]='invalid'; Write-Manifest @($entry,$e) } 'derivative provenance' { Write-Manifest @($entry,$derived) }
+    }
+    foreach ($field in @('sourcePath','sourceKind','transformation')) {
+        $validValue=ConvertTo-Json -InputObject $derived[$field] -Compress
+        foreach ($value in @('[]',"[$validValue]",'[false]','false','true','0','1','{}','{"bad":1}','null')) {
+            Reject {
+                $e=Copy-JsonValue $derived; $e[$field]=ConvertFrom-KitJson $value; Write-Manifest @($entry,$e)
+            } 'derivative provenance' { Write-Manifest @($entry,$derived) }
+        }
+    }
+    foreach ($value in @('[]','""','"change"','false','true','0','1','{}','{"bad":1}','null','[false]','[0]','[null]','[{}]','[[]]','[""]')) {
+        Reject {
+            $e=Copy-JsonValue $derived; $e.packagingChanges=ConvertFrom-KitJson $value; Write-Manifest @($entry,$e)
+        } 'derivative provenance' { Write-Manifest @($entry,$derived) }
     }
     # Exercise hostname hashing with a synthetic digest in a disposable validator.
     $copy=(Get-Content $validatorPath -Raw).Replace('05fab6290805cb457e0cbeaa88c01755596b48cb80b0ee8afdf2e41145fc9aba',(Get-TextHash 'blocked.example.test'))
