@@ -41,7 +41,7 @@ explicit PowerShell derivatives, and the SRE regression runner has a narrow
 invocation adaptation. Their original commit/blob/source hashes are retained
 with original source paths and individually allowlisted transformation metadata.
 Four component README export hashes reflect the new commands.
-All other exported bytes, including the retained SDK test, C#/JEA/ARM components
+All other exported bytes, including the retained SDK test and C#/JEA/ARM components,
 remain unchanged from the preceding attendee snapshot. The skill was unchanged
 by the tooling migration and subsequently refreshed as described above.
 
@@ -213,6 +213,13 @@ contracts and **210 MCP tests** passed. The 16 onboarding PowerShell blocks,
 source/skill contracts and five skill mutations still passed on both Windows
 PowerShell 5.1 and PowerShell 7.6. The new tooling requires 7.5+ and is not claimed
 to execute on 5.1. No Azure, AD, service or live endpoint operation was performed.
+
+A fresh local clone of `9c07da8` repeated the complete translated suite and
+attendee SRE regression with Python absent from PATH, then separately passed
+the mandatory real-SDK gate and both PowerShell versions' onboarding/skill
+contracts. It remained clean and was removed after validation. The Arc input
+CLI also accepted a Bicep `build-params --outfile` ARM-parameters file and
+returned the expected UUIDv5 name; Bicep's `--stdout` envelope is not that file.
 
 ## Earlier attendee onboarding verification - 2026-10-11
 
