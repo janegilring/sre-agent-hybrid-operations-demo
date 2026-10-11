@@ -189,7 +189,47 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## PowerShell-first verification - 2026-10-11
+## Corrected PowerShell package acceptance - 2026-10-11
+
+Independent parity review rejected the initial package validator despite its
+38 passing mutations: arrays bypassed scalar provenance comparisons, and
+diagram type/link/dimension/elements shapes differed from the previous Python
+validator. Independent author commit `14ed818` corrected those cases and added
+targeted mutations. Re-review then found a dictionary key named `Count` could
+shadow actual collection cardinality. Coordinator-authored `7b2ceea` corrected
+that additional defect and added adversarial object/key and CLI regressions.
+The coordinator verified the latest correction; **the independent Fact Checker
+reviewed `14ed818`, not `7b2ceea`**. No final independent-review approval is
+implied. The original author did not edit either rejected code artifact.
+
+A fresh local clone of **`7b2ceea9c3511b05dd2d4ca47719e01767b30d4c`**
+passed the package baseline (**126 files / 93 source hashes**), **279 rejecting
+package mutations**, replay contracts, Arc inputs/template tests, nine
+monitoring and eleven service-event contract groups, and attendee SRE regression
+with `python`, `python3` and `py` absent from PATH. Restoring the ordinary PATH,
+the separate mandatory maintainer SDK run passed **12 production argument
+sets**, actual installed CLI validation and genuine two-page SDK iteration;
+34 subnet cases and mocked cleanup also passed. SRE template/contracts and
+onboarding/skill checks passed, including all 16 documentation blocks, six exact
+skill references and 13 negative skill mutations on both PowerShell 5.1 and 7.6.
+The clone remained clean and was removed after validation.
+
+Corrected artifact SHA-256 values:
+
+- `scripts/Test-Package.ps1`:
+  `ac4d7e5c2f6461b9f962aa6898117ceda6179947c6117904ce15762c5bdd3ec2`
+- `tests/Test-Package.ps1`:
+  `2b69fffb460622dfe945c80b21ad87904032787d4a6754d35955782cefd74799`
+
+These are offline correctness/contract results, not general security
+certification or live attendee deployment acceptance. The maintainer-only
+Python SDK exception remains intentional and required.
+
+## Initial PowerShell-first verification - 2026-10-11
+
+The initial passing runs below were subsequently found insufficient by the
+parity review above. They are historical execution evidence, not approval of
+the superseded package validator.
 
 The tooling-migration snapshot `249c77c` contains **126 files / 93 source-hash entries**. All 93
 original commit/blob/source-hash identities were compared with `3841e9f` and
