@@ -252,12 +252,6 @@ The separate [Spooler Start-only source](../tools/hybrid-service-recovery/README
 is a distinct capability and authorization decision. Never add it merely to
 make a read-only demo pass.
 
-All source, projects, lockfiles, module manifests, role capability, installer/
-remover ownership helpers and offline tests are included through the explicit
-export allowlist. Lab-specific deployment/credential/certificate scripts are
-deliberately excluded. This guide and the service installation guide are
-original portable kit documentation, not exported operator scripts.
-
 ## First-party references
 
 Reviewed October 11, 2026; documentation is not live acceptance:

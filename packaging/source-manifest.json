@@ -76,12 +76,15 @@
     {
       "path": "infra/hybrid-monitoring/README.md",
       "sourceSha256": "ee4cfefb995b842d569805e80258ac33b59bf911e06bc64d877b56f71d93ce01",
-      "exportSha256": "bdebc37fd3ebec311c6aa1faab03735bcf277c1cd0fbe92e8cb67d742eddaeec",
+      "exportSha256": "6fff0c9ccaafa8307b318f7ab77d238d83a1da5d5580a83e4ba35a9af3177e47",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "1ceb2a76fd9efbf0bf736da10d665488f331afb6",
       "originBlob": "f26318f5aaa9830345732874f3693ff95ddfe9bc",
-      "packagingChanges": ["README only: invoke translated PowerShell reference-model tests."]
+      "packagingChanges": [
+        "README only: invoke translated PowerShell reference-model tests.",
+        "README only: replace authoring/debugging history with query troubleshooting and links to the separate Arc and service-event components."
+      ]
     },
     {
       "path": "infra/hybrid-monitoring/targets.example.json",
@@ -228,13 +231,14 @@
     {
       "path": "infra/hybrid-monitoring-collection/README.md",
       "sourceSha256": "0e0a7d1abb5acb75ce8e780f1c8c16830aff5cbcd737d7daf4e049b58a41e75b",
-      "exportSha256": "cfa018bb14bfe03f2ebf41c1623197753fb80b2c3990a6bf238ee2a29db7c853",
+      "exportSha256": "8bcd6c42bc0bc45d0d1a3a9bea50160f5ca2898b07edb95470c7b3ceef5a46ad",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "15512340e82a051b2564571e547b833faeb72f86",
       "packagingChanges": [
-        "README only: generic attendee wording, private receipt path removal, short-checkout guidance or explicit legacy-reconciliation HELD status."
+        "README only: generic attendee wording, private receipt path removal, short-checkout guidance or explicit legacy-reconciliation HELD status.",
+        "README only: replace source-environment reconciliation status with general original-snapshot requirements; preserve all ownership and cleanup gates."
       ]
     },
     {
@@ -486,14 +490,15 @@
     {
       "path": "tools/hybrid-server/README.md",
       "sourceSha256": "95ae81c75417a0706417273a32237139204d3e269e72c7d677b1fba3a94b77ba",
-      "exportSha256": "5ae3a28fd77749a7f5076cfba6e943cc774cc39c60f1d27ae7da0628c1882cf2",
+      "exportSha256": "2d24eaf0da18120dfc7101e4803ab0a92a65b2061de0e198cb46a56bd13e4939",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "9eb5ddfd2fd1058185e2387afdb54d0379c479a3",
       "originBlob": "143d1f7c6f20b0c649389ef8113eb155d16d889e",
       "packagingChanges": [
         "Removed source-environment acceptance and private receipt link; generalized domain-host setup sentence.",
-        "Linked original attendee gMSA/service installation guides and clarified noninteractive gMSA acceptance."
+        "Linked original attendee gMSA/service installation guides and clarified noninteractive gMSA acceptance.",
+        "README only: generalize existing-host guidance and remove authoring-increment status; preserve setup, provider and live verification requirements."
       ]
     },
     {
@@ -599,13 +604,14 @@
     {
       "path": "tools/private-mcp/README.md",
       "sourceSha256": "1060e817d7ed1ea010f4e77e45cf4055a76ce14a5970fc978355e9e6cad01b27",
-      "exportSha256": "9e37ae6c76d3e441879e0195dd966e132ace6a0032694661902eb8d0f129125d",
+      "exportSha256": "854810f8407cadbc256bcb43ce3f5109ec9439c5b3fe21e3a346f3957eeaa5fc",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "9eb5ddfd2fd1058185e2387afdb54d0379c479a3",
       "originBlob": "71b55676867e4222cc52ef9ce41cdf4d0bbcd06b",
       "packagingChanges": [
-        "Documented explicit framework-dependent win-x64 publish and linked original attendee installation/identity runbooks."
+        "Documented explicit framework-dependent win-x64 publish and linked original attendee installation/identity runbooks.",
+        "README only: remove export-review process instructions; retain private configuration/data handling and compatibility guidance."
       ]
     },
     {
@@ -831,12 +837,14 @@
     {
       "path": "tools/hybrid-service-recovery/README.md",
       "sourceSha256": "83fcf2253ddc604f0322e73d081c05e80973ffe8f14a495f950171242d0dfbda",
-      "exportSha256": "83fcf2253ddc604f0322e73d081c05e80973ffe8f14a495f950171242d0dfbda",
+      "exportSha256": "ab6c43845aa4e8693a98c8da79fa28fa54b3eba9566f5a3f56665ee851e4c55b",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c086d8d38f1a2d2db9242889ec715dad704749c2",
       "originBlob": "613f9f75bbdf8c87f1617337744411de45362e13",
-      "packagingChanges": []
+      "packagingChanges": [
+        "README only: remove dated test-run receipt and implementation chronology; retain offline commands, test coverage, live limitations and first-party citations."
+      ]
     },
     {
       "path": "tools/hybrid-service-recovery/Remove-HybridSpoolerRecovery.ps1",
@@ -871,12 +879,15 @@
     {
       "path": "infra/hybrid-arc-connectivity/README.md",
       "sourceSha256": "e1f3bba6defc4b37b41f4ce3ab308ab23e32237e251b2a980b334263d9f916e5",
-      "exportSha256": "867bc8ca0bc215766bf307df972d2639df89e88bfbe02c801bdb152f54b320cf",
+      "exportSha256": "45d6a7b21cd6c47cac421d687a1c96089d7a31ea7d17df7f6423b60ee7eca008",
       "sourceKind": "committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
       "originBlob": "7fabd070bdcb8d98fc4d539a298d39f71d43d7da",
-      "packagingChanges": ["README only: invoke translated PowerShell tests and literal input validator."]
+      "packagingChanges": [
+        "README only: invoke translated PowerShell tests and literal input validator.",
+        "README only: remove failed-candidate chronology and coordinator references; preserve exact per-machine scope, footprint, provider verification and live approval gates."
+      ]
     },
     {
       "path": "infra/hybrid-arc-connectivity/main.bicep",

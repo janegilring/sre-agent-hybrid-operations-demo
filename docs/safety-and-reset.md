@@ -4,7 +4,7 @@ Reviewed 2026-10-01. This is a checklist, not a destructive script.
 
 ## Included component cleanup
 
-For the newly documented manual broker installation, use [SCM/artifact/key-ACE
+For the manual broker installation, use [SCM/artifact/key-ACE
 cleanup](mcp-service-install.md#rollback-and-uninstall), then [guest/gMSA teardown](guest-setup.md#scoped-teardown).
 No script owns the forest-wide KDS key or shared GPO/certificate infrastructure.
 For optional native content, remove only your [skill](custom-skill.md) or
@@ -20,9 +20,8 @@ pre-existing resources, roll back separately owned provider ACLs or clean an
 entire LocalBox deployment. Keep private receipts until cleanup is verified.
 
 For [disk collection](../infra/hybrid-monitoring-collection/README.md), cleanup
-requires exact resource sets and original configuration fingerprints. Legacy
-receipt reconciliation concluded HELD after original snapshots were overwritten.
-No resource cleanup was performed or is authorized without fresh owner review;
+requires exact resource sets and original configuration fingerprints. If
+original snapshots are missing or overwritten, stop for ownership review;
 never construct ownership from current GET responses.
 For [Spooler recovery](../tools/hybrid-service-recovery/README.md), cleanup must
 verify the owned group, registration, unchanged files and exact service DACL ACE.
@@ -37,7 +36,6 @@ The [Arc-connectivity component](../infra/hybrid-arc-connectivity/README.md#manu
 has no automatic apply or cleanup. Four selected machines have four separately
 owned rules; retain each original full GET and compare configuration before any
 separately approved rollback. Do not reuse other components' cleanup scripts.
-No live action is authorized by this final packaging closeout.
 
 ## Offline reset
 

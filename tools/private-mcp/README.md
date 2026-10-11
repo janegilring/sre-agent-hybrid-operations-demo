@@ -2,8 +2,8 @@
 
 One boundary implementation supports ordinary Windows servers without LocalBox.
 The full `src` directory is required; retain the existing node readers and their
-module/credential paths for LocalBox compatibility. No separate MCP fork or
-operator deployment scripts are required in a source export.
+module/credential paths for LocalBox compatibility. Use the installation guide
+below to configure a dedicated Windows host.
 
 ## Build and test
 
@@ -97,15 +97,9 @@ Configuration is loaded once from the executable directory, not environment
 variables or command-line overrides. Plan a separately approved upgrade and
 restart only after reviewing the private migration and negative tests.
 
-## Export review gate
+## Keep configuration and operational data private
 
-Export candidates are this README, `src` (excluding `bin`/`obj`), the C# test
-files and test project, project lockfiles and the two documentation-only JSON
-examples. Include the separately reviewed hybrid-server dependency only
-when selecting that component. Exclude `*.local.json`, binaries, `bin`, `obj`,
-`TestResults`, publish output, archives, private receipts, raw logs and all
-private-mcp operator `.ps1`/inventory scripts (including their dependent
-PowerShell/Python tests). Retained LocalBox identifiers,
-app role and module paths are compatibility contracts, not ordinary-server
-deployment bindings. Re-scan the final candidate and obtain review approval
-before packaging or publishing; this change performs neither.
+Do not commit `*.local.json`, binaries, build/test output, archives, private
+receipts or raw logs. Share synthetic examples instead. LocalBox identifiers,
+the app role and module paths are compatibility contracts, not values to use
+as another environment's deployment bindings.

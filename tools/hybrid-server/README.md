@@ -123,8 +123,8 @@ covers publishing and Windows service registration; neither is done by this inst
 5. On the approved **domain-joined MCP host** merge the dummy `Servers` array from
    `..\private-mcp\servers.example.json` into the protected `boundary.local.json`,
    substituting independently approved values. Run that service under its
-   approved nonadmin domain runtime identity. Do not switch the shared WORKGROUP
-   LocalBox-Client service identity, reuse node credentials or widen node access;
+   approved nonadmin domain runtime identity. Do not switch an existing WORKGROUP
+   service identity, reuse node credentials or widen node access;
    use a separate domain-joined service host when the existing host is WORKGROUP.
 
    Set explicit listener/source policy and `HostTarget` as documented by the
@@ -207,7 +207,7 @@ memberships/grants or restart WinRM. Schedule restart separately.
 Live acceptance still requires installed-guest JEA discovery, effective token
 inspection, all required provider reads, denied commands, timeouts/cancellation,
 native agent correlation, teardown and revalidation of unchanged LocalBox
-denials. No live calls or installations were made in this increment.
+denials where node capabilities are in use.
 
 References: [JEA session configuration](https://learn.microsoft.com/powershell/scripting/security/remoting/jea/session-configurations),
 [JEA security considerations](https://learn.microsoft.com/powershell/scripting/security/remoting/jea/security-considerations),

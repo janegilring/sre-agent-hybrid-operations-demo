@@ -7,18 +7,10 @@ and **attaches no tools**. It has no subscription, server, connector or report
 bindings. No Azure Local cluster is needed to test it against hypothetical
 supplied evidence.
 
-## Provenance and boundaries
+## Boundaries
 
-This owner-authored file comes from the reviewed committed source
-`05304111ec9eb6c237156f68d4a915ae7f99fed8`, path
-`skills/azure-local-operations-triage/SKILL.md` in the private companion
-`janegilring/session-azure-sre-agent` repository. The source blob and
-source/export hashes are recorded in the [source manifest](../packaging/source-manifest.json).
-Only documentation line endings are normalized in this kit. The companion
-README contains environment-specific receipts and **is not exported**.
-
-Import only this file, not the repository, expected answers, facilitator notes,
-operational results or source-lab histories. The skill's constraints are
+Import only this file, not the repository, expected answers or operational
+results. The skill's constraints are
 instructions, not an authorization boundary: actual tool exposure, caller
 permissions and human approval must remain independently enforced.
 
@@ -28,8 +20,8 @@ for applicable TSGs and known issues. Community reports are not confirmed causes
 match the exact symptoms/error, affected/fixed solution releases, deployment
 model and OEM baseline. Cite the retrieved guide/issue URL and retrieval date,
 preserve conflicts and mark unavailable sources **UNVERIFIED**. A repository
-workaround is evidence, not approval to execute it. The source lab's saved
-skill/readback is not attendee runtime acceptance.
+workaround is evidence, not approval to execute it. Verify the saved skill and
+its activation in your own agent.
 
 ## Additive manual import and exact readback
 

@@ -111,19 +111,12 @@ tabular expression after the `let` declarations; declarations alone do not
 return a table.
 
 Log Analytics uses blank lines to separate the current query when running
-without an explicit selection. Earlier versions of this module inserted a
-blank line between the inventory declarations and the signal query. Thus,
-the full query can succeed through the API while running only the first
-editor block produces **“No tabular expression statement found”**. The
-generator now trims both file boundaries before joining with one newline.
-This is an editor-compatibility fix, not evidence of operator error.
-
-The full-query API success and the let-only error were independently reproduced;
-the user's exact browser selection was not observed. If selecting everything
-still fails, retain the complete submitted text and error/correlation ID rather
-than assuming the same cause. Existing deployed rules are **not** changed by
-this source fix: use Ctrl+A immediately, and obtain separate approval for any
-live query-only update. Full-query execution does not prove alert firing,
+without an explicit selection. Running only a block of `let` declarations can
+produce **“No tabular expression statement found”** even when the complete query
+is valid. The generator trims file boundaries before joining with one newline.
+If selecting everything still fails, retain the complete submitted text and
+error/correlation ID for diagnosis. Obtain separate approval for any live
+query update. Full-query execution does not prove alert firing,
 incident routing, Teams delivery, or overall host health.
 
 See [Microsoft's Log Analytics tutorial](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-tutorial#visualize-query-results-as-charts)
@@ -217,19 +210,16 @@ before retrying. Never infer ownership from names alone.
 
 ## Explicit gaps and native SRE handoff
 
-- **Arc connection-status alert not implemented.** ARM
-  `Microsoft.HybridCompute/machines.properties.status`/Arc site connectivity
-  views expose connection state, but this is not the AMA Heartbeat table.
-  The reviewed site-monitoring guidance says sites surface alerts on underlying
-  resources, not a site-wide connectivity alert. No verified machine-specific
-  Resource Health/metric alert contract was established for this increment.
-  A generic Resource Health guide or Resource Bridge support is not evidence
-  of Arc machine support. Do not paste an ARG `Resources` query into these log
-  rules or claim a disconnected rule was delivered.
-- **Service-state alert not implemented or deployed.** AMA does not provide
+- **Arc connection-status alert is separate.** Use the
+  [per-machine Arc transition component](../hybrid-arc-connectivity/README.md)
+  for Available -> Unavailable events. ARM connection state is not the AMA
+  Heartbeat table. Do not paste an ARG `Resources` query into these log rules.
+- **Current service-state alert is not implemented.** AMA does not provide
   Spooler state by default. A reviewed collector/schema must report explicit
   state, resource, observation time and missing-data coverage. Recovery needs
-  a fresh positive `Running` observation, not a stop event aging out.
+  a fresh positive `Running` observation, not a stop event aging out. The
+  [service-event starter](../hybrid-service-monitoring/README.md) observes a
+  historical transition, not current state.
 - **Native incident routing is separate.** Retain existing managed-resource
   scope and Teams connector. Add only owner-approved alert/target scope,
   configure native Azure Monitor response-plan matching against the **actual

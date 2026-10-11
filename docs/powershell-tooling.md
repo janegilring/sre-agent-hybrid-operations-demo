@@ -1,7 +1,7 @@
 # PowerShell-first tooling and maintainer exception
 
 Attendees need **PowerShell 7.5 or later** (`pwsh`) for the synthetic replay,
-package validator and translated component tests. These use built-in PowerShell
+package validator and component tests. These use built-in PowerShell
 and .NET APIs, with no modules to install. JSON is deliberately read with
 `-DateKind String` so UTC evidence timestamps are validated as supplied rather
 than silently converted to local times; this requires 7.5
@@ -11,15 +11,15 @@ JSON parser. See the
 [official Windows installation guide](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-windows).
 
 Windows PowerShell 5.1 remains supported for the existing JEA/recovery guest
-scripts and `Test-AttendeeDocs.ps1`, not the new tooling. PowerShell 7 and Windows
+scripts and `Test-AttendeeDocs.ps1`, not the PowerShell 7.5 tooling. PowerShell 7 and Windows
 PowerShell install side by side; do not change the JEA endpoint host to run
 these tests. Azure CLI/Bicep and the .NET 10 SDK remain component-specific
 prerequisites. Azure CLI may bundle its own Python runtime; attendees do not
 install, configure or invoke Python separately.
 
-## Replacements
+## Tool entry points
 
-| Previous tool | PowerShell entry point | Preserved contract |
+| Purpose | PowerShell entry point | Contract |
 | --- | --- | --- |
 | Synthetic replay | `scripts\Invoke-Replay.ps1 -Scenario all` | Exact synthetic scope, timestamps, counts, evidence gaps and output shape |
 | Replay tests | `tests\Test-Replay.ps1` | Fixture answers, independent computation, freshness bounds, null/partial data, rejecting mutations and CLI failure |
@@ -41,7 +41,7 @@ temporary Git repository; it never edits a real package to inject faults.
 It tests the installed Azure CLI's actual Python role-list validator and genuine
 SDK `ItemPaged` behavior over two mocked pages, including inherited/foreign
 scope rejection and the final page. A PowerShell model cannot substitute for
-this guarantee. The user explicitly retained it for maintainers.
+this guarantee.
 
 Before merging or publishing any tooling change, run:
 
@@ -61,18 +61,49 @@ The default attendee run prints **NOT RUN** for SDK acceptance and still runs
 the PowerShell subnet, ownership, cleanup and command-argument checks.
 There is currently no checked-in CI workflow. Any future CI must run the
 maintainer command above, in addition to the
-[offline validation commands](publication-review.md#reproduce-local-validation);
+[offline validation commands](#local-validation);
 an attendee-only green run is not the maintainer gate.
 
-## Derivative provenance
+## Local validation
 
-The four translated exported tools and the narrowly adapted SRE regression
-runner are identified individually in `packaging\source-manifest.json`.
-Each retains the original source commit/blob/hash, records the original
-`sourcePath`, and declares `powershell-tooling-port-v1` with an updated export
-hash. The package validator permits these exact path/source-hash pairs only;
-this is not a general permission to modify executable exports.
-Deployed C#/JEA/ARM component source is unchanged. A separately authorized
-[neutral skill reference refresh](custom-skill.md) updates only that item's
-source pin and coupled documentation checks.
-Older validation records describe the implementations tested at that time.
+Run the package, link and documentation checks from the repository root:
+
+```powershell
+pwsh -NoProfile -File scripts\Test-Package.ps1
+pwsh -NoProfile -File tests\Test-Package.ps1
+pwsh -NoProfile -File scripts\Test-AttendeeDocs.ps1
+powershell.exe -NoProfile -File scripts\Test-AttendeeDocs.ps1
+pwsh -NoProfile -File tests\Test-Replay.ps1
+```
+
+The documentation check parses command blocks without executing installation
+commands. It checks source interfaces and the neutral skill's boundaries.
+The package check verifies relative Markdown file links, the exact export
+allowlist and hashes; it does not check external website availability.
+
+For changes to a component, also run its own offline checks:
+
+| Component | Instructions |
+| --- | --- |
+| SRE starter | [Contracts and regression, including the maintainer SDK gate](../infra/sre-agent-starter/README.md#iac-interface-powershell-72-installed-bicep-and-azure-cli) |
+| Monitoring baseline | [Query, script and template tests](../infra/hybrid-monitoring/README.md#tests) |
+| Arc connectivity | [Bicep and input/transition checks](../infra/hybrid-arc-connectivity/README.md#prepare-and-test-no-deployment) |
+| Disk collection | [Collection tests](../infra/hybrid-monitoring-collection/README.md) |
+| Service-event monitoring | [Bicep and event-contract checks](../infra/hybrid-service-monitoring/README.md#ownership-cleanup-and-offline-checks) |
+| Windows JEA | [Offline checks](../tools/hybrid-server/README.md#offline-validation-and-teardown); also run `Test-OwnershipOffline.ps1` with both Windows PowerShell 5.1 and PowerShell 7 |
+| Spooler recovery | [Runtime and installer checks on both PowerShell hosts](../tools/hybrid-service-recovery/README.md#offline-validation) |
+| Private MCP | [Locked restore, tests, build and publish](../tools/private-mcp/README.md#build-and-test) |
+
+After publishing MCP, optionally pass
+`-PublishDirectory tools\private-mcp\src\bin\publish\win-x64` to
+`scripts\Test-AttendeeDocs.ps1` on either supported host to check the
+framework-dependent Windows x64 artifact shape. This does not start the broker.
+
+## Export integrity
+
+[source-manifest.json](../packaging/source-manifest.json) records original
+source commits/blobs/hashes, export hashes and documented transformations.
+[export-paths.json](../packaging/export-paths.json) is the exact component
+allowlist. A documentation adaptation must retain its original source identity
+and record its changes and new export hash. The validator permits only the
+listed executable tooling derivatives; do not relax it to admit other changes.

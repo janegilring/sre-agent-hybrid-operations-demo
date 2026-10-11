@@ -2,15 +2,15 @@
 
 Never submit secrets, operational bindings, private addresses, actual environment
 paths, raw logs, support bundles, internal URLs or personal data in this repository.
-Use synthetic fixtures when reporting issues. Repository privacy is not a reason
-to relax the content boundary.
+Use synthetic fixtures when reporting issues.
 
 Report suspected sensitive disclosure through the owner's established private
 security channel or GitHub private vulnerability reporting if enabled; this file
 does not claim that reporting is configured. Stop distribution pending review.
 Credential revocation/incident response is separate from removing Git content.
 
-No script here performs Azure actions or repairs. Do not add a broad executor,
+Deployment, cleanup and the optional fixed Spooler start can change live systems;
+follow each component's scope and approval requirements. Do not add a broad executor,
 fault injector or cleanup command without explicit scope/approval, exact target
-guards, reversible behavior and tests. Do not expose presenter fixtures/answers
+guards, reversible behavior and tests. Do not expose exercise fixtures/answers
 to the investigating agent through knowledge or broadly authorized GitHub tools.

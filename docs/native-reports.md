@@ -3,8 +3,7 @@
 **A native recreation guide, not an imported production dashboard.** Replace
 angle-bracket placeholders with your reviewed scope before authoring anything.
 Report creation does not create a connector, grant access or install collection.
-The source environment's report IDs, workspace IDs, tool bindings and volume
-GUIDs are deliberately not distributed.
+Use your own report names, workspace IDs, tool bindings and volume GUIDs.
 
 ## Prepare a source contract
 
@@ -115,7 +114,7 @@ After the one run, open **execution history** and its actual conversation:
 confirm the target/tool/UTC coverage and absence of writes/messages. Task
 completion alone is not proof that the data sources succeeded. Record failures
 explicitly, verify there is no further run scheduled, and turn off the exact
-owned task if it has not ended. Do not re-enable a presenter's completed task.
+owned task if it has not ended. Do not re-enable another owner's completed task.
 
 This produces a scheduled conversation, **not a refresh of a saved Live Report**.
 For a report, separately perform the save -> gallery -> reopen -> Reload
@@ -127,22 +126,13 @@ See [Scheduled tasks: editing, date range, run limit and autonomy](https://learn
 (reviewed October 11, 2026). Native UI/version behavior is an attendee
 acceptance step; this kit installs/enables no schedule.
 
-## Manual privileged snapshot — deliberately held
+## Collection and template limits
 
-The source project has an offline-tested human-admin-per-invocation snapshot
-reference. It is unexecuted, not deployed, not a supported production collector,
-and not integrated into either report. Its fixed local cluster/domain/node
-checks and protected-store dependencies are safety invariants, not sample
-strings to replace casually. **Executable collector code is withheld from this
-portable batch** pending a reviewed parameterization and offline test pass.
-Do not weaken those invariants or attach an elevated identity to dashboard refresh.
-A human administrator can bypass a local script; no script constrains that actor.
-
-The lab-bound native report implementation is likewise **not blindly exported**.
-This guide provides a supported recreation path; portable deterministic report
-source with complete binding validation/tests remains a release gate for that
-excluded report code, not for public availability of this recreation guide. No
-uncommitted report-owner changes are represented as committed provenance.
+This repository supplies no privileged snapshot collector or deterministic
+native report deployment template. Use existing authorized data sources.
+If a required provider or counter is unavailable, show Unknown rather than
+attaching an elevated identity to dashboard refresh. Validate generated report
+queries, tool eligibility and save/reopen/Reload behavior in your own agent.
 
 ## Learn more
 

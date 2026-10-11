@@ -1,8 +1,7 @@
 # Reference architecture
 
-Reference design only; baseline reviewed 2026-10-01, attendee wording updated
-2026-10-11. The [conceptual SVG](diagrams/nic2026-demo-environment.svg) is included;
-deployed bindings are not. Sources: [source register](sources.md).
+The [conceptual SVG](diagrams/nic2026-demo-environment.svg) illustrates a LocalBox
+lab, not an as-built deployment. Sources: [source register](sources.md).
 
 For executable pieces see the [starter component table](../README.md).
 The ordinary Windows path is domain Kerberos + bounded JEA, optionally exposed
@@ -19,7 +18,7 @@ deployment, guest reachability and native-agent acceptance remain separate gates
 | Arc connectivity transition | Resource Health Available → Unavailable -> one activity-log rule per exact machine ID; independent of AMA and not current-state inventory |
 | Bounded node diagnostics | SRE identity -> approved private HTTPS MCP -> nonadmin service -> explicit Kerberos/WinRM JEA -> fixed node/provider reads |
 | Guest execution | Azure control plane -> Connected Machine agent -> separately approved guest operation; not the private node path |
-| Knowledge | Restricted read-only retrieval of neutral runbooks; presenter answers and bindings excluded |
+| Knowledge | Restricted read-only retrieval of neutral runbooks; exercise answers and private bindings excluded |
 | Notification | Separately approved incident/notification integration; audience, status writes and cleanup reviewed |
 
 The MCP design must reject arbitrary scripts, credentials, node lists and remote
@@ -50,14 +49,10 @@ Do not filter them away to claim complete coverage.
 
 ## Content isolation
 
-The neutral runbooks repository explains diagnosis but contains no staged causes
-or expected demonstration answers. This attendee repository contains those answers
-and must not be ingested by the investigating agent through indexing, broad
-GitHub tools or inherited connectors. Prompt instructions are not access control.
+Use separately reviewed neutral runbooks for diagnostic knowledge. This
+repository contains exercise answers and must not be ingested by the
+investigating agent through indexing, broad GitHub tools or inherited connectors.
+Prompt instructions are not access control.
 Public source availability is not a content-isolation boundary: restrict
 retrieval to reviewed neutral runbooks and verify source citations rather than
 assuming the exercise answers are inaccessible.
-The owner approved public availability of this attendee repository on
-2026-10-11; see the [publication record](publication-review.md#public-availability-approval---2026-10-11).
-The presenter source and companion runbooks remain private unless separately
-approved. Do not change their visibility to solve connector authentication.

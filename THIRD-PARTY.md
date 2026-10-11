@@ -32,10 +32,7 @@ vendored content. Its official repository declares CC BY 4.0; those terms and
 any component-specific notices remain with upstream. Microsoft product names
 and marks remain their owners' property. No third-party code/template is copied.
 
-The [MIT license](LICENSE) covers original sample code and documentation here.
-On 2026-10-11 the owner approved public availability of this attendee repository
-within the existing authorized export scope; see the
-[publication record](docs/publication-review.md#public-availability-approval---2026-10-11).
-That approval does not expand the export scope or relicense third-party material.
+The [MIT license](LICENSE) covers original sample code and documentation here,
+not linked third-party material.
 Any future third-party asset requires its own redistribution review and
 applicable license/notice; public availability alone is not permission to copy it.
