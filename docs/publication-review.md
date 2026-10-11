@@ -157,6 +157,44 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
+## Attendee follow-up verification - 2026-10-11
+
+The attendee snapshot has **122 tracked files and 93 source-hash entries**.
+All 92 previous source-origin records remain unchanged against kit commit
+`6b4d046`; only the two component README packaging adaptations and the explicitly
+allowlisted skill differ in export scope. No executable component was changed.
+
+Offline checks in the implementation worktree passed:
+
+- Locked MCP restore, **210 tests**, Release build with zero warnings/errors,
+  and framework-dependent `win-x64` publish. Published artifact checks verified
+  x64 and both required .NET/ASP.NET Core 10 frameworks.
+- All **16** new PowerShell documentation blocks parsed in PowerShell 7 and
+  Windows PowerShell 5.1. Source contracts, the neutral skill contract and five
+  negative skill mutations passed. JEA ownership checks (**21** per runtime),
+  recovery checks (**43** per runtime) and stubbed recovery installer/cleanup
+  lifecycle passed in both runtimes.
+- **10** replay, **9** monitoring, **15** Arc and **11** service-event tests;
+  monitoring, collection and SRE starter contract/regression suites; and local
+  Bicep example-parameter/template compilation passed. Azure CLI, provider,
+  service, endpoint and transport mutations were mocked.
+- Package source/export hashes, relative Markdown file links and the scoped
+  identifier/address profile passed. Intentional CRLF skill-export bytes were
+  preserved; whitespace validation treated carriage returns as line endings.
+
+A fresh local clone of `ec525ae` independently passed the package check, locked
+MCP restore, all 210 MCP tests, framework-dependent publish and new documentation/
+published-artifact checks in both PowerShell runtimes and remained clean. This
+clean-clone check did not repeat every other component suite or perform a live
+install. Independent read-only review approved the unchanged guest setup,
+service installation, readiness audit and documentation-check artifacts at that
+snapshot, including a native-argument mock preserving executable-path quotes
+and the literal gMSA account suffix.
+None of these results proves AD replication, effective gMSA rights, TLS key
+access, SCM startup, guest-provider access, native discovery/authentication,
+human-approved repair or attendee deployment. Those acceptance gates remain
+explicit in the [readiness audit](attendee-readiness.md).
+
 ## Historical follow-up verification — 2026-10-02
 
 This package has **112 tracked files and 92 source-hash entries**:
