@@ -322,8 +322,10 @@ dated fallback. That is not MCP-client acceptance. Do not start a new web chat
 to conceal a failed MCP connection. With no safe existing thread, use just the
 documentation-only direction explanation and skip the service read.
 
-This attendee starter remains **private/not publicly released**; access is
-owner-controlled despite its portable content. Useful existing guides:
+This is an **owner-approved public attendee starter (2026-10-11)**; the
+[publication record](publication-review.md#public-availability-approval---2026-10-11)
+separates approval from the visibility change. Public source availability does
+not establish client integration or live-use acceptance. Useful existing guides:
 
 - [Component selection](../README.md) and ordinary-server boundaries.
 - [Setup](setup.md): prerequisites, permissions and costs.
@@ -332,15 +334,15 @@ owner-controlled despite its portable content. Useful existing guides:
 - [Safety and cleanup](safety-and-reset.md).
 - [Prior first-party source register](sources.md).
 
-This optional guide is a documentation-only publication candidate, not an
+This optional guide is documentation-only guidance, not an
 end-to-end acceptance receipt. Do not ingest it or the exercise repository into
 SRE knowledge. No agent configuration changes are needed; your main operations
 and recovery acceptance gates remain independent.
 
 ## Sources and verification register
 
-All links reviewed **October 10, 2026**. No client integration, authentication,
-agent chat, connector creation, deployment, remediation, permission change,
+All links reviewed **October 10, 2026**. During that review, no client integration,
+authentication, agent chat, connector creation, deployment, remediation, permission change,
 schedule change or external publication was performed for this document.
 Offline JSON parsing/whitespace validation is not service acceptance.
 

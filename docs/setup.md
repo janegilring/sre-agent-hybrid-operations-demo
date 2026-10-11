@@ -4,6 +4,10 @@ Baseline reviewed 2026-10-01; attendee installation/coverage follow-up 2026-10-1
 Product sources: [source register](sources.md).
 Start with [attendee readiness](attendee-readiness.md) to select a feasible path.
 
+The owner approved this attendee source/documentation for public availability
+on 2026-10-11; see the [publication record](publication-review.md#public-availability-approval---2026-10-11).
+That approval is not deployment permission or live-environment acceptance.
+
 ## Reproducible offline scope
 
 For buildable components, start with the [component table](../README.md):

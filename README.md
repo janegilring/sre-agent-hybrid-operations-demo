@@ -5,8 +5,11 @@ install a bounded, read-only Windows server diagnostic endpoint. Pick only the
 components you need; **ordinary domain-joined Windows servers do not require
 Azure Local, LocalBox or Arc for JEA diagnostics**.
 
-**Private attendee starter — not publicly released.** Repository access requires
-owner permission. No Azure deployment or live endpoint registration was performed
+**Owner-approved public attendee starter (2026-10-11).** Approval covers this
+repository's portable source and documentation, not the private presenter source.
+The [publication record](docs/publication-review.md#public-availability-approval---2026-10-11)
+separates that approval from the repository visibility change.
+No Azure deployment or live endpoint registration was performed
 while packaging this repository. This is not a tested whole-lab installer.
 The earlier guest source refresh brought in the complete 30-file guest JEA/MCP
 dependency set from committed source `9eb5ddf`: provider-loading/JEA fixes,
@@ -266,8 +269,8 @@ queries do not establish report-tool eligibility. Verify your actual configured
 connector, supported report tools and scoped queries before separately approving
 one read-only report save → gallery → reopen → Reload test. Do not import
 autonomous incident routes, broad policies, enabled schedules or email settings
-from the lab. This kit remains private; linked public material is not a public
-release or an end-to-end acceptance claim.
+from the lab. Public availability of this kit or linked material is not an
+end-to-end acceptance claim.
 
 The preserved synthetic examples are optional teaching illustrations, not live
 evidence or the purpose of this starter:

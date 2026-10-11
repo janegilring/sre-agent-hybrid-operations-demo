@@ -140,7 +140,8 @@ A human administrator can bypass a local script; no script constrains that actor
 
 The lab-bound native report implementation is likewise **not blindly exported**.
 This guide provides a supported recreation path; portable deterministic report
-source with complete binding validation/tests remains a release gate. No
+source with complete binding validation/tests remains a release gate for that
+excluded report code, not for public availability of this recreation guide. No
 uncommitted report-owner changes are represented as committed provenance.
 
 ## Learn more

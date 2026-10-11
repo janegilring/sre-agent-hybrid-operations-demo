@@ -131,4 +131,7 @@ The related official blog
 [Power Azure SRE Agent with the tools it needs](https://devblogs.microsoft.com/azure-sdk/power-azure-sre-agent-with-connector-namespace/)
 was retrieved, but concerns Connector Namespace and is **not claimed to be the
 requested article**. This kit does not deploy Connector Namespace or copy that
-blog's examples. Retain this open attribution item before public release.
+blog's examples. Retain this unresolved title as a historical research
+limitation, not a verified citation. The October 11 approval of public
+availability does not identify the missing article or authorize copying it;
+any future use requires source verification and the applicable rights review.

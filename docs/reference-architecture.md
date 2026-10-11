@@ -51,8 +51,13 @@ Do not filter them away to claim complete coverage.
 ## Content isolation
 
 The neutral runbooks repository explains diagnosis but contains no staged causes
-or expected demonstration answers. This private repository contains those answers
-and must not be available to the investigating agent through indexing, broad
+or expected demonstration answers. This attendee repository contains those answers
+and must not be ingested by the investigating agent through indexing, broad
 GitHub tools or inherited connectors. Prompt instructions are not access control.
-Public release of either repository requires separate owner approval; do not
-make a repository public to solve connector authentication.
+Public source availability is not a content-isolation boundary: restrict
+retrieval to reviewed neutral runbooks and verify source citations rather than
+assuming the exercise answers are inaccessible.
+The owner approved public availability of this attendee repository on
+2026-10-11; see the [publication record](publication-review.md#public-availability-approval---2026-10-11).
+The presenter source and companion runbooks remain private unless separately
+approved. Do not change their visibility to solve connector authentication.

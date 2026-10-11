@@ -1,9 +1,11 @@
 # Attendee readiness and coverage
 
-**Reviewed October 11, 2026. Private kit; no whole-lab acceptance claim.**
+**Reviewed October 11, 2026. Owner-approved public attendee starter; no whole-lab acceptance claim.**
 This audit starts with a reader who has no presenter subscription, domain,
-connector, credentials or report IDs. Access to this repository still requires
-owner permission. Public references do not grant access to the private kit.
+connector, credentials or report IDs. The owner approved public availability
+of this repository on that date; the [publication record](publication-review.md#public-availability-approval---2026-10-11)
+distinguishes approval from the visibility change. This grants no access to
+the private presenter source, lab or companion runbooks.
 
 Status below describes **what this repository delivers**, not Microsoft product
 support: **Supported** = reproducible offline component; **Manual** = supplied
