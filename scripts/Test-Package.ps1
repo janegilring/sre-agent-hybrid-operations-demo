@@ -17,7 +17,9 @@ function Read-PackageText([string]$Path) {
 }
 function Test-JsonTruthy($Value) {
     # Python JSON truthiness counts containers, rather than testing their members.
-    if ($Value -is [Collections.IDictionary] -or $Value -is [array]) { return $Value.Count -gt 0 }
+    # JSON keys such as Count must not shadow the dictionary's actual size.
+    if ($Value -is [Collections.IDictionary]) { return $Value.psbase.Count -gt 0 }
+    if ($Value -is [array]) { return $Value.Length -gt 0 }
     return [bool]$Value
 }
 function Test-JsonNumber($Value) {

@@ -88,7 +88,12 @@ try {
         Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":[$value]}" } 'diagram element: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
         Reject { Write-Fixture 'test.excalidraw' $value } 'diagram format: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
     }
-    foreach ($value in @('[false]','[0]','[""]','[null]','[[]]','{"bad":false}','true','1')) {
+    foreach ($value in @(
+        '[false]','[0]','[""]','[null]','[[]]','{"bad":false}','true','1',
+        '{"Count":0}','{"count":false}','{"Count":null}','{"Count":[]}',
+        '{"Count":""}','{"Count":-1}','{"Count":0,"asset":{}}',
+        '{"psbase":{"Count":0},"Count":0}','{"get_Count":0,"Count":0}'
+    )) {
         Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"elements`":[{`"link`":$value}]}" } 'diagram link: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
         Reject { Write-Fixture 'test.excalidraw' "{`"type`":`"excalidraw`",`"files`":$value,`"elements`":[]}" } 'diagram format or embedded assets: test.excalidraw' { Remove-Item -LiteralPath "$scratch\test.excalidraw" }
     }
@@ -147,6 +152,8 @@ try {
     foreach ($diagram in @(
         '{"type":["excalidraw"],"elements":[]}',
         '{"type":"excalidraw","elements":[{"link":[false]}]}',
+        '{"type":"excalidraw","elements":[{"link":{"Count":0}}]}',
+        '{"type":"excalidraw","files":{"Count":0},"elements":[]}',
         '{"type":"excalidraw","elements":[{"type":"text","width":"1","height":1}]}',
         '{"type":"excalidraw","elements":{"bad":1}}'
     )) {
