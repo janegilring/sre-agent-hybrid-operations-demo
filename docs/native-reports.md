@@ -78,6 +78,55 @@ Review generated code/query/manifest and test denied, partial, empty, stale,
 conflicting and malformed inputs before sharing. Never hide source errors
 behind a green status. A rendered report is not a health certificate.
 
+## Scheduled checks are separate from reports
+
+An attendee does not need cluster providers or a dashboard to try a scheduled
+performance summary. First prove one scoped workspace read in an ordinary
+chat using **existing** Heartbeat/Perf data for one approved Azure VM/Arc server.
+If collection or a required counter is missing, stop with Unknown; the
+[monitoring baseline](../infra/hybrid-monitoring/README.md#collection-and-inventory-prerequisites)
+documents the exact counter contracts but does not onboard AMA.
+
+After separate owner approval, use **Scheduled tasks** in your existing agent:
+create a uniquely named task with one approved target, an explicit time zone/
+start/end window, **run limit 1**, and **Review** rather than Autonomous mode.
+Select only an existing appropriately scoped reader/custom agent; do not
+create new connectors, grant roles or enable incident/notification routes.
+If the current UI cannot express the one-run boundary, keep it disabled and
+use a manual chat instead. Saving/enabling a task can trigger queries and
+billable agent work; do not treat it as an offline step.
+
+Use this as the instruction body after substituting your approved bindings:
+
+```text
+For <EXACT_SERVER_RESOURCE_ID> only, query existing Heartbeat and Perf through
+<APPROVED_WORKSPACE_TOOL> scoped to <WORKSPACE_ID> for the last hour.
+Summarize latest heartbeat, five-minute CPU means and available memory.
+Show source UTC, observation age, sample coverage and gaps. Missing, stale,
+denied or insufficient samples are Unknown; do not report them as zero.
+Do not enumerate other targets, install collection, run guest commands, change
+resources, send email/Teams messages, create/update reports or start other tasks.
+Return the summary only in this execution's conversation.
+```
+
+Inspect the created task's ID, owner, exact instructions, scope, schedule,
+time zone, run limit, next run and autonomy settings before leaving it enabled.
+After the one run, open **execution history** and its actual conversation:
+confirm the target/tool/UTC coverage and absence of writes/messages. Task
+completion alone is not proof that the data sources succeeded. Record failures
+explicitly, verify there is no further run scheduled, and turn off the exact
+owned task if it has not ended. Do not re-enable a presenter's completed task.
+
+This produces a scheduled conversation, **not a refresh of a saved Live Report**.
+For a report, separately perform the save -> gallery -> reopen -> Reload
+acceptance above. Remove only your owned test task/report after checking its
+ID, content and consumers; do not erase execution history or other owners'
+artifacts to make the lab look clean.
+
+See [Scheduled tasks: editing, date range, run limit and autonomy](https://learn.microsoft.com/azure/sre-agent/scheduled-tasks#editing-a-task)
+(reviewed October 11, 2026). Native UI/version behavior is an attendee
+acceptance step; this kit installs/enables no schedule.
+
 ## Manual privileged snapshot — deliberately held
 
 The source project has an offline-tested human-admin-per-invocation snapshot

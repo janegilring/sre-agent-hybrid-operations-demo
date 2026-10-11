@@ -14,6 +14,59 @@ provenance refresh, use [current sources](sources.md) and the
 
 ## Included and immutable provenance
 
+### October 11 neutral skill reference refresh
+
+The separately authorized skill refresh imports only
+`skills/azure-local-operations-triage/SKILL.md` at source `0530411`, with exact
+committed instruction text and intentional CRLF export. Its source SHA-256 is
+`a53a80e01ebad5fd0b6c6302c0cda6322bef29154fade6fdbd2518ea4fde8c65`;
+export SHA-256 is
+`2c2fb75da11c3a964999f107ab59dafa9ee6dac5d162c6a54f3ebf755dce07ad`.
+This single source pin supersedes the earlier skill origin below; every other
+source origin is preserved. Six exact reference URLs and **13 negative skill
+mutations** pass on PowerShell 5.1 and 7.6. No native attendee import or runtime
+acceptance is claimed.
+
+### October 11 PowerShell-first follow-up
+
+Attendee replay, package checks, Arc inputs and component reference-model tests
+now use PowerShell 7.5+. The only retained Python entry point is the installed
+Azure CLI SDK test, explicitly required for maintainers with
+`Test-Regression.ps1 -IncludeMaintainerSdk`, not for attendees.
+There is no existing checked-in CI workflow; future CI must retain that gate.
+See [tooling and derivative provenance](powershell-tooling.md).
+
+The manifest still has 93 entries. Four former exported Python tools are
+explicit PowerShell derivatives, and the SRE regression runner has a narrow
+invocation adaptation. Their original commit/blob/source hashes are retained
+with original source paths and individually allowlisted transformation metadata.
+Four component README export hashes reflect the new commands.
+All other exported bytes, including the retained SDK test and C#/JEA/ARM components,
+remain unchanged from the preceding attendee snapshot. The skill was unchanged
+by the tooling migration and subsequently refreshed as described above.
+
+### Earlier October 11 attendee onboarding follow-up
+
+The [readiness audit](attendee-readiness.md), expanded [gMSA/guest guide](guest-setup.md),
+[Windows service installation runbook](mcp-service-install.md), schedule guidance,
+[skill import guide](custom-skill.md) and `scripts\Test-AttendeeDocs.ps1` are
+original portable kit documentation/checks, not exported lab operator scripts.
+They perform no live configuration. The two JEA/MCP README export hashes now
+record their additional attendee links/publish wording; their original source
+blob IDs, source hashes and origin commits remain intact. All exported
+executable source is unchanged.
+
+One neutral `skills/azure-local-operations-triage/SKILL.md` file is newly
+allowlisted from committed source `908912037636dcfb61ce9593a4f2b9d71ec9df55`.
+Its instruction text matches the committed blob, with only CRLF normalization;
+the source README, private receipts and native configuration are not copied.
+The manifest now has **93** entries. The validator requires that exact skill
+path/revision and rejects other unreviewed `skills/` additions, just as it
+already rejects unreviewed `tools/` and `infra/` files. No exclusions were
+relaxed to admit deployment scripts.
+
+### Earlier component exports
+
 - SRE starter, corrected five-rule monitoring, ordinary-server JEA, portable
   MCP C# source/tests/locked dependencies, additive disk collection and
   independently approved Spooler-only recovery, plus the six-file English
@@ -23,7 +76,7 @@ provenance refresh, use [current sources](sources.md) and the
 - Original blob IDs, source commit and source/export SHA-256 hashes in
   [source-manifest.json](../packaging/source-manifest.json).
   Source is read directly from committed Git blobs, not a dirty worktree.
-- Only README packaging changes differ from original source bytes: generic
+- Before the PowerShell-first follow-up, only documented Markdown packaging changes differed from original source bytes: generic
   attendee wording, short-path guidance, removal of private receipt paths and
   explicit legacy reconciliation HELD status.
   Those changes are identified separately in the manifest.
@@ -58,8 +111,11 @@ Five corrected alert rules were separately live-verified in the source lab.
 No private RG, subscription or proof receipt is needed to use this package.
 That observation does not prove a fresh attendee deployment, complete collection,
 native incident routing, guest recovery or notification completion.
-The ordinary guest candidate lacks usable domain/Kerberos/WinRM readiness;
-end-to-end guest investigation and service recovery remain unproven.
+These historical packaging observations are not current source-lab status.
+End-to-end guest investigation, real gMSA/provider acceptance and service
+recovery remain unproven **in an attendee environment**. Configured connector
+visibility is not evidence that a main-agent conversation can discover and
+invoke its tools; require a fresh operational trace.
 
 Spooler recovery is offline-tested source, not a connected MCP write tool or
 proof of native human approval. Do not grant SRE write access until that
@@ -88,23 +144,31 @@ The live operating window is closed and this closeout authorizes no live action.
 From the repository root:
 
 ```powershell
-python -B scripts\validate_package.py
+pwsh -NoProfile -File scripts\Test-Package.ps1
+pwsh -NoProfile -File tests\Test-Package.ps1
 bicep build infra\hybrid-arc-connectivity\main.bicep --stdout | Out-Null
 bicep build-params infra\hybrid-arc-connectivity\main.example.bicepparam --stdout | Out-Null
-python -B -m unittest discover -s infra\hybrid-arc-connectivity -p 'test_*.py' -v
-python -B -m unittest discover -s tests -v
-python -B -m unittest discover -s infra\hybrid-monitoring\tests -v
-python -B infra\hybrid-service-monitoring\tests\test_contract.py
+pwsh -NoProfile -File infra\hybrid-arc-connectivity\Test-Connectivity.ps1
+pwsh -NoProfile -File tests\Test-Replay.ps1
+pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Queries.ps1
+pwsh -NoProfile -File infra\hybrid-service-monitoring\tests\Test-Contract.ps1
 bicep build-params infra\hybrid-service-monitoring\example.bicepparam --stdout | Out-Null
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Scripts.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 pwsh -NoProfile -File infra\hybrid-monitoring-collection\tests\Test-Collection.ps1
 bicep build infra\hybrid-monitoring-collection\main.bicep --stdout | Out-Null
 pwsh -NoProfile -File infra\sre-agent-starter\Test-Contracts.ps1
-pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1
+pwsh -NoProfile -File infra\sre-agent-starter\Test-Regression.ps1 -IncludeMaintainerSdk
 dotnet restore tools\private-mcp\tests\PrivateMcp.Tests.csproj --locked-mode
 dotnet test tools\private-mcp\tests\PrivateMcp.Tests.csproj --no-restore
 dotnet build tools\private-mcp\src\PrivateMcp.csproj --configuration Release --no-restore
+dotnet publish tools\private-mcp\src\PrivateMcp.csproj --configuration Release `
+    --runtime win-x64 --self-contained false --no-restore `
+    --output tools\private-mcp\src\bin\publish\win-x64
+pwsh -NoProfile -File scripts\Test-AttendeeDocs.ps1 `
+    -PublishDirectory tools\private-mcp\src\bin\publish\win-x64
+powershell.exe -NoProfile -File scripts\Test-AttendeeDocs.ps1 `
+    -PublishDirectory tools\private-mcp\src\bin\publish\win-x64
 pwsh -NoProfile -File tools\hybrid-server\Test-Offline.ps1
 powershell.exe -NoProfile -File tools\hybrid-server\Test-Offline.ps1
 pwsh -NoProfile -File tools\hybrid-service-recovery\Test-Offline.ps1
@@ -125,7 +189,117 @@ Address exceptions are restricted to documented RFC 5737 examples and explicit
 network-policy negative tests; certificate OIDs are not network addresses.
 This is **not a general secret scanner** or a substitute for human release review.
 
-## Current follow-up verification — 2026-10-02
+## Corrected PowerShell package acceptance - 2026-10-11
+
+Independent parity review rejected the initial package validator despite its
+38 passing mutations: arrays bypassed scalar provenance comparisons, and
+diagram type/link/dimension/elements shapes differed from the previous Python
+validator. Independent author commit `14ed818` corrected those cases and added
+targeted mutations. Re-review then found a dictionary key named `Count` could
+shadow actual collection cardinality. Coordinator-authored `7b2ceea` corrected
+that additional defect and added adversarial object/key and CLI regressions.
+The coordinator verified the latest correction; **the independent Fact Checker
+reviewed `14ed818`, not `7b2ceea`**. No final independent-review approval is
+implied. The original author did not edit either rejected code artifact.
+
+A fresh local clone of **`7b2ceea9c3511b05dd2d4ca47719e01767b30d4c`**
+passed the package baseline (**126 files / 93 source hashes**), **279 rejecting
+package mutations**, replay contracts, Arc inputs/template tests, nine
+monitoring and eleven service-event contract groups, and attendee SRE regression
+with `python`, `python3` and `py` absent from PATH. Restoring the ordinary PATH,
+the separate mandatory maintainer SDK run passed **12 production argument
+sets**, actual installed CLI validation and genuine two-page SDK iteration;
+34 subnet cases and mocked cleanup also passed. SRE template/contracts and
+onboarding/skill checks passed, including all 16 documentation blocks, six exact
+skill references and 13 negative skill mutations on both PowerShell 5.1 and 7.6.
+The clone remained clean and was removed after validation.
+
+Corrected artifact SHA-256 values:
+
+- `scripts/Test-Package.ps1`:
+  `ac4d7e5c2f6461b9f962aa6898117ceda6179947c6117904ce15762c5bdd3ec2`
+- `tests/Test-Package.ps1`:
+  `2b69fffb460622dfe945c80b21ad87904032787d4a6754d35955782cefd74799`
+
+These are offline correctness/contract results, not general security
+certification or live attendee deployment acceptance. The maintainer-only
+Python SDK exception remains intentional and required.
+
+## Initial PowerShell-first verification - 2026-10-11
+
+The initial passing runs below were subsequently found insufficient by the
+parity review above. They are historical execution evidence, not approval of
+the superseded package validator.
+
+The tooling-migration snapshot `249c77c` contains **126 files / 93 source-hash entries**. All 93
+original commit/blob/source-hash identities were compared with `3841e9f` and
+preserved; only five tooling derivatives and four component README exports
+changed. The retained SDK test and native skill are byte-identical.
+
+On PowerShell 7.6, the replay, package checker, **38 rejecting package mutations**,
+Arc inputs/template suite, nine monitoring and eleven service-event contract
+groups, and attendee SRE regression all passed with `python`, `python3` and `py`
+absent from the process PATH. Strict JSON, malformed UTF-8, diagram activity,
+source/derivative tampering, unreviewed exports, scoped addresses/GUIDs, synthetic
+hostname-digest detection and broken links were exercised without editing the
+real package. Replay preserves unknown/null counts and rejects invalid scopes,
+statuses, budgets and timestamps; Arc naming matches a fixed prior UUIDv5 vector.
+
+The separate mandatory maintainer run also passed: **12 production argument
+sets**, real installed Azure CLI validation, genuine SDK two-page iteration and
+exact-scope filtering with transport replaced. The existing SRE suite passed
+34 subnet cases and mocked ownership cleanup. Existing monitoring/collection
+contracts and **210 MCP tests** passed. The 16 onboarding PowerShell blocks,
+source/skill contracts and five skill mutations still passed on both Windows
+PowerShell 5.1 and PowerShell 7.6. The new tooling requires 7.5+ and is not claimed
+to execute on 5.1. No Azure, AD, service or live endpoint operation was performed.
+
+A fresh local clone of `9c07da8` repeated the complete translated suite and
+attendee SRE regression with Python absent from PATH, then separately passed
+the mandatory real-SDK gate and both PowerShell versions' onboarding/skill
+contracts. It remained clean and was removed after validation. The Arc input
+CLI also accepted a Bicep `build-params --outfile` ARM-parameters file and
+returned the expected UUIDv5 name; Bicep's `--stdout` envelope is not that file.
+
+## Earlier attendee onboarding verification - 2026-10-11
+
+The attendee snapshot has **122 tracked files and 93 source-hash entries**.
+All 92 previous source-origin records remain unchanged against kit commit
+`6b4d046`; only the two component README packaging adaptations and the explicitly
+allowlisted skill differ in export scope. No executable component was changed.
+
+Offline checks in the implementation worktree passed:
+
+- Locked MCP restore, **210 tests**, Release build with zero warnings/errors,
+  and framework-dependent `win-x64` publish. Published artifact checks verified
+  x64 and both required .NET/ASP.NET Core 10 frameworks.
+- All **16** new PowerShell documentation blocks parsed in PowerShell 7 and
+  Windows PowerShell 5.1. Source contracts, the neutral skill contract and five
+  negative skill mutations passed. JEA ownership checks (**21** per runtime),
+  recovery checks (**43** per runtime) and stubbed recovery installer/cleanup
+  lifecycle passed in both runtimes.
+- **10** replay, **9** monitoring, **15** Arc and **11** service-event tests;
+  monitoring, collection and SRE starter contract/regression suites; and local
+  Bicep example-parameter/template compilation passed. Azure CLI, provider,
+  service, endpoint and transport mutations were mocked.
+- Package source/export hashes, relative Markdown file links and the scoped
+  identifier/address profile passed. Intentional CRLF skill-export bytes were
+  preserved; whitespace validation treated carriage returns as line endings.
+
+A fresh local clone of `ec525ae` independently passed the package check, locked
+MCP restore, all 210 MCP tests, framework-dependent publish and new documentation/
+published-artifact checks in both PowerShell runtimes and remained clean. This
+clean-clone check did not repeat every other component suite or perform a live
+install. Independent read-only review approved the unchanged guest setup,
+service installation, readiness audit and documentation-check artifacts at that
+snapshot, including a native-argument mock preserving executable-path quotes
+and the literal gMSA account suffix.
+None of these results proves AD replication, effective gMSA rights, TLS key
+access, SCM startup, guest-provider access, native discovery/authentication,
+human-approved repair or attendee deployment. Those acceptance gates remain
+explicit in the [readiness audit](attendee-readiness.md).
+
+## Historical follow-up verification — 2026-10-02
 
 This package has **112 tracked files and 92 source-hash entries**:
 80 retain `c086d8d`, five retain `c814605`, five monitoring files use `1ceb2a7`,

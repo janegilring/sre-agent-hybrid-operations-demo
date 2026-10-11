@@ -4,6 +4,13 @@ Reviewed 2026-10-01. This is a checklist, not a destructive script.
 
 ## Included component cleanup
 
+For the newly documented manual broker installation, use [SCM/artifact/key-ACE
+cleanup](mcp-service-install.md#rollback-and-uninstall), then [guest/gMSA teardown](guest-setup.md#scoped-teardown).
+No script owns the forest-wide KDS key or shared GPO/certificate infrastructure.
+For optional native content, remove only your [skill](custom-skill.md) or
+[scheduled task/report](native-reports.md#scheduled-checks-are-separate-from-reports)
+after comparing its recorded identity, content and consumers.
+
 Follow the exact receipt/ownership checks in the
 [SRE starter](../infra/sre-agent-starter/README.md#iac-interface-powershell-72-installed-bicep-and-azure-cli),
 [monitoring baseline](../infra/hybrid-monitoring/README.md#cleanup--partial-deployment),
@@ -34,9 +41,11 @@ No live action is authorized by this final packaging closeout.
 
 ## Offline reset
 
-The documented `python -B` commands read fixtures and write stdout only.
-No cloud session, service, files or synthetic fault is created. Re-run the
-commands to reset the exercise. If you redirected stdout to a file yourself,
+The documented `Invoke-Replay.ps1` command reads fixtures and writes stdout only.
+No cloud session, service, files or synthetic fault is created by replay. The
+offline tests may create and remove their own temporary fixtures; they do not
+change a service or cloud resource. Re-run replay to reset the exercise.
+If you redirected stdout to a file yourself,
 remove only that exact file after reviewing its path; no wildcard cleanup is
 required. The supplied code never reads the placeholder binding worksheet.
 

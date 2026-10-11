@@ -1,7 +1,8 @@
 # Reference architecture
 
-Reference design only; reviewed 2026-10-01. No diagram assets or deployed bindings
-are included. Sources: [source register](sources.md).
+Reference design only; baseline reviewed 2026-10-01, attendee wording updated
+2026-10-11. The [conceptual SVG](diagrams/nic2026-demo-environment.svg) is included;
+deployed bindings are not. Sources: [source register](sources.md).
 
 For executable pieces see the [starter component table](../README.md).
 The ordinary Windows path is domain Kerberos + bounded JEA, optionally exposed

@@ -1,6 +1,6 @@
 #requires -Version 7.2
 [CmdletBinding()]
-param([string]$AzureCliPython)
+param([switch]$IncludeMaintainerSdk, [string]$AzureCliPython)
 . "$PSScriptRoot\Common.ps1"
 function Assert([bool]$Condition,[string]$Message) { if (!$Condition) { throw $Message } }
 function Assert-Throws([scriptblock]$Action,[string]$Pattern) {
@@ -120,11 +120,28 @@ try {
     Assert ((Get-Content $manifestPath -Raw | ConvertFrom-Json).state -eq 'Cleaned') 'Cleanup did not complete verification.'
     $callsPath = Join-Path $scratch 'cli-calls.json'
     ConvertTo-Json -Depth 20 -InputObject @($mockState.RoleCalls.ToArray()) | Set-Content $callsPath
-    if (!$AzureCliPython) {
-        $AzureCliPython = Join-Path (Split-Path (Split-Path (Get-Command az.cmd -CommandType Application).Source)) 'python.exe'
+    foreach ($call in $mockState.RoleCalls) {
+        Assert (($call[0..2] -join ' ') -ceq 'role assignment list') 'Unexpected role command.'
+        Assert ('--all' -notin $call) 'Do not combine exact scope with --all.'
+        foreach ($option in @('--subscription','--scope','--fill-principal-name','--fill-role-definition-name','--output')) {
+            $positions = @(0..($call.Count-1) | Where-Object { $call[$_] -ceq $option })
+            Assert ($positions.Count -eq 1 -and $positions[0] -lt $call.Count-1) "Missing/duplicate argument: $option"
+        }
+        foreach ($option in @('--fill-principal-name','--fill-role-definition-name')) {
+            Assert ($call[[array]::IndexOf($call,$option)+1] -ceq 'false') 'No directory/definition expansion.'
+        }
+        Assert ($call[[array]::IndexOf($call,'--output')+1] -ceq 'json') 'Require JSON output.'
     }
-    & $AzureCliPython -I -B "$PSScriptRoot\test_role_cli.py" $callsPath
-    Assert ($LASTEXITCODE -eq 0) 'Installed Azure CLI offline validator regression failed.'
+    if ($AzureCliPython -and !$IncludeMaintainerSdk) { throw 'AzureCliPython requires IncludeMaintainerSdk.' }
+    if ($IncludeMaintainerSdk) {
+        if (!$AzureCliPython) {
+            $AzureCliPython = Join-Path (Split-Path (Split-Path (Get-Command az.cmd -CommandType Application).Source)) 'python.exe'
+        }
+        & $AzureCliPython -I -B "$PSScriptRoot\test_role_cli.py" $callsPath
+        Assert ($LASTEXITCODE -eq 0) 'Installed Azure CLI offline validator regression failed.'
+    } else {
+        Write-Output 'NOT RUN: installed Azure CLI SDK validator/pagination test. Maintainers must also run -IncludeMaintainerSdk; PowerShell mocks are not SDK acceptance.'
+    }
     Write-Output "PASS: $subnetCases functional subnet cases; cleanup preview, exact agent/target role discovery, principal refusal, mocked apply and post-delete verification. No Azure calls."
 } finally {
     Remove-Item -LiteralPath $scratch -Recurse -Force

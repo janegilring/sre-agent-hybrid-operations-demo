@@ -69,12 +69,12 @@ change. Action groups remain empty by default.
 
 ## Prepare and test (no deployment)
 
-Use Bicep CLI and Python 3 (standard library only), from the repository root:
+Use Bicep CLI and PowerShell 7.5+ (built-in APIs only), from the repository root:
 
 ```powershell
 bicep build .\infra\hybrid-arc-connectivity\main.bicep --stdout
 bicep build-params .\infra\hybrid-arc-connectivity\main.example.bicepparam --stdout
-python -B -m unittest discover -s .\infra\hybrid-arc-connectivity -p 'test_*.py' -v
+pwsh -NoProfile -File .\infra\hybrid-arc-connectivity\Test-Connectivity.ps1
 ```
 
 Copy the example privately; replace the illustrative IDs with exact IDs returned
@@ -89,8 +89,8 @@ or overwrite permission. The output is now `alertResourceIds` (array).
 Compile the private `.bicepparam` to an ARM parameters JSON file, then run:
 
 ```powershell
-python -B .\infra\hybrid-arc-connectivity\validate_inputs.py `
-  .\private.parameters.json --subscription '<explicit-subscription-uuid>'
+pwsh -NoProfile -File .\infra\hybrid-arc-connectivity\Test-Inputs.ps1 `
+  -ParametersPath .\private.parameters.json -SubscriptionId '<explicit-subscription-uuid>'
 ```
 
 This mandatory offline gate rejects empty names, nonliteral/wrong-type IDs,

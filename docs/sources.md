@@ -1,5 +1,46 @@
 # Public first-party sources
 
+## October 11 neutral skill reference refresh
+
+The current skill export is pinned to source commit
+`05304111ec9eb6c237156f68d4a915ae7f99fed8`, blob
+`0c512da528e3f8c1b2f3fa64ff4114e48789bc76`. It adds
+[Azure/AzureLocal-Supportability](https://github.com/Azure/AzureLocal-Supportability)
+beside the five Learn references for dated, applicability-checked TSG/known-issue
+research. Community issue status is not confirmation or environment resolution;
+unavailable retrieval is UNVERIFIED and no workaround is authorized.
+Only this neutral file was refreshed, with CRLF normalization and exact hashes
+in the manifest; no companion README, receipt or validator was imported.
+
+## October 11 PowerShell-first follow-up
+
+The [tooling guide](powershell-tooling.md) records the PowerShell 7.5 minimum,
+strict JSON behavior and the explicit maintainer-only Azure CLI SDK exception.
+Four exported validators/tests are translated derivatives; one regression
+runner is narrowly adapted to separate attendee and maintainer invocation.
+Their original source path, commit, blob and hash remain in the 93-entry
+manifest alongside the new export hash and exact transformation identifier.
+The deployed C#/JEA/ARM components are unchanged. The separate neutral skill
+refresh above supersedes its previous source pin.
+
+## Earlier October 11 attendee onboarding follow-up
+
+Original attendee procedures now cite Microsoft gMSA/KDS/service-logon guidance,
+.NET publish/Windows service and SCM/native-quoting contracts, plus the current
+SRE network/MCP, schedule and skill documentation. Exact links and
+documentation-versus-live-acceptance limits are in
+[guest setup](guest-setup.md#first-party-references),
+[broker installation](mcp-service-install.md#sources-and-validation-scope),
+[native route/auth reconciliation](mcp-service-install.md#native-sre-connector-is-a-separate-availability-gate),
+[schedules](native-reports.md#scheduled-checks-are-separate-from-reports) and
+[custom skill import](custom-skill.md).
+
+The neutral skill is one newly authorized committed-source Markdown export at
+`908912037636dcfb61ce9593a4f2b9d71ec9df55`; see its exact blob/hashes and the two
+README-only attendee adaptations in the current 93-entry manifest. No executable
+component, private identity, operator script or source-lab receipt is imported
+by this follow-up. The earlier source counts below describe their dated batches.
+
 ## October 2 private review refresh
 
 The complete 30-file ordinary-server JEA/MCP dependency set is refreshed from
@@ -17,7 +58,7 @@ Link only: no external workbook, DCR, code or license is copied.
 The live report's account-specific bindings and the manual collector's fixed
 privileged scope are excluded pending a reviewed portable implementation.
 See [native recreation and held-source boundaries](native-reports.md).
-This is an unpublished working-tree review batch; no release or live acceptance.
+This was an unpublished review batch; no release or attendee live acceptance.
 
 Retrieved/reviewed 2026-10-01 UTC. Learn source version is the live page on this
 date unless a documentation view is specified; those views are not immutable

@@ -1,6 +1,6 @@
 # Third-party sources and rights
 
-The sample Python code, synthetic fixtures and repository prose are newly
+The sample replay code, synthetic fixtures and repository prose are newly
 authored original material. Microsoft Learn, the official Azure-Samples workbook
 and the identified related Microsoft blog are linked and credited in the
 [source register](docs/sources.md); they are not vendored or relicensed.
@@ -12,7 +12,8 @@ logo or raw diagnostic evidence is included.
 
 The owner explicitly authorized narrow export of original monitoring, collection,
 per-machine Arc connectivity, service-event monitoring,
-SRE starter, Windows JEA, Spooler recovery and portable MCP components from
+SRE starter, Windows JEA, Spooler recovery, portable MCP components and the
+neutral Azure Local operations triage skill from
 `janegilring/session-azure-sre-agent`.
 That private source repository declares no license; no implicit upstream MIT
 license is asserted. The repository owner licenses these authorized original
