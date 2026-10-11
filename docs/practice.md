@@ -1,6 +1,6 @@
 # Practise the hybrid operations story
 
-**Private facilitator guide · 60 minutes · no reserved Q&A.** Use your own
+**Facilitator guide · 60 minutes · no reserved Q&A.** Use your own
 approved lab and evidence. This is not proof that this kit provisions a complete
 environment. Prepare a ten-minute preflight before the session clock.
 
@@ -21,7 +21,7 @@ RECORDED or SIMULATED for each segment. Never improvise a service fault.
 | 14–26 | 12 | [Guest read path](guest-setup.md): fixed target, sequential facts/service/events; inspect provider results and source time. | “Networking reaches the door; identity and JEA determine what is callable.” No raw private event projection. |
 | 26–42 | 16 | Human-owned rule → actual recorded incident/initial Teams → proposed approved action → positive recovery/final message evidence. | “These are separate proofs.” If repair/final automation is missing, say so and label the tabletop portion SIMULATED. No fault in this guide. |
 | 42–56 | 14 | Show completed schedule history, then [native health/capacity reports](native-reports.md), source coverage and missing data. | “Current CSV free is not raw pool reserve. A gap is not zero. Scheduled output is not same-report refresh.” Do not re-enable a completed task. |
-| 56–60 | 4 | Recap only observed outcomes, then point to modular assets and public sources. | “Cite the runbook. Check now. Verify recovery.” Private repository access is not public release. |
+| 56–60 | 4 | Recap only observed outcomes, then point to modular assets and public sources. | “Cite the runbook. Check now. Verify recovery.” Owner-approved public source availability is not live-use acceptance. |
 | **Total** | **60** | **6 + 50 + 4** | |
 
 ### Safe read prompt — replace placeholders first

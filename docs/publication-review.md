@@ -1,6 +1,10 @@
 # Packaging scope and reproduction
 
-**Private, not publicly released.** Begin with the [component quickstarts](../README.md).
+**Owner-approved public attendee starter (2026-10-11).**
+Begin with the [component quickstarts](../README.md).
+See the [approval record](#public-availability-approval---2026-10-11) below;
+the earlier packaging and review evidence remains historical.
+
 **Historical packaging baseline, before the current guest refresh:** that
 follow-up refreshed exactly five monitoring files from
 `1ceb2a76fd9efbf0bf736da10d665488f331afb6` and adds two reviewed diagram assets
@@ -11,6 +15,30 @@ No later private-doc commit, source workspace changes, private history or live
 receipts were imported in that batch. For the subsequent 30-file guest/MCP
 provenance refresh, use [current sources](sources.md) and the
 [current manifest](../packaging/source-manifest.json), not this historical note.
+
+## Public availability approval - 2026-10-11
+
+After attendee onboarding PR #1 merged at
+`3efc9285ab3226c64dc751d1f760b3dc739c7ac2`, Jan Egil Ring explicitly
+approved making `janegilring/sre-agent-hybrid-operations-demo` public.
+This approval covers the attendee source/documentation and the current-status
+documentation follow-up, under the existing MIT license and recorded export
+scope. It does not authorize publishing `janegilring/session-azure-sre-agent`,
+companion repositories, excluded source material or operational bindings.
+
+Approval and visibility are separate events. This documentation change does
+not change repository visibility or claim that public access was observed.
+The release maintainer must first merge this documentation into `main`, then
+apply the approved repository metadata/visibility change and verify public
+access. No release tag, binary distribution or live deployment is authorized
+by this documentation follow-up.
+
+The runtime gaps below remain requirements before live use, not automatic
+blockers to public availability of the source. Public availability is neither
+whole-lab acceptance nor a blanket security clearance. The package binding
+check is not a general secret scan; retain the content/history/rights review
+boundary and stop publication if concrete sensitive material or a rights
+blocker is found. Future exports or scope changes require their own review.
 
 ## Included and immutable provenance
 
@@ -326,7 +354,7 @@ rerun. This refresh made no Azure call or live query patch and did not reproduce
 the user's portal browser selection. Full-query API behavior and portal
 current-block execution remain distinct, as the updated component README
 explains. Private notes, planning, raw receipts and native configuration remain
-excluded; repository visibility remains private.
+excluded; repository visibility remained private at that October 2 closeout.
 
 ## Previous closeout verification — Arc source c814605, 2026-10-02
 
@@ -393,7 +421,10 @@ The validation copy and short drive mapping used for PowerShell 5.1 were removed
 These results are offline source validation, not real guest installation,
 service authorization, native approval, recovery or attendee readiness.
 
-Public visibility still requires explicit owner approval of the exact commit,
-content/history/rights review and independent deployment acceptance.
+The [October 11 approval](#public-availability-approval---2026-10-11) supersedes
+the earlier pending public-release approval status, not the recorded review
+limitations or live-use gates. Independent deployment acceptance remains
+required before live use; it is not a prerequisite for publishing this source.
 Never ingest exercise answers, fault instructions or private receipts into
-agent knowledge. A private push is not a claim that the kit is ready end to end.
+agent knowledge. A push or visibility change is not a claim that the kit is
+ready end to end.
