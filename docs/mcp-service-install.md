@@ -1,10 +1,9 @@
 # Publish and install the private MCP Windows service
 
 **Manual operator runbook, not a tested appliance or native SRE installer.**
-This original attendee guide replaces no source-lab deployment script. No live
-AD, certificate, service or connector operation was performed to validate it.
+The installation procedure is not live-tested end to end.
 Complete [gMSA and guest prerequisites](guest-setup.md) first. Use a new dedicated
-broker; do not repoint a presenter's WORKGROUP service or reuse node credentials.
+broker; do not repoint an existing WORKGROUP service or reuse node credentials.
 
 ## Choose the deployment model
 
@@ -117,7 +116,7 @@ This host writes audits to Event Log; it does not need a writable binary folder.
 
 Use the [configuration contract](../tools/private-mcp/README.md#explicit-configuration-and-prerequisites)
 and the two JSON examples. Author `boundary.local.json` **inside the newly
-protected directory**. Do not copy it from a source environment or place it
+protected directory**. Do not copy another environment's bindings or place it
 in user-writable staging. Preserve the restrictive inherited ACL; the service
 may read it, never write it. Use these fields, with your own values:
 
@@ -286,7 +285,7 @@ when startup fails.
 | Guest reads | Sequential facts, `Spooler`, System/Application events; expected connecting gMSA and nonadmin virtual execution identity, fresh UTC/correlation, each required provider succeeds |
 | Denials | Unlisted target/service/log, extra command arguments and arbitrary commands denied; do not broaden access for a failed test |
 | Audit | Authenticated request correlation present in Application source `LocalBoxPrivateMcp`; retain only approved redacted metadata |
-| Native agent | Independently prove connector route, token renewal, exact selected tools and fresh correlated calls; source-lab acceptance does not transfer |
+| Native agent | Independently prove connector route, token renewal, exact selected tools and fresh correlated calls in your environment |
 
 Use the [exact tool arguments](../tools/hybrid-server/README.md#components-and-contracts)
 with an approved authenticated MCP client. For initial event checks use

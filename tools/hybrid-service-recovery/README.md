@@ -109,8 +109,6 @@ PSSC and registered-copy hashes/GUIDs. The installer lifecycle suite substitutes
 host/identity preflight and all system mutation commands, then executes the
 real receipt/configuration/cleanup bodies against workspace-only scratch files.
 Installation and removal are **not** executed against the machine.
-On 2026-10-01, all 43 runtime/helper checks and the stubbed installer/cleanup
-lifecycle passed on PowerShell 5.1.26100.9444 and 7.6.6.
 Actual JEA token/service authorization and platform
 behavior remain a separately approved lab validation, not an offline claim.
 
@@ -132,7 +130,6 @@ automatic final Teams response and positive telemetry recovery remain pending.
 
 ## First-party implementation references
 
-Consulted before implementation:
 [service access rights](https://learn.microsoft.com/windows/win32/services/service-security-and-access-rights),
 [Win32 DACL merge example](https://learn.microsoft.com/windows/win32/services/modifying-the-dacl-for-a-service),
 [StartService blocking behavior](https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicew),

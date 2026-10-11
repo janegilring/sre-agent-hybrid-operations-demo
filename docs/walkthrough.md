@@ -1,30 +1,22 @@
-# Presenter walkthrough and answer key
+# Offline evidence exercises
 
 Optional offline illustration. To build real components, start with the
 [starter quickstarts](../README.md), not these synthetic expected outcomes.
 
-**Presenter-only. Do not ingest into SRE knowledge.**
-Reviewed 2026-10-01. Every fixture is synthetic; no observation is from a live
-system. Prompts below are prepared examples, not requests already executed.
+**Do not ingest the exercises or answer key into SRE knowledge.**
+Every fixture is synthetic; no observation is from a live system.
+Use PowerShell 7.5+ from the repository root. No Azure sign-in is needed.
 
-## Segment 1: establish the evidence boundary
+## Understand the evidence boundary
 
-Explain the [reference architecture](reference-architecture.md). Distinguish
+Read the [reference architecture](reference-architecture.md). Distinguish
 cloud metadata, native node reads, operator snapshots and guest execution.
 
-Prepared live prompt, **only after separate live approval and implementation**:
+An identity result alone does not establish provider access or health.
+In a live deployment, caller/execution identity, nonadmin status and correlation
+need independent verification. These fixtures do not authenticate to a server.
 
-> Use only the deployed, approved identity tools for the fixed approved targets.
-> Report observed target and correlation. Distinguish returned fields from
-> independently verified caller/execution identity, nonadmin status and time.
-> Do not call other tools or change state.
-
-Expected: identity-only evidence and explicit missing audit fields, not invented
-proof from agent narration. Stop if tool/schema/scope or independent audit is
-unavailable. Offline fallback: discuss the boundary; no synthetic identity is
-passed off as an actual authenticated call.
-
-## Segment 2: UNKNOWN is a useful result
+## Exercise 1: UNKNOWN is a useful result
 
 Run from the repository root:
 
@@ -32,17 +24,16 @@ Run from the repository root:
 pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario provider-denied
 ```
 
-Prepared evidence-review prompt:
+Consider this question while reading the output:
 
-> This is synthetic teaching data. Explain why responding sources do not prove
-> complete inventory. Preserve the denied source and unknown count. Recommend
-> an approval-gated next step, not elevation or another privileged transport.
+> Why do responding sources not prove complete inventory when another source
+> is denied? What can you report without elevating privileges?
 
 Expected: `UNKNOWN`, null count for the denied source, no "zero VMs" statement.
 The program is an offline formatter/validator, not an SRE conversation or native
-tool replay. Do not upload presenter answer keys to the investigating agent.
+tool replay.
 
-## Segment 3: empty, missing and stale are different
+## Exercise 2: empty, missing and stale are different
 
 ```powershell
 pwsh -NoProfile -File scripts\Invoke-Replay.ps1 -Scenario all
@@ -65,7 +56,7 @@ Fallback if PowerShell 7.5+ is unavailable: show the
 [checked-in fixture and expected labels](../examples/scenarios.json) as a static
 synthetic example. Do not describe that as an executed test or a recording.
 
-## Segment 4: management class is not guest access
+## Exercise 3: management class is not guest access
 
 Use this conceptual matrix, not fabricated environment inventory:
 
@@ -77,36 +68,29 @@ Use this conceptual matrix, not fabricated environment inventory:
 | Unmanaged | Not enabled | Approved local evidence may still describe the VM |
 | Unknown | Unknown | Missing records/permissions do not classify the object |
 
-Prepared prompt:
+Consider:
 
 > Separate lifecycle management, guest Arc, workload/infrastructure role,
 > provider visibility and owner evidence. State unknowns. Do not infer class
 > from names, absent Azure records or a successful host identity call.
 
-Fallback: explain the matrix only. No lifecycle conversion, guest-agent install
+The matrix is conceptual. No lifecycle conversion, guest-agent install
 or VM mutation is included.
 
-## Segment 5: existing health alerts and operator escalation
+## Apply the distinction to health alerts
 
-Prepared live read-only prompt, subject to authorized tools and scope:
-
-> Read the existing approved cluster's Azure Monitor health-alert evidence.
-> Preserve raw severity and source time. Distinguish configuration, forwarding,
-> actual alert payload and SRE routing. If coverage is incomplete, explain the
-> gap and recommend operator-reviewed diagnostics without executing them.
-
-Expected: reuse existing `AzureEdgeAlerts`, no new workspace/custom alert-rule
-prerequisite for built-in faults, no claim that an empty alert list proves health.
+Built-in Azure Local faults use `AzureEdgeAlerts`; a new workspace/custom
+alert rule is not a prerequisite. An empty alert list does not prove health.
 Native HealthFault denial remains a separate limitation. A metrics catalog is
 not export proof. CSS is an operator recommendation, not an agent repair action.
 
-If no live alert/routing proof exists, explain the sourced product behavior as
-reference architecture. Do not cause a node outage, remove a disk, lower a
-threshold or stop Resource Bridge to manufacture a result.
+Keep configuration, forwarding, actual alert payload and SRE routing evidence
+separate. Do not change a service, node, disk or threshold to manufacture a
+result for this exercise.
 
-## Close and reset
+## Check and reset
 
-Summarize what was actually executed offline versus anything separately proved
-live, with dates and remaining coverage. Use [safe reset](safety-and-reset.md).
-This release contains no recorded live report or video, no benchmark result,
-no fault trigger and no automatic remediation. Those remain separate gated work.
+Run `pwsh -NoProfile -File tests\Test-Replay.ps1` to check the fixture contracts.
+Rerun replay to reset; it creates no cloud resource or service change.
+Use [safe reset](safety-and-reset.md) for separately installed components.
+The examples are not live reports, benchmarks, fault triggers or remediation.

@@ -5,31 +5,17 @@ install a bounded, read-only Windows server diagnostic endpoint. Pick only the
 components you need; **ordinary domain-joined Windows servers do not require
 Azure Local, LocalBox or Arc for JEA diagnostics**.
 
-**Owner-approved public attendee starter (2026-10-11).** Approval covers this
-repository's portable source and documentation, not the private presenter source.
-The [publication record](docs/publication-review.md#public-availability-approval---2026-10-11)
-separates that approval from the repository visibility change.
-No Azure deployment or live endpoint registration was performed
-while packaging this repository. This is not a tested whole-lab installer.
-The earlier guest source refresh brought in the complete 30-file guest JEA/MCP
-dependency set from committed source `9eb5ddf`: provider-loading/JEA fixes,
-bounded NIC projection, compact endpoint ownership markers and narrow private
-forwarder source rules. Other exports retain their exact mixed provenance.
-The attendee follow-up adds portable installation guidance and one neutral
-native skill. The PowerShell-first follow-up translates validation tooling with
-explicit derivative provenance; deployed component source remains unchanged.
-Source-environment success does not establish deployment in your environment.
-No private bindings, keys, raw events or authoring traces are included.
-
 **Start here as an attendee:** [readiness, minimum lab and scenario coverage](docs/attendee-readiness.md).
 **One-server setup:** [gMSA and JEA](docs/guest-setup.md) ->
 [publish and register the Windows MCP service](docs/mcp-service-install.md).
-**Presenter practice:** [60-minute facilitator guide](docs/practice.md).
 **Build your own reports:** [native report recreation and acceptance](docs/native-reports.md).
-The guides use placeholders, not the source environment's identities or report IDs.
+**No Azure environment yet:** try the [offline exercise](docs/walkthrough.md).
+The guides use placeholders for your own environment. This is not a tested
+whole-lab installer; live identity, connectivity and integration checks remain
+your responsibility.
 
 **PowerShell-first:** use PowerShell **7.5+** (`pwsh`) for the offline replay,
-package checks and translated component tests; no Python installation is needed
+package checks and component tests; no Python installation is needed
 for attendee workflows. Windows PowerShell 5.1 remains the guest JEA host.
 Azure CLI/Bicep and .NET are required only for the components that use them.
 One real Azure CLI SDK regression remains a **maintainer-only Python exception**,
@@ -59,7 +45,7 @@ not an attendee prerequisite; see [maintainer validation](docs/powershell-toolin
 [Open SVG](docs/diagrams/nic2026-demo-environment.svg) ·
 [Editable Excalidraw source](docs/diagrams/nic2026-demo-environment.excalidraw)
 
-This **earlier conceptual** Azure-hosted LocalBox overview shows managed identity → private MCP →
+This **conceptual** Azure-hosted LocalBox overview shows managed identity → private MCP →
 Kerberos/JEA reads on two Azure Local nodes. Optional telemetry is a separate
 path; guest, incident and repair paths are explicitly planned or acceptance-gated.
 It is a reusable design overview, **not a live acceptance or health report**.
@@ -67,7 +53,7 @@ Ordinary-server diagnostics still do not require Azure Local or LocalBox.
 For an ordinary-server deployment today, follow the [current trust-route
 checklist](docs/guest-setup.md): private forwarder if needed → domain-joined
 MCP service identity → fixed guest JEA endpoint. The workgroup forwarder does
-not become a Kerberos execution identity. The historical diagram is not an
+not become a Kerberos execution identity. The diagram is not an
 as-built deployment instruction.
 
 ### Quickstart: new SRE Agent
@@ -100,12 +86,8 @@ pwsh -NoProfile -File infra\hybrid-monitoring\tests\Test-Template.ps1
 Edit the private copies with your own approved bindings. Then follow
 [preflight, preview, apply, validate and cleanup](infra/hybrid-monitoring/README.md#prepare-preview-apply-verify).
 For portal Logs, select the **entire query with Ctrl+A**, including its final
-tabular expression. The generator now trims file boundaries before joining with
-one newline to avoid an unintended current-query block separator. See the
+tabular expression. See the
 [full-query guidance](infra/hybrid-monitoring/README.md#running-the-complete-query-in-azure-logs).
-Full-query API execution and portal current-block execution are distinct;
-the original browser selection was not observed. This source refresh does not
-modify deployed rules.
 Collection is a prerequisite. The optional
 [disk-only DCR component](infra/hybrid-monitoring-collection/README.md) adds one
 counter to exactly two Arc servers; it does not bootstrap all AMA collection.
@@ -165,7 +147,7 @@ Keep LocalBox node capabilities disabled for ordinary servers.
 The [installation guide](docs/mcp-service-install.md) covers runtime prerequisites,
 directory/config/key permissions, quoted gMSA SCM registration and scoped removal.
 Native private routing and renewable app-only authentication require separate
-attendee-specific acceptance; a working source-lab connector is not its provisioning recipe.
+configuration and verification in your environment.
 
 ### Optional: disk collection and fixed service recovery
 
@@ -179,9 +161,8 @@ pwsh -NoProfile -File tools\hybrid-service-recovery\Test-InstallerOffline.ps1
 Read the collection guide's exact three-resource what-if and
 `New-CollectionReceipt` instructions before separately approved deployment.
 Legacy receipts without proven original snapshots/fingerprints do **not**
-authorize cleanup. The legacy reconciliation concluded **HELD** after original
-snapshots were overwritten; no cleanup was performed or is authorized without
-fresh owner review. Never reconstruct ownership from current GET responses.
+authorize cleanup. If original snapshots are missing or overwritten, stop for
+ownership review. Never reconstruct ownership from current GET responses.
 
 Spooler recovery exposes only a fixed state read and `Start-HybridSpooler`.
 It has no fault injection, arbitrary service control, MCP write tool or native
@@ -208,16 +189,12 @@ five-rule baseline's cleanup script does not apply to these resources.
 
 ### What is not ready
 
-Native configuration (`tools\nic-sre-config`) is still unreviewed and deliberately
-excluded. End-to-end Kerberos/WinRM/JEA readiness for the ordinary-server
-candidate remains unverified **in an attendee environment**. Native read-only
-guest access was demonstrated in earlier source-lab work; that dated proof
-does not establish current tool discovery, transfer to a new deployment, or
-establish recovery. A registered connector with configured tool visibility can
-still be undiscoverable in an actual main-agent conversation. Require fresh
-operational calls, not only configuration readback. Source alert
-verification does not prove native incident routing, approval, final Teams
-notification, guest recovery or a complete attendee lab.
+There is no complete native-agent configuration or whole-lab installer.
+End-to-end Kerberos/WinRM/JEA and native SRE integration require verification
+in your environment. A registered connector with configured tool visibility can
+still be undiscoverable in a main-agent conversation; require fresh correlated
+calls, not only configuration readback. Native incident routing, human approval,
+final Teams notification and guest recovery are not delivered end to end.
 
 ### Optional: per-machine Arc connectivity
 
@@ -233,13 +210,9 @@ rule slots**, not one. There is no resource-group/subscription scope fallback.
 Follow the component's offline parameter gate and separately authorized manual
 preflight; compilation never authorizes deployment.
 
-The owner reports successful deployment of four revised rules in the source
-environment. No actual IDs, failed-candidate raw history, receipts or live
-bindings are exported. The source README retains its authoring-time provider
-acceptance gate; every attendee must validate their own environment. This signal
+Verify provider acceptance in your environment after deployment. This signal
 is an Available → Unavailable event, not current inventory: zero events is
-UNKNOWN, and native routing, Teams delivery and recovery remain separate gates.
-The operating window is closed; this packaging refresh performs no live action.
+UNKNOWN. Native routing, Teams delivery and recovery require separate checks.
 
 ## Guides and optional illustrations
 
@@ -247,21 +220,20 @@ The operating window is closed; this packaging refresh performs no live action.
 - [LocalBox upstream and sequencing](docs/localbox.md)
 - [Reference architecture](docs/reference-architecture.md)
 - [Safety and cleanup](docs/safety-and-reset.md)
-- [Optional offline exercise and presenter walkthrough](docs/walkthrough.md)
+- [Optional offline exercise](docs/walkthrough.md)
 - [Optional Copilot/Claude → SRE Agent MCP bonus](docs/sre-agent-mcp-client-bonus-demo.md)
   — documentation-verified client setup and bounded existing-thread reads;
   integration remains untested, with no new investigation or remediation.
 - [Source references](docs/sources.md), [attribution](THIRD-PARTY.md)
-- [Packaging scope and validation](docs/publication-review.md)
+- [Local validation and maintainer checks](docs/powershell-tooling.md)
 
 ### Microsoft SRE Agent hands-on labs
 
 Explore Microsoft's [SRE Agent labs feature branch](https://github.com/microsoft/sre-agent/tree/feature/onboarding-agent-workflows/labs)
 and the [five pinned lab/connector references](docs/sources.md#microsoft-sre-agent-labs-and-report-connectors).
 The reviewed snapshot is `1b30297529fcef0411ad64c56e60500a5a3a8e61`
-(September 18, 2026), not a release. These are **external links only**: no lab
-code/configuration is copied, deployed or added to the export provenance.
-The Microsoft lab links do not add files to the source manifest.
+(September 18, 2026), not a release. These are **external links only**;
+revalidate compatibility before using them.
 
 Use the scheduled-health and report examples as separate learning exercises.
 The scheduled instructions prohibit updating reports; successful subagent
@@ -269,8 +241,7 @@ queries do not establish report-tool eligibility. Verify your actual configured
 connector, supported report tools and scoped queries before separately approving
 one read-only report save → gallery → reopen → Reload test. Do not import
 autonomous incident routes, broad policies, enabled schedules or email settings
-from the lab. Public availability of this kit or linked material is not an
-end-to-end acceptance claim.
+from the lab.
 
 The preserved synthetic examples are optional teaching illustrations, not live
 evidence or the purpose of this starter:
@@ -283,8 +254,8 @@ pwsh -NoProfile -File tests\Test-Replay.ps1
 **Do not ingest this repository into agent knowledge.** It includes expected
 answers and exercise material. Restrict any knowledge connector to separately
 reviewed neutral runbooks; never ingest fault scripts, private bindings or raw
-operational results. The companion runbooks repository is also private unless
-its owner separately approves release.
+operational results. The optional [native skill](docs/custom-skill.md) has its
+own import and verification instructions.
 
-Original owner-authorized code and prose retain the [MIT license](LICENSE).
+Original code and prose retain the [MIT license](LICENSE).
 Linked third-party content is not vendored or relicensed.

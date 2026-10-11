@@ -60,13 +60,11 @@ excluded: these are concurrency, audit and lifecycle metadata rather than
 collection configuration. Unknown properties remain included, fail-safe.
 Avoid concurrent writers during cleanup; validation is not an ARM transaction.
 
-### Explicit legacy receipt reconciliation — cleanup remains held
+### Legacy receipt reconciliation
 
-Packaging status: the source environment's legacy reconciliation concluded
-**HELD** because original snapshots were overwritten. No resource cleanup was
-performed or is authorized without fresh owner review. The instructions below
-describe the required provenance checks, not a way to recover missing originals
-from current GET responses or permission to resume cleanup.
+Cleanup is blocked without original snapshots and configuration fingerprints.
+If those snapshots are missing or overwritten, stop for ownership review.
+Current GET responses cannot recover the originals or establish ownership.
 
 Never fill missing fingerprints from current GETs. For a legacy deployment,
 the owner must independently verify the provenance of the preserved original
@@ -94,8 +92,7 @@ provenance or exact fingerprint equality cannot be proved, do not upgrade and
 do not clean up; reconcile the drift explicitly with the owner. A reconciled
 receipt does not authorize deletion. Preview and actual cleanup still require
 separate approval. **Legacy deployment cleanup stays held until private original
-receipt migration proof exists.** This revision does not migrate private files
-or touch the live agent, DCR or two associations.
+receipt migration proof exists.**
 
 Successful collection is an intended operational baseline and remains enabled.
 There is recurring Log Analytics ingestion/retention cost: one sample per

@@ -40,32 +40,19 @@ Native SRE routing, fired-alert ingestion and initial/final Teams messages requi
 separate acceptance evidence. Compilation, preflight and what-if prove none of
 those outcomes.
 
-## Provider-rejection revision and footprint
+## Scope and footprint
 
-An earlier single-rule candidate combined multiple exact machine scopes with a
-nested `resourceId` `anyOf`. ARM validation and what-if passed, but the actual
-Monitor resource provider rejected creation with `ScopeMismatch` ("The resourceId
-specified in the condition is not in the right scope."). This does **not**
-establish that `anyOf` is generally unsupported, nor explain the provider's
-internal validation algorithm.
+Each rule uses one machine scope and one matching flat resource-ID equality.
+ARM validation and what-if do not guarantee resource-provider acceptance;
+verify the deployed rule. If the provider rejects it, inspect the returned
+error without broadening scope. No resource-group/subscription fallback is
+included.
 
-This revision removes both multi-scope and multi-resource-condition interaction:
-one machine scope, one matching flat resource-ID equality, unchanged category,
-resource type and transition. The official creation guide supports individual
-resource scopes; the REST schema documents prefix scopes, flat `allOf` leaves,
-`resourceId`, and case-insensitive equality. These establish the intended
-semantics, **not actual provider acceptance of this revised combination**.
-No documented requirement to broaden to resource-group scope was found in those
-references; no resource-group/subscription scope fallback is included. If the
-provider rejects this candidate, stop for coordinator review, not scope widening.
-
-For four selected machines the footprint is **four new rules, not one** (+3
-versus the failed design, +4 versus its absent live resource). They have four
+For four selected machines the footprint is **four new rules, not one**. They have four
 independent ownership/GET/routing verification obligations and consume four
 activity-log rule slots. There is no additional query, workspace or ingestion
 component. Review current Azure Monitor pricing and notification charges before
-approval; the changed count must not be presented as an approved cost-neutral
-change. Action groups remain empty by default.
+approval. Action groups remain empty by default.
 
 ## Prepare and test (no deployment)
 
@@ -82,10 +69,10 @@ by current GETs and generate a fresh ownership UUID. Keep real bindings and
 receipts out of portable source. Each name is
 `arc-connectivity-single-<guid(lowercase ownership UUID, lowercase full machine ID)>`.
 ARM's deterministic UUID is bound to the complete target, independent of array
-order and ID case; the new prefix cannot collide with the failed design's name.
+order and ID case.
 The `arc-connectivity-owner` tag retains the ownership UUID. A fresh UUID and
 exact absence checks are still mandatory; a deterministic name is not ownership
-or overwrite permission. The output is now `alertResourceIds` (array).
+or overwrite permission. The output is `alertResourceIds` (array).
 Compile the private `.bicepparam` to an ARM parameters JSON file, then run:
 
 ```powershell
@@ -120,7 +107,7 @@ invoking ARM directly.
    alert-ID set (four machines require four Creates), no
    Modify/Delete/Deploy/unsupported changes. Unrelated Ignore/NoChange entries
    are not modifications; retain them in the receipt. Never use Complete mode.
-6. **Stop for separate live approval and source review.** Recheck absence,
+6. **Stop for separate live approval.** Recheck absence,
    freshness, hashes and the exact Create set immediately before a separately
    authorized deployment. This starter includes no automatic apply/cleanup.
 7. After any separately approved application, retain a full GET of every exact

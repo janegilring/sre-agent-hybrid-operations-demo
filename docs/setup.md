@@ -1,12 +1,7 @@
 # Setup, prerequisites, costs and permissions
 
-Baseline reviewed 2026-10-01; attendee installation/coverage follow-up 2026-10-11.
-Product sources: [source register](sources.md).
+Product references: [source register](sources.md).
 Start with [attendee readiness](attendee-readiness.md) to select a feasible path.
-
-The owner approved this attendee source/documentation for public availability
-on 2026-10-11; see the [publication record](publication-review.md#public-availability-approval---2026-10-11).
-That approval is not deployment permission or live-environment acceptance.
 
 ## Reproducible offline scope
 
@@ -15,10 +10,10 @@ the [SRE starter](../infra/sre-agent-starter/README.md),
 [monitoring baseline](../infra/hybrid-monitoring/README.md), and
 [Windows JEA capability](../tools/hybrid-server/README.md) include their own
 prerequisites, validation, deployment and ownership-checked cleanup commands.
-The [portable MCP implementation](../tools/private-mcp/README.md) now includes
+The [portable MCP implementation](../tools/private-mcp/README.md) includes
 locked .NET 10 build/test projects and explicit operator-owned network settings.
 The [gMSA/guest guide](guest-setup.md) and [compiled Windows service runbook](mcp-service-install.md)
-now supply the manual domain identity and host installation sequence. They do
+supply the manual domain identity and host installation sequence. They do
 not deploy a host, provision native authentication, or establish real provider
 or native-agent acceptance.
 Optional [disk collection](../infra/hybrid-monitoring-collection/README.md) and
@@ -46,7 +41,7 @@ The exercise does not load environment variables, credentials or a binding file.
 It creates no infrastructure and incurs no Azure or model charge.
 
 `examples/scenarios.json` is a teaching format, not a native MCP, Azure Monitor
-or Health Service response schema. `expected_result` is the presenter's answer
+or Health Service response schema. `expected_result` is the exercise answer
 key. The replay computes outcomes independently and tests compare them.
 Its 120-second age and five-second future-skew values are teaching fixture
 policy, not a universal product guarantee.
@@ -63,7 +58,7 @@ Local scenario, not to every Windows/JEA attendee:
    A nested-virtualization lab is a lab, not physical on-premises production.
 2. Select an existing Azure SRE Agent with approved managed resource scope.
    Capture current connector, tool and response-plan configuration. Preserve
-   unrelated existing demonstrations and monitoring.
+   unrelated existing workloads and monitoring.
 3. Inspect existing native Health alerts/`AzureEdgeAlerts` first. Built-in health
    alerts do not require a new Log Analytics workspace or custom alert rule.
    For Insights/performance, separately prove actual collection, ingestion,
@@ -80,7 +75,7 @@ Local scenario, not to every Windows/JEA attendee:
 6. Before SRE knowledge ingestion, audit all Code Access, Knowledge base and
    GitHub tools. Restrict new retrieval to neutral runbooks, never this answer
    repository or private planning. Verify source citations in a fresh thread.
-7. Before incident rehearsal, verify approved targets, matching alert payloads,
+7. Before testing incident integration, verify approved targets, matching alert payloads,
    Review mode, overlap with default plans and separately approved notification
    effects. Do not silently remove existing plans or change monitoring.
 

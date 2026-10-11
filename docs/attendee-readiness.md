@@ -1,11 +1,8 @@
 # Attendee readiness and coverage
 
-**Reviewed October 11, 2026. Owner-approved public attendee starter; no whole-lab acceptance claim.**
-This audit starts with a reader who has no presenter subscription, domain,
-connector, credentials or report IDs. The owner approved public availability
-of this repository on that date; the [publication record](publication-review.md#public-availability-approval---2026-10-11)
-distinguishes approval from the visibility change. This grants no access to
-the private presenter source, lab or companion runbooks.
+Choose a path based on the infrastructure you already have. Start offline if
+you do not have an Azure subscription or domain; use your own identities,
+connectors and target servers for live exercises.
 
 Status below describes **what this repository delivers**, not Microsoft product
 support: **Supported** = reproducible offline component; **Manual** = supplied
@@ -20,7 +17,7 @@ portable implementation here. A lab success is evidence for that lab only.
 | Offline, no Azure | Repository access and PowerShell 7.5+ | Run synthetic replay and tests below. No sign-in, external data, packages, infrastructure or Azure/model cost. |
 | Local component development | Windows, PowerShell 7.5+ and Windows PowerShell 5.1; .NET 10 SDK/cache for MCP | Parse/test JEA; locked restore/test/publish MCP. Tests fake transport and mutations, not a working broker. |
 | One real non-Arc Windows guest | Existing AD DS/DNS/DC, one domain-joined broker and one member-server guest; directory, host and PKI owners | Follow [gMSA/guest setup](guest-setup.md) and [compiled service installation](mcp-service-install.md). No LocalBox/cluster/Arc/AMA needed. Real gMSA/JEA/client acceptance remains manual. |
-| Native SRE investigation | Previous path plus your approved SRE agent, Entra application caller/role and private remote-MCP route | Prove supported renewable app-only authentication, route, exact tools and live correlation before calling it connected. No presenter bindings are needed or supplied. |
+| Native SRE investigation | Previous path plus your approved SRE agent, Entra application caller/role and private remote-MCP route | Prove supported renewable app-only authentication, route, exact tools and live correlation before calling it connected. |
 | Windows performance/alerts | Existing Azure VM or Arc server IDs, working AMA Heartbeat/Perf, workspace and scoped permissions | Add only the selected monitoring component after collection preflight. Non-Arc JEA reads do not supply AMA data. |
 | Azure Local-specific learning | Your supported system or separately funded [LocalBox lab](localbox.md) | Needed for cluster/storage/VM-specific providers, not for the ordinary guest path. Nested lab behavior is not physical/OEM support proof. |
 
@@ -40,7 +37,7 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 
 | Scenario/component | Status | Delivered and next action |
 | --- | --- | --- |
-| Private, non-Arc guest investigation | **Manual / Blocked end to end** | Fixed JEA reads, C# broker and tests; gMSA creation/KDS/GPO, publish/ACL/SCM/certificate instructions now included. Supply your real guest/provider permissions, actual gMSA tests and approved client. Native SRE auth provisioning recipe still requires owner/product-specific validation. |
+| Private, non-Arc guest investigation | **Manual / Blocked end to end** | Fixed JEA reads, C# broker and tests; gMSA creation/KDS/GPO, publish/ACL/SCM/certificate instructions included. Supply your real guest/provider permissions, actual gMSA tests and approved client. Native SRE auth provisioning recipe still requires owner/product-specific validation. |
 | Alert -> investigation | **Manual** | [Five-rule baseline](../infra/hybrid-monitoring/README.md), [service transition](../infra/hybrid-service-monitoring/README.md) and [Arc transition](../infra/hybrid-arc-connectivity/README.md) are separate components. Working collection, native intake/response plan and fresh investigation correlation are separate proofs. |
 | Investigation -> approved repair -> verified recovery/notification | **Blocked** | [Spooler-only recovery](../tools/hybrid-service-recovery/README.md) is offline-tested JEA source, not an MCP write tool or native approval bridge. [HIMDS scenario](himds-recovery-demo.md) is a gated design, not a portable executor. No automatic repair, one-use native approval contract, independent recovery or final Teams delivery is delivered end to end. |
 | Arc without guest VPN/inbound remoting | **Manual reference / Not included payload** | Existing Connected Machine agent can receive separately authorized Run Command through Azure, without direct RDP/SSH. This is privileged execution, not this JEA boundary. Follow the comparison below; no payload/fault supplied. |
@@ -67,30 +64,14 @@ prerequisites. Validate current agent/version/OS/region/feature availability
 and permission scope before adopting preview execution. Do not bypass a JEA
 provider denial by invoking Arc under a more privileged identity.
 
-## Fixed by this attendee pass
-
-The missing installation middle is now documented: directory/KDS timing,
-narrow broker-only password retrieval, gMSA install/test and service-logon/GPO;
-complete framework-dependent publish and runtime prerequisites; protected
-artifact/config directory; exact certificate-key Read access; Event Log source;
-quoted SCM registration; first start/account/PID and layered acceptance;
-collision/drift handling and scoped uninstall. A gMSA is no longer presented
-as an identity you can simply log into to run the guest test.
-
-The entry point now starts with attendee choices rather than a facilitator
-timeline. Corrected stale architecture wording, explicit TCP 5985 encrypted
-Kerberos transport, and separate network/authentication gates prevent false
-claims that a build, a green connector or a report render completes the lab.
-Exported executable source remains unchanged.
-
-## Remaining owner acceptance checklist
+## Live environment verification checklist
 
 1. **Identity/host:** newly provisioned broker/guest, actual gMSA token and
    provider access, live endpoint negative probes, certificate renewal and
    ownership cleanup. Offline tests and an installer's account cannot prove these.
 2. **Native SRE:** reviewed renewable application-token setup plus private remote
    MCP routing; product-specific connector configuration and new-attendee
-   readback evidence. See the [official-source reconciliation](mcp-service-install.md#native-sre-connector-is-a-separate-availability-gate).
+   readback evidence. See the [network and authentication prerequisites](mcp-service-install.md#native-sre-connector-is-a-separate-availability-gate).
 3. **Monitoring/incidents:** complete collection coverage, positive firing and
    recovery observations, native matching/overlap/Review behavior, separately
    approved notification audience. Event absence/expiry is never recovery.
@@ -117,10 +98,10 @@ still apply. The [cleanup guide](safety-and-reset.md) links each component's
 ownership rules. Never delete a whole resource group/domain, clear logs or
 remove shared grants as "reset." Record what was removed, retained or blocked.
 
-## Reproduce the audit checks
+## Check the documentation locally
 
-The [packaging guide](publication-review.md#reproduce-local-validation) has the
-component suites. For these attendee instructions specifically:
+The [tooling guide](powershell-tooling.md#local-validation) lists the component
+suites. For these attendee instructions specifically:
 
 ```powershell
 pwsh -NoProfile -File scripts\Test-AttendeeDocs.ps1

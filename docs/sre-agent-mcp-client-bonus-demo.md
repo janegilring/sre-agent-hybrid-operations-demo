@@ -1,10 +1,9 @@
 # Optional bonus: reach Azure SRE Agent from Copilot or Claude
 
-**Research reviewed October 10, 2026. Documentation-verified; client integration
-NOT tested or accepted by this starter.** This is an optional 2–3-minute
-illustration, subordinate to your main operations demonstration. Setup happens
-beforehand, in an approved client profile; it does not extend the facilitator
-guide's timing.
+Read an existing SRE Agent thread from a development assistant using Azure MCP
+Server. **Client integration is not tested by this starter.** The setup below
+is based on first-party documentation reviewed October 10, 2026; use an approved
+client profile and verify startup, authentication and scoped reads yourself.
 
 ## The important direction
 
@@ -35,20 +34,20 @@ require `srectl init` and operate as CLI authoring/management helpers. Likewise,
 an available `azure-sreagent` router declaration is not proof that its MCP
 process started or authenticated.
 
-## Verified facts and outstanding gates
+## Compatibility and limits
 
 | Claim | Evidence / status on October 10 |
 | --- | --- |
 | Client-to-SRE integration exists in first-party documentation | Microsoft Learn explicitly documents Azure MCP Server, endpoint discovery, permissions, and Copilot/Claude clients. [1] |
 | A published package contains the required read tools | Official release `Azure.Mcp.Server-3.0.0-beta.50`, published October 6, 19:50:40 UTC, links NPM `@azure/mcp` version `3.0.0-beta.50`. Its tagged source registers `sreagent` and `threads get`; the latter is annotated read-only and retrieves existing messages without running an investigation. [3][4] |
-| This starter supplies a successfully connected client | **No.** No client startup, authentication or SRE service call is accepted by this packaging. Validate your own installation; a local process startup failure does not prove SRE service failure or diagnose permissions. |
-| Copilot CLI / VS Code / Claude Code / Desktop end-to-end acceptance | **NOT tested** in this research. Configurations below are derived from first-party setup/schema documentation and tagged source, not successful runtime receipts. |
+| This starter supplies a successfully connected client | **No.** Validate your own installation; a local process startup failure does not prove SRE service failure or diagnose permissions. |
+| Copilot CLI / VS Code / Claude Code / Desktop end-to-end acceptance | **NOT tested.** Configurations below are derived from first-party setup/schema documentation and tagged source. |
 | Direct remote per-agent MCP URL / OAuth client registration | **Not established by the reviewed sources.** No invented URL, OAuth scope, API key, or bearer-header configuration is supplied. |
-| Current health or HIMDS recovery of your target guests | **Not assessed here.** Reading a historical thread would not prove current guest state or successful recovery. `app01`/`db01` below are sample target names, not exported machine bindings. |
+| Current health or HIMDS recovery of your target guests | **Not assessed here.** Reading a historical thread would not prove current guest state or successful recovery. Substitute your reviewed targets in the prompts below. |
 
 Treat the Azure package's **beta** designation and SRE preview API as explicit
-red flags. Pin the reviewed package for rehearsal; do not upgrade `@latest`
-on stage. The repository's global “latest release” can refer to another MCP
+compatibility limits. Pin the reviewed package; validate a newer version before
+upgrading. The repository's global “latest release” can refer to another MCP
 server, so use the Azure-specific release. [3]
 
 ## Prerequisites: do not grant permissions for a bonus
@@ -71,8 +70,8 @@ server, so use the Azure-specific release. [3]
    [1]. This is not a read-only data-plane RBAC role. Do not add it, broaden
    scope, approve new consent, or change the agent identity just for this demo.
    Missing access means skip the service read.
-6. A short, completed, owner-reviewed thread concerning only `app01` and/or
-   `db01`, safe for the client/model and intended audience. The thread GET can
+6. A short, completed, owner-reviewed thread concerning only your selected
+   targets, safe for the client/model and intended audience. The thread GET can
    return its existing message history; asking for a five-bullet summary does
    **not** limit bytes returned by the service. Do not choose a broad incident
    thread, raw event dump, credential-bearing thread, or active investigation.
@@ -84,7 +83,7 @@ az login --tenant "<TENANT_ID>"
 az account show
 ```
 
-Do this privately, not on the projector. Do not export tokens or store them in
+Do this in a private terminal. Do not export tokens or store them in
 configuration, source, prompts, screenshots or receipts. No `az account
 get-access-token` command or token-scope guessing is required. The published
 server handles its ARM and SRE data-plane token acquisition separately. [1][5]
@@ -245,24 +244,17 @@ Completely quit and reopen Desktop, then inspect the connector/tool list.
 These are local servers, **not** a claude.ai remote web connector. Desktop's
 GUI environment must be able to launch npx and access the signed-in Azure CLI.
 If launch/PATH fails, diagnose privately using client logs and official
-troubleshooting; do not add secrets, disable security, or retry on stage.
+troubleshooting; do not add secrets or disable security.
 The manual wrapper/path is documented by the MCP project's Claude Desktop
 guide; Microsoft separately lists Desktop as supported. [1][10]
 
-## Two-to-three-minute optional walkthrough
+## Try the scoped reads
 
-**Select LIVE only after separate owner-approved preflight** establishes
-startup, the exact two tools, correct caller/agent, and successful bounded reads.
-This research does not authorize or perform those reads. Otherwise select
-DOCUMENTATION-ONLY and say so.
-
-| Clock | Action | Narration / stop condition |
-| --- | --- | --- |
-| 0:00–0:30 | Show the configured stdio server and two tool names, not account details. | “My development assistant can read the SRE agent's context. This is the opposite direction from its private Windows connector.” |
-| 0:30–1:00 | One discovery prompt below; inspect exact tenant/subscription/RG before allowing it. | Only expected agent metadata. Empty/error means Unknown, not permission to search all subscriptions. |
-| 1:00–2:00 | One thread GET prompt below, using the pre-reviewed completed thread. | “These are existing messages, not a fresh investigation or recovery proof.” |
-| 2:00–2:30 | Ask the client to summarize the returned evidence without another tool. | Source timestamps and remaining uncertainties visible; no remediation. |
-| By 3:00 | Return to the main demo. | At most one attempt per read and 60 seconds total waiting. No loop, writes, permission repair or client-install debugging on stage. |
+First verify server startup, the exact two tools and the intended caller/agent.
+Review each proposed invocation against your approved tenant, subscription and
+resource group. Use one discovery call and one GET for the reviewed completed
+thread, then summarize without more tools. Empty or denied results mean Unknown,
+not permission to search other subscriptions, grant access or retry in a loop.
 
 ### Read-only sample prompts
 
@@ -283,7 +275,7 @@ or start an investigation. If missing or denied, stop and report Unknown.
 Use only sre-bonus-readonly / sreagent_threads_get, once, for existing agent
 <AGENT_NAME>, tenant <TENANT_ID>, subscription <SUBSCRIPTION_ID>,
 resource group <AGENT_RESOURCE_GROUP>, thread <THREAD_ID>.
-This thread was reviewed for app01/db01 only. Retrieve its existing messages;
+This thread was reviewed for <APPROVED_TARGETS> only. Retrieve its existing messages;
 do not send a message, continue/run an investigation, call private guest tools,
 query logs, change incident state, start HIMDS, or invoke remediation.
 Summarize in five bullets: target, observed source timestamps, last evidenced
@@ -294,7 +286,7 @@ Historical Connected/Running or task completion is not current-health proof.
 **3 — reason locally from that response**
 
 ```text
-Without calling any tool, turn the returned app01/db01 evidence into a short
+Without calling any tool, turn the returned evidence for <APPROVED_TARGETS> into a short
 operator handoff: observed facts with UTC timestamps, unknowns, and the next
 verification requiring human approval. Do not infer application/database health
 from machine names, infer physical-site root cause, or claim a repair occurred.
@@ -309,42 +301,31 @@ Neither belongs in this bonus. Client approval, native SRE action approval,
 caller RBAC and the SRE managed identity's downstream rights are separate
 boundaries. Read-only wording in a prompt is not enforcement. [1][4]
 
-## Honest fallback and reusable attendee material
+## Troubleshooting and related guides
 
-If the local server cannot start, show this documented route and configuration
-as **researched, not connected**. If ARM discovery succeeds but thread reading
+If the local server cannot start, inspect the client logs before claiming a
+connection. If ARM discovery succeeds but thread reading
 fails, label only control-plane discovery accepted; data-plane access is Unknown.
 Never call endpoint discovery successful agent reasoning.
 
-A verified alternative product surface is the existing **SRE Agent web
-experience**, using its already-reviewed completed thread, or an already-approved
-dated fallback. That is not MCP-client acceptance. Do not start a new web chat
-to conceal a failed MCP connection. With no safe existing thread, use just the
-documentation-only direction explanation and skip the service read.
-
-This is an **owner-approved public attendee starter (2026-10-11)**; the
-[publication record](publication-review.md#public-availability-approval---2026-10-11)
-separates approval from the visibility change. Public source availability does
-not establish client integration or live-use acceptance. Useful existing guides:
+You can inspect the already-reviewed completed thread in the **SRE Agent web
+experience**, but that does not validate the MCP connection. With no safe
+existing thread, skip the service read.
 
 - [Component selection](../README.md) and ordinary-server boundaries.
 - [Setup](setup.md): prerequisites, permissions and costs.
 - [Guest setup](guest-setup.md): the **opposite-direction** connector trust route.
-- [Practice](practice.md): facilitator timing and fallback guidance.
 - [Safety and cleanup](safety-and-reset.md).
-- [Prior first-party source register](sources.md).
+- [First-party source register](sources.md).
 
-This optional guide is documentation-only guidance, not an
-end-to-end acceptance receipt. Do not ingest it or the exercise repository into
-SRE knowledge. No agent configuration changes are needed; your main operations
-and recovery acceptance gates remain independent.
+Do not ingest this guide or the exercise repository into SRE knowledge.
+No agent configuration changes are needed for these existing-thread reads;
+operations and recovery verification remain separate.
 
-## Sources and verification register
+## Sources
 
-All links reviewed **October 10, 2026**. During that review, no client integration,
-authentication, agent chat, connector creation, deployment, remediation, permission change,
-schedule change or external publication was performed for this document.
-Offline JSON parsing/whitespace validation is not service acceptance.
+Links reviewed **October 10, 2026**. Check version compatibility before setup;
+documentation and tagged source are not runtime acceptance.
 
 1. [Microsoft Learn — SRE Agent MCP server](https://learn.microsoft.com/en-us/azure/sre-agent/mcp-server):
    direction, Azure MCP proxy, endpoint discovery, clients, ARM/data-plane roles,

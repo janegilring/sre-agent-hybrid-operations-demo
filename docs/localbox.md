@@ -8,11 +8,9 @@ this repository as a replacement deployment.
 - [Pinned official source](https://github.com/microsoft/azure_arc/tree/e2c114eed98d18105dcf3a718bef965d5112781b/azure_jumpstart_localbox)
 - [Pinned Bicep entrypoint](https://github.com/microsoft/azure_arc/blob/e2c114eed98d18105dcf3a718bef965d5112781b/azure_jumpstart_localbox/bicep/main.bicep)
 
-Verified on 2026-10-01 using the official site and GitHub API: commit
-`e2c114eed98d18105dcf3a718bef965d5112781b` was current `main` and the latest
-LocalBox-path commit, dated 2026-09-22. No release tags were returned. This is a
-**reproducible default-branch pin, not an assertion of a certified stable
-release**; upstream status was pending, not a passing certification.
+The reference is pinned to commit `e2c114eed98d18105dcf3a718bef965d5112781b`
+(2026-09-22), not a certified stable release. Check upstream compatibility and
+current prerequisites before deployment.
 
 ## Sequence
 
@@ -43,6 +41,6 @@ release**; upstream status was pending, not a passing certification.
    itself use the pinned upstream lifecycle instructions and approved ownership
    inventory; never infer permission to delete a shared resource group.
 
-No one-command whole-lab deployment or end-to-end acceptance was performed.
+This repository does not provide a one-command whole-lab deployment.
 Upstream is linked, not copied; its CC BY 4.0 license and other upstream terms
 remain applicable.
