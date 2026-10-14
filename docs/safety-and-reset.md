@@ -58,6 +58,9 @@ Missing readiness, role/ownership or rollback evidence is a NO-GO.
 No fault action, benchmark or Arc Run Command operation is implemented or
 authorized by this kit. The optional fixed Spooler start capability has its
 own explicit authorization gates; it is not general guest execution.
+The [future scenario ideas](scenario-ideas.md), including HIMDS recovery, supply
+no fault injection, executor or reset procedure. Do not stop a service to try
+them; an idea is not authorization to change a guest.
 A future workload exercise must be bounded and reversible on an identified
 noncritical workload only. Exclude cluster nodes, Resource Bridge, unknown-role
 objects and unrelated services. Separate collection approval from remediation.
