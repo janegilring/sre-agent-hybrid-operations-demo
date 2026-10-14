@@ -39,7 +39,7 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 | --- | --- | --- |
 | Private, non-Arc guest investigation | **Manual / Blocked end to end** | Fixed JEA reads, C# broker and tests; gMSA creation/KDS/GPO, publish/ACL/SCM/certificate instructions included. Supply your real guest/provider permissions, actual gMSA tests and approved client. Native SRE auth provisioning recipe still requires owner/product-specific validation. |
 | Alert -> investigation | **Manual** | [Five-rule baseline](../infra/hybrid-monitoring/README.md), [service transition](../infra/hybrid-service-monitoring/README.md) and [Arc transition](../infra/hybrid-arc-connectivity/README.md) are separate components. Working collection, native intake/response plan and fresh investigation correlation are separate proofs. |
-| Fixed Spooler start component | **Supported offline / Not connected to SRE** | [Spooler-only recovery](../tools/hybrid-service-recovery/README.md) is offline-tested JEA source, not an MCP write tool or native approval bridge. Live use needs the component's separate authorization and verification gates. |
+| Fixed Spooler start component | **Supported offline / Not connected to SRE** | [Spooler-only recovery](../tools/hybrid-service-recovery/README.md) is offline-tested JEA source, not an MCP write tool or SRE approval workflow. Live use needs the component's separate authorization and verification gates. |
 | Arc without guest VPN/inbound remoting | **Manual reference / Not included payload** | Existing Connected Machine agent can receive separately authorized Run Command through Azure, without direct RDP/SSH. This is privileged execution, not this JEA boundary. Follow the comparison below; no payload/fault supplied. |
 | Scheduled performance checks | **Manual** | Existing scoped telemetry/reader required. Use the [one-run schedule procedure](native-reports.md#scheduled-checks-are-separate-from-reports), verify execution history, then disable/expire the exact owned task. No schedule is enabled by this kit. |
 | Native health/capacity reports | **Manual / Blocked deterministic export** | [Recreation prompts and acceptance](native-reports.md) include source contracts and save/reopen/Reload checks. No portable report JSON, lab report IDs or elevated collector. Missing schema/counters or report-eligible tools block that view. |
@@ -49,8 +49,8 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 
 Independent HIMDS recovery and other [future scenario ideas](scenario-ideas.md)
 are outside this coverage table: **NOT IMPLEMENTED / NOT END-TO-END VALIDATED**.
-They are not completed NIC2026 demos. No automatic repair, one-use native
-approval contract, independent recovery or final Teams delivery is delivered
+They are not completed NIC2026 demos. No automatic repair, approval-gated custom
+write workflow, independent recovery or final Teams delivery is delivered
 end to end by this kit.
 
 ## Arc and private MCP solve different problems

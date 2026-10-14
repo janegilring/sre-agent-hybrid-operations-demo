@@ -23,17 +23,23 @@ to distinguish service, network and telemetry causes.
 **Proposed action:** only if fresh evidence proves HIMDS is stopped, propose a
 fixed, approval-gated **START-only** operation on that guest. No stop, restart,
 startup-type change, arbitrary service name or network setter. No HIMDS
-executor or trusted native-approval bridge is supplied; keep custom writes
+custom write tool or workflow is supplied; keep custom writes
 disabled until all of these prerequisites are implemented and verified:
 
 - A dedicated noncritical test guest, independently confirmed identity and
   role, and operator rescue access that does not depend on the failed Arc
   path, with an agreed recovery deadline.
 - An authenticated private transport and dedicated nonadmin runtime identity
-  with narrowly scoped diagnostic and service-start permissions.
-- Genuine human approval validated by the executor, bound to the approver,
-  exact target, action, request, expiry and single use. A prompt saying "yes"
-  or an LLM-generated token is not that authorization.
+  with narrowly scoped diagnostic and service-start permissions. Separately
+  authenticate and restrict MCP execution; the broker receives no human-decision
+  receipt and does not independently verify SRE human approval.
+- Genuine SRE human approval for the exact proposed target and action. Verify
+  effective [Review mode](https://learn.microsoft.com/azure/sre-agent/run-modes)
+  plus exact-tool Ask/RequiresApproval, with no matching Allow at any scope,
+  Autonomous mode or allowing-hook bypass. Follow the documented
+  [tool access policy precedence](https://learn.microsoft.com/azure/sre-agent/tool-access-policies);
+  Review alone does not gate every custom tool. A prompt saying "yes" or an
+  LLM-generated token is not native approval.
 - Fresh post-action guest service state **and** cloud connectivity evidence.
   Report execution, guest recovery, cloud recovery and alert resolution
   separately; missing evidence is Unknown, not permission to retry a write.
