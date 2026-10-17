@@ -70,7 +70,7 @@ function Test-Event($Event, $Conditions) {
     foreach ($c in $Conditions) { if ($Event[$c.field] -ine $c.equals) { return $false } }
     return $true
 }
-$four = @('AzLHOST1','AzLHOST2','app01','db01' | ForEach-Object { $machine -replace '[^/]+$',$_ })
+$four = @('example-node-a','example-node-b','example-server-a','example-server-b' | ForEach-Object { $machine -replace '[^/]+$',$_ })
 foreach ($target in $four + @(($machine -replace '[^/]+$','foo'))) {
     $expanded = Copy-JsonValue $conditions
     $expanded[4].equals=$target

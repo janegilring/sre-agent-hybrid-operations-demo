@@ -47,9 +47,9 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 | Copilot/Claude -> SRE MCP bonus | **Manual, untested client integration** | [Pinned client instructions](sre-agent-mcp-client-bonus-demo.md). Existing access and a reviewed completed thread required. This is the reverse direction from SRE -> private Windows MCP; no new investigation or repair. |
 | New SRE agent and whole lab | **Supported offline / Manual Azure / Not included whole-lab installer** | [Starter IaC](../infra/sre-agent-starter/README.md) compiles/tests but does not configure private connectivity, native connectors, AD, AMA or every required grant. LocalBox is upstream and optional. |
 
-Independent HIMDS recovery and other [future scenario ideas](scenario-ideas.md)
-are outside this coverage table: **NOT IMPLEMENTED / NOT END-TO-END VALIDATED**.
-They are not completed NIC2026 demos. No automatic repair, approval-gated custom
+[Future scenario ideas](scenario-ideas.md) are outside this coverage table:
+**NOT IMPLEMENTED / NOT END-TO-END VALIDATED**.
+No automatic repair, approval-gated custom
 write workflow, independent recovery or final Teams delivery is delivered
 end to end by this kit.
 
@@ -61,7 +61,7 @@ end to end by this kit.
 | Identity | Entra application caller -> nonadmin AD service -> guest nonadmin JEA virtual account | Azure operation permission -> agent-executed script; inspect actual configured execution identity |
 | Capability | Three fixed read tools; opaque target allowlist | General script execution; `runCommands/write` is not a script-content read-only allowlist |
 | Availability | Can inspect a non-Arc guest; depends on AD/broker/private route | Requires a supported connected agent and allowed local policy; Arc Connected alone is not execution proof |
-| Failure independence | May remain available when guest Arc/HIMDS is down | Do not rely on the broken Arc path to repair its own unavailable agent |
+| Failure independence | May remain available when the guest's Arc connection is down | Do not rely on an unavailable Arc path for guest access |
 | Kit content | Portable source, manual host/identity guide, offline tests | Comparison and [official preview guidance](https://learn.microsoft.com/azure/azure-arc/servers/run-command); no command payload or automated SRE action |
 
 "No VPN required" describes the Arc control-plane execution option, **not**

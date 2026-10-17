@@ -43,7 +43,7 @@ process started or authenticated.
 | This starter supplies a successfully connected client | **No.** Validate your own installation; a local process startup failure does not prove SRE service failure or diagnose permissions. |
 | Copilot CLI / VS Code / Claude Code / Desktop end-to-end acceptance | **NOT tested.** Configurations below are derived from first-party setup/schema documentation and tagged source. |
 | Direct remote per-agent MCP URL / OAuth client registration | **Not established by the reviewed sources.** No invented URL, OAuth scope, API key, or bearer-header configuration is supplied. |
-| Current health or HIMDS recovery of your target guests | **Not assessed here.** Reading a historical thread would not prove current guest state or successful recovery. Substitute your reviewed targets in the prompts below. |
+| Current health or recovery of your target guests | **Not assessed here.** Reading a historical thread would not prove current guest state or successful recovery. Substitute your reviewed targets in the prompts below. |
 
 Treat the Azure package's **beta** designation and SRE preview API as explicit
 compatibility limits. Pin the reviewed package; validate a newer version before
@@ -277,9 +277,9 @@ Use only sre-bonus-readonly / sreagent_threads_get, once, for existing agent
 resource group <AGENT_RESOURCE_GROUP>, thread <THREAD_ID>.
 This thread was reviewed for <APPROVED_TARGETS> only. Retrieve its existing messages;
 do not send a message, continue/run an investigation, call private guest tools,
-query logs, change incident state, start HIMDS, or invoke remediation.
+query logs, change incident state, start services, or invoke remediation.
 Summarize in five bullets: target, observed source timestamps, last evidenced
-Arc/HIMDS state if present, permission/provider gaps, and what remains Unknown.
+connectivity/service state if present, permission/provider gaps, and what remains Unknown.
 Historical Connected/Running or task completion is not current-health proof.
 ```
 

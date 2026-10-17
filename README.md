@@ -143,6 +143,11 @@ intentionally fails identity validation. Follow the [build, TLS, service identit
 private network and migration instructions](tools/private-mcp/README.md); service
 registration and guest setup are separate, not an instant appliance installer.
 Keep LocalBox node capabilities disabled for ordinary servers.
+The optional node mode retains LocalBox-specific target, domain, identity and
+module-path contracts; these are not portable turnkey bindings for your lab.
+Ordinary-server setup uses your explicit server allowlist instead. The
+[source attribution and manifest](THIRD-PARTY.md) record component origins;
+attendees do not need access to the original private source repository.
 The [installation guide](docs/mcp-service-install.md) covers runtime prerequisites,
 directory/config/key permissions, quoted gMSA SCM registration and scoped removal.
 Native private routing and renewable app-only authentication require separate
@@ -221,7 +226,8 @@ UNKNOWN. Native routing, Teams delivery and recovery require separate checks.
 - [Safety and cleanup](docs/safety-and-reset.md)
 - [Optional offline exercise](docs/walkthrough.md)
 - [Future scenario ideas](docs/scenario-ideas.md) — conceptual only, not implemented
-  or end-to-end validated; includes independent HIMDS recovery.
+  or end-to-end validated: certificate expiry, configuration drift, backup
+  freshness and application dependency triage.
 - [Optional Copilot/Claude → SRE Agent MCP bonus](docs/sre-agent-mcp-client-bonus-demo.md)
   — documentation-verified client setup and bounded existing-thread reads;
   integration remains untested, with no new investigation or remediation.

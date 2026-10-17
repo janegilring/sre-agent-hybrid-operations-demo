@@ -1,57 +1,11 @@
 # Future scenario ideas
 
 **NOT IMPLEMENTED / NOT END-TO-END VALIDATED.** These are possible extensions,
-not runnable walkthroughs or completed NIC2026 demos. The APP01/HIMDS
-stopped-service recovery scenario was not shown at NIC2026.
+not runnable walkthroughs or completed demos.
 For available components and their actual limits, use
 [attendee readiness](attendee-readiness.md).
 
-## Independent HIMDS recovery
-
-**Signal:** an Arc connectivity alert or stale cloud observation for an exact
-guest warrants investigation; it does not prove that HIMDS is stopped.
-Distinguish Arc connectivity from AMA Heartbeat, and establish healthy baseline
-observations and collection coverage before interpreting missing data.
-
-**Read-only diagnosis:** a separately implemented private path would verify
-guest identity, current HIMDS state and bounded redacted diagnostics without
-using the affected guest's Arc relay or Run Command. Compare guest and cloud
-observations with UTC timestamps; use the
-[Arc connectivity troubleshooting guidance](https://learn.microsoft.com/azure/azure-arc/servers/troubleshoot-connectivity)
-to distinguish service, network and telemetry causes.
-
-**Proposed action:** only if fresh evidence proves HIMDS is stopped, propose a
-fixed, approval-gated **START-only** operation on that guest. No stop, restart,
-startup-type change, arbitrary service name or network setter. No HIMDS
-custom write tool or workflow is supplied; keep custom writes
-disabled until all of these prerequisites are implemented and verified:
-
-- A dedicated noncritical test guest, independently confirmed identity and
-  role, and operator rescue access that does not depend on the failed Arc
-  path, with an agreed recovery deadline.
-- An authenticated private transport and dedicated nonadmin runtime identity
-  with narrowly scoped diagnostic and service-start permissions. Separately
-  authenticate and restrict MCP execution; the broker receives no human-decision
-  receipt and does not independently verify SRE human approval.
-- Genuine SRE human approval for the exact proposed target and action. Verify
-  effective [Review mode](https://learn.microsoft.com/azure/sre-agent/run-modes)
-  plus exact-tool Ask/RequiresApproval, with no matching Allow at any scope,
-  Autonomous mode or allowing-hook bypass. Follow the documented
-  [tool access policy precedence](https://learn.microsoft.com/azure/sre-agent/tool-access-policies);
-  Review alone does not gate every custom tool. A prompt saying "yes" or an
-  LLM-generated token is not native approval.
-- Fresh post-action guest service state **and** cloud connectivity evidence.
-  Report execution, guest recovery, cloud recovery and alert resolution
-  separately; missing evidence is Unknown, not permission to retry a write.
-
-The retained [Spooler-only JEA source](../tools/hybrid-service-recovery/README.md)
-is a separate offline-tested component, not a HIMDS implementation or permission
-to broaden its fixed service boundary. Operator rescue is not SRE remediation.
-
-## Other possible extensions
-
-All ideas below have the same **NOT IMPLEMENTED / NOT END-TO-END VALIDATED**
-status. They would require new scoped evidence sources or tool contracts;
+These ideas would require new scoped evidence sources or tool contracts;
 existing basic service reads and health/capacity reports do not implement them.
 
 | Idea | Signal and read-only diagnosis | Optional action or key prerequisite |
