@@ -914,12 +914,15 @@
       "sourcePath": "infra/hybrid-arc-connectivity/test_connectivity.py",
       "transformation": "powershell-tooling-port-v1",
       "sourceSha256": "07c7ae1b4f0dde6583324b499671f53198964dda5038cb18fe6ba412b6943cf0",
-      "exportSha256": "5ae6b632703982e9f7d7f9556783aefac7d66a0cb4856d8d8658e2d2acf211b0",
+      "exportSha256": "058ec6029f1f070c1b2c900734c36c91cb8a33436f89772201b056cd1397d4f5",
       "sourceKind": "PowerShell tooling derivative of committed source blob",
       "originRepository": "janegilring/session-azure-sre-agent",
       "originCommit": "c814605a2a78f4289314bae527a8fcf16f95bbb1",
       "originBlob": "6fabaad9f6b0b2dd780d7ff91b4df39c3cfefd90",
-      "packagingChanges": ["Translate all fifteen input/template groups to PowerShell; add fixed UUIDv5 parity vector and preserve rejecting fixtures."]
+      "packagingChanges": [
+        "Translate all fifteen input/template groups to PowerShell; add fixed UUIDv5 parity vector and preserve rejecting fixtures.",
+        "Use neutral example target names in the four-machine equality fixtures; preserve original source identity and test behavior."
+      ]
     },
     {
       "path": "infra/hybrid-arc-connectivity/Test-Inputs.ps1",

@@ -39,13 +39,19 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 | --- | --- | --- |
 | Private, non-Arc guest investigation | **Manual / Blocked end to end** | Fixed JEA reads, C# broker and tests; gMSA creation/KDS/GPO, publish/ACL/SCM/certificate instructions included. Supply your real guest/provider permissions, actual gMSA tests and approved client. Native SRE auth provisioning recipe still requires owner/product-specific validation. |
 | Alert -> investigation | **Manual** | [Five-rule baseline](../infra/hybrid-monitoring/README.md), [service transition](../infra/hybrid-service-monitoring/README.md) and [Arc transition](../infra/hybrid-arc-connectivity/README.md) are separate components. Working collection, native intake/response plan and fresh investigation correlation are separate proofs. |
-| Investigation -> approved repair -> verified recovery/notification | **Blocked** | [Spooler-only recovery](../tools/hybrid-service-recovery/README.md) is offline-tested JEA source, not an MCP write tool or native approval bridge. [HIMDS scenario](himds-recovery-demo.md) is a gated design, not a portable executor. No automatic repair, one-use native approval contract, independent recovery or final Teams delivery is delivered end to end. |
+| Fixed Spooler start component | **Supported offline / Not connected to SRE** | [Spooler-only recovery](../tools/hybrid-service-recovery/README.md) is offline-tested JEA source, not an MCP write tool or SRE approval workflow. Live use needs the component's separate authorization and verification gates. |
 | Arc without guest VPN/inbound remoting | **Manual reference / Not included payload** | Existing Connected Machine agent can receive separately authorized Run Command through Azure, without direct RDP/SSH. This is privileged execution, not this JEA boundary. Follow the comparison below; no payload/fault supplied. |
 | Scheduled performance checks | **Manual** | Existing scoped telemetry/reader required. Use the [one-run schedule procedure](native-reports.md#scheduled-checks-are-separate-from-reports), verify execution history, then disable/expire the exact owned task. No schedule is enabled by this kit. |
 | Native health/capacity reports | **Manual / Blocked deterministic export** | [Recreation prompts and acceptance](native-reports.md) include source contracts and save/reopen/Reload checks. No portable report JSON, lab report IDs or elevated collector. Missing schema/counters or report-eligible tools block that view. |
 | Azure Local custom skill | **Manual** | [Neutral skill and additive import](custom-skill.md), no attached tools or new privileges. Verify exact saved content and actual activation separately; a skill cannot grant provider access or authorize precheck reruns. |
 | Copilot/Claude -> SRE MCP bonus | **Manual, untested client integration** | [Pinned client instructions](sre-agent-mcp-client-bonus-demo.md). Existing access and a reviewed completed thread required. This is the reverse direction from SRE -> private Windows MCP; no new investigation or repair. |
 | New SRE agent and whole lab | **Supported offline / Manual Azure / Not included whole-lab installer** | [Starter IaC](../infra/sre-agent-starter/README.md) compiles/tests but does not configure private connectivity, native connectors, AD, AMA or every required grant. LocalBox is upstream and optional. |
+
+[Future scenario ideas](scenario-ideas.md) are outside this coverage table:
+**NOT IMPLEMENTED / NOT END-TO-END VALIDATED**.
+No automatic repair, approval-gated custom
+write workflow, independent recovery or final Teams delivery is delivered
+end to end by this kit.
 
 ## Arc and private MCP solve different problems
 
@@ -55,7 +61,7 @@ machine, MCP response or recovery. Reset by rerunning; no cloud cleanup is neede
 | Identity | Entra application caller -> nonadmin AD service -> guest nonadmin JEA virtual account | Azure operation permission -> agent-executed script; inspect actual configured execution identity |
 | Capability | Three fixed read tools; opaque target allowlist | General script execution; `runCommands/write` is not a script-content read-only allowlist |
 | Availability | Can inspect a non-Arc guest; depends on AD/broker/private route | Requires a supported connected agent and allowed local policy; Arc Connected alone is not execution proof |
-| Failure independence | May remain available when guest Arc/HIMDS is down | Do not rely on the broken Arc path to repair its own unavailable agent |
+| Failure independence | May remain available when the guest's Arc connection is down | Do not rely on an unavailable Arc path for guest access |
 | Kit content | Portable source, manual host/identity guide, offline tests | Comparison and [official preview guidance](https://learn.microsoft.com/azure/azure-arc/servers/run-command); no command payload or automated SRE action |
 
 "No VPN required" describes the Arc control-plane execution option, **not**
