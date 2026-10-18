@@ -1,9 +1,10 @@
 # Optional bonus: reach Azure SRE Agent from Copilot or Claude
 
 Read an existing SRE Agent thread from a development assistant using Azure MCP
-Server. **Client integration is not tested by this starter.** The setup below
-is based on first-party documentation reviewed October 10, 2026; use an approved
-client profile and verify startup, authentication and scoped reads yourself.
+Server **3.0.0 stable**. **End-to-end client integration is not tested by this
+starter.** The setup below is based on first-party documentation and local
+package metadata checks reviewed October 18, 2026; use an approved client
+profile and verify startup, authentication and scoped reads yourself.
 
 ## The important direction
 
@@ -36,19 +37,23 @@ process started or authenticated.
 
 ## Compatibility and limits
 
-| Claim | Evidence / status on October 10 |
+| Claim | Evidence / status on October 18, 2026 |
 | --- | --- |
 | Client-to-SRE integration exists in first-party documentation | Microsoft Learn explicitly documents Azure MCP Server, endpoint discovery, permissions, and Copilot/Claude clients. [1] |
-| A published package contains the required read tools | Official release `Azure.Mcp.Server-3.0.0-beta.50`, published October 6, 19:50:40 UTC, links NPM `@azure/mcp` version `3.0.0-beta.50`. Its tagged source registers `sreagent` and `threads get`; the latter is annotated read-only and retrieves existing messages without running an investigation. [3][4] |
+| A published stable package contains the required read tools | Official release `Azure.Mcp.Server-3.0.0`, published October 12, 22:22:49 UTC, links NPM `@azure/mcp` version `3.0.0`. Local `server start --help` and both read commands' `--learn` checks succeeded on Windows with Node.js 24.15.0. Both reads advertise read-only metadata; thread GET retrieves existing messages without running an investigation. No Azure operation was executed. [3][4][11] |
 | This starter supplies a successfully connected client | **No.** Validate your own installation; a local process startup failure does not prove SRE service failure or diagnose permissions. |
 | Copilot CLI / VS Code / Claude Code / Desktop end-to-end acceptance | **NOT tested.** Configurations below are derived from first-party setup/schema documentation and tagged source. |
 | Direct remote per-agent MCP URL / OAuth client registration | **Not established by the reviewed sources.** No invented URL, OAuth scope, API key, or bearer-header configuration is supplied. |
 | Current health or recovery of your target guests | **Not assessed here.** Reading a historical thread would not prove current guest state or successful recovery. Substitute your reviewed targets in the prompts below. |
 
-Treat the Azure package's **beta** designation and SRE preview API as explicit
-compatibility limits. Pin the reviewed package; validate a newer version before
-upgrading. The repository's global “latest release” can refer to another MCP
-server, so use the Azure-specific release. [3]
+Azure MCP Server is **stable**; that does **not** make the underlying Azure SRE
+Agent service or its preview API generally available. The release article
+identifies the `Microsoft.App/SREAgentPreview` prerequisite; resource discovery
+still uses `Microsoft.App/agents`, not that prerequisite name as a resource type.
+Do not register providers or change an agent to complete this bonus. Pin the
+reviewed package; validate a newer version before upgrading. The repository's
+global “latest release” can refer to another MCP server, so use the Azure-specific
+release. [3][4][11]
 
 ## Prerequisites: do not grant permissions for a bonus
 
@@ -98,9 +103,11 @@ stop; this bonus does not authorize agent migration/recreation. [1][4]
 ## Small, read-only server configuration
 
 Use a **new named entry** `sre-bonus-readonly`; preserve existing servers.
-The reviewed server supports explicit `--tool` filtering (which selects
-individual-tool mode) and `--read-only`. Do not combine `--tool` with
-`--namespace`. Expose just:
+The reviewed server supports exact exposed-name `--tool` filtering (ignoring
+case, selecting individual-tool mode), `--read-only` and `--disable-proxy-tools`.
+The last option disables registry-backed external proxy tools; it does not
+disable the SRE tools' authenticated service API calls. Do not combine `--tool`
+with `--namespace`. Expose just:
 
 - `sreagent_agents_list`: approved resource-group-filtered discovery.
 - `sreagent_threads_get`: one already-reviewed thread's existing messages.
@@ -117,7 +124,7 @@ Preferred guided route: run `copilot`, then `/mcp add`. Choose **STDIO** (or
 Local on older clients), name `sre-bonus-readonly`, and enter:
 
 ```text
-npx -y @azure/mcp@3.0.0-beta.50 server start --read-only --tool sreagent_agents_list --tool sreagent_threads_get
+npx -y @azure/mcp@3.0.0 server start --read-only --disable-proxy-tools --tool sreagent_agents_list --tool sreagent_threads_get
 ```
 
 Environment variables:
@@ -138,8 +145,8 @@ Equivalent entry in **`%USERPROFILE%\.copilot\mcp-config.json`**:
       "type": "stdio",
       "command": "npx",
       "args": [
-        "-y", "@azure/mcp@3.0.0-beta.50", "server", "start",
-        "--read-only",
+        "-y", "@azure/mcp@3.0.0", "server", "start",
+        "--read-only", "--disable-proxy-tools",
         "--tool", "sreagent_agents_list",
         "--tool", "sreagent_threads_get"
       ],
@@ -161,7 +168,7 @@ Do not use `--allow-all-tools` or unattended approval modes. [2][6]
 
 Microsoft's one-click route is the **Azure MCP Server** extension,
 publisher `ms-azuretools`, identifier
-`ms-azuretools.vscode-azure-mcp-server`. It auto-updates preview versions and
+`ms-azuretools.vscode-azure-mcp-server`. Its managed updates are not this exact pin and
 may expose more tools than this demonstration requires. Do not install a
 duplicate server alongside an existing extension instance without reviewing
 which tools are enabled. [7]
@@ -176,8 +183,8 @@ profile. VS Code also supports `.vscode\mcp.json` with this format:
       "type": "stdio",
       "command": "npx",
       "args": [
-        "-y", "@azure/mcp@3.0.0-beta.50", "server", "start",
-        "--read-only",
+        "-y", "@azure/mcp@3.0.0", "server", "start",
+        "--read-only", "--disable-proxy-tools",
         "--tool", "sreagent_agents_list",
         "--tool", "sreagent_threads_get"
       ],
@@ -200,7 +207,7 @@ skills/tools and is not necessary for this restricted bonus. Use Claude's
 documented local stdio registration instead: [3][9]
 
 ```powershell
-claude mcp add --scope user --env AZURE_TOKEN_CREDENTIALS=AzureCliCredential --transport stdio sre-bonus-readonly -- npx -y @azure/mcp@3.0.0-beta.50 server start --read-only --tool sreagent_agents_list --tool sreagent_threads_get
+claude mcp add --scope user --env AZURE_TOKEN_CREDENTIALS=AzureCliCredential --transport stdio sre-bonus-readonly -- npx -y @azure/mcp@3.0.0 server start --read-only --disable-proxy-tools --tool sreagent_agents_list --tool sreagent_threads_get
 ```
 
 The `--` separates Claude options from server arguments. `--scope user` avoids
@@ -214,7 +221,7 @@ sre-bonus-readonly` or `/mcp`; do not use
 
 Microsoft documents installing the platform-specific **MCPB** from the Azure
 release into Desktop (drag into the app, or Extensions → Advanced Settings →
-Install Extension). The October 6 release includes Windows x64/ARM64 and macOS
+Install Extension). The October 12 stable release includes Windows x64/ARM64 and macOS
 bundles. This verifies an installation route, **not** a narrow tool allowlist
 or successful SRE login in Desktop. Prefer the manual pinned entry for this
 bonus rather than assuming bundle defaults are read-only. [3]
@@ -229,8 +236,8 @@ copy the following entry into that wrapper:
     "sre-bonus-readonly": {
       "command": "npx",
       "args": [
-        "-y", "@azure/mcp@3.0.0-beta.50", "server", "start",
-        "--read-only",
+        "-y", "@azure/mcp@3.0.0", "server", "start",
+        "--read-only", "--disable-proxy-tools",
         "--tool", "sreagent_agents_list",
         "--tool", "sreagent_threads_get"
       ],
@@ -247,6 +254,35 @@ If launch/PATH fails, diagnose privately using client logs and official
 troubleshooting; do not add secrets or disable security.
 The manual wrapper/path is documented by the MCP project's Claude Desktop
 guide; Microsoft separately lists Desktop as supported. [1][10]
+
+### Refresh discovery when upgrading
+
+Restart the named server after replacing the preview package pin in your
+existing entry, then refresh the client's tool catalogue. Do not create a
+second entry just to upgrade. Confirm **exactly** `sreagent_agents_list` and
+`sreagent_threads_get`; stop if either is missing or extra tools appear.
+
+Before signing in, these metadata-only checks inspect the pinned package
+without executing Azure operations (npx may download the package):
+
+```powershell
+npx -y @azure/mcp@3.0.0 server start --help
+npx -y @azure/mcp@3.0.0 sreagent agents list --learn
+npx -y @azure/mcp@3.0.0 sreagent threads get --learn
+```
+
+For actual tool calls, use the newly discovered input schema, not cached preview
+arguments. These two 3.0.0 reads retain `tenant`, `subscription` and
+`resource-group`; thread GET also requires `agent` and `thread-id`. Always supply
+the approved scope even when a field is optional in the schema. Unknown
+parameters now fail rather than being ignored. Metadata discovery is not
+authentication or service-read acceptance. [4][11][12]
+
+Leave structured output **off** for these examples: default responses are
+content-only. Do not require `structuredContent` or `outputSchema` in a client
+parser unless you separately opt in and validate support. The 3.x HTTP protocol
+changes are for custom HTTP clients; this bonus uses local stdio and supplies
+neither direct-agent HTTP configuration nor guessed `/mcp` endpoints. [11][12]
 
 ## Try the scoped reads
 
@@ -324,7 +360,8 @@ operations and recovery verification remain separate.
 
 ## Sources
 
-Links reviewed **October 10, 2026**. Check version compatibility before setup;
+Release, command and authentication sources reviewed **October 18, 2026**;
+client setup links originally reviewed October 10. Check compatibility before setup;
 documentation and tagged source are not runtime acceptance.
 
 1. [Microsoft Learn — SRE Agent MCP server](https://learn.microsoft.com/en-us/azure/sre-agent/mcp-server):
@@ -332,19 +369,17 @@ documentation and tagged source are not runtime acceptance.
    auth and unsafe autonomous-mode warning.
 2. [Microsoft Learn — Copilot CLI quickstart](https://learn.microsoft.com/en-us/azure/developer/azure-mcp-server/how-to/github-copilot-cli):
    local npx server, Azure CLI sign-in and guided registration.
-3. [Microsoft Azure MCP release 3.0.0-beta.50](https://github.com/microsoft/mcp/releases/tag/Azure.Mcp.Server-3.0.0-beta.50)
-   and [tagged server README](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0-beta.50/servers/Azure.Mcp.Server/README.md):
-   exact NPM version, MCPB assets, supported installation routes. Latest Azure
-   release found in the reviewed release listing, not a promise about future releases.
+3. [Microsoft Azure MCP release 3.0.0](https://github.com/microsoft/mcp/releases/tag/Azure.Mcp.Server-3.0.0)
+   and [tagged server README](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/servers/Azure.Mcp.Server/README.md):
+   exact stable NPM version, MCPB assets and supported installation routes.
 4. Tagged Microsoft implementation:
-   [server options](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0-beta.50/core/Microsoft.Mcp.Core/src/Areas/Server/Options/ServerStartOptions.cs),
-   [SRE tool registration](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0-beta.50/tools/Azure.Mcp.Tools.SreAgent/src/SreAgentSetup.cs),
-   [thread GET](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0-beta.50/tools/Azure.Mcp.Tools.SreAgent/src/Commands/Threads/ThreadsGetCommand.cs),
-   [thread options](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0-beta.50/tools/Azure.Mcp.Tools.SreAgent/src/Options/Threads/ThreadsGetOptions.cs).
-   Endpoint/API/auth implementation also reviewed at main commit
-   [`406c2dbd3b7ef1e4341e449103732f0cb7b59c47`](https://github.com/microsoft/mcp/blob/406c2dbd3b7ef1e4341e449103732f0cb7b59c47/tools/Azure.Mcp.Tools.SreAgent/src/Services/SreAgentService.cs)
-   (October 9). Source inspection, not executed client tests.
-5. [Microsoft Azure MCP authentication](https://github.com/microsoft/mcp/blob/406c2dbd3b7ef1e4341e449103732f0cb7b59c47/docs/Authentication.md):
+   [server options](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/core/Microsoft.Mcp.Core/src/Areas/Server/Options/ServerStartOptions.cs),
+   [SRE tool registration](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/tools/Azure.Mcp.Tools.SreAgent/src/SreAgentSetup.cs),
+   [thread GET](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/tools/Azure.Mcp.Tools.SreAgent/src/Commands/Threads/ThreadsGetCommand.cs),
+   [thread options](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/tools/Azure.Mcp.Tools.SreAgent/src/Options/Threads/ThreadsGetOptions.cs),
+   [endpoint/API/auth implementation](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/tools/Azure.Mcp.Tools.SreAgent/src/Services/SreAgentService.cs).
+   Source and local metadata inspection, not authenticated service acceptance.
+5. [Microsoft Azure MCP authentication](https://github.com/microsoft/mcp/blob/Azure.Mcp.Server-3.0.0/docs/Authentication.md):
    `AZURE_TOKEN_CREDENTIALS=AzureCliCredential`; no manual token needed.
 6. [GitHub — Add MCP servers to Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers):
    authoritative CLI schema/path, stdio support, trust and per-tool selection.
@@ -356,3 +391,10 @@ documentation and tagged source are not runtime acceptance.
    local stdio command, scope, environment options, `--` separator and status checks.
 10. [MCP project — Claude Desktop local-server guide](https://modelcontextprotocol.io/docs/develop/connect-local-servers):
     Desktop `mcpServers` shape, Windows config path and restart requirement.
+11. [Azure MCP Server 3.0 stable release](https://devblogs.microsoft.com/azure-sdk/azure-mcp-server-3-0-stable-release/)
+    and [3.x changelog](https://github.com/microsoft/mcp/blob/release/azure/3.x/servers/Azure.Mcp.Server/CHANGELOG.md):
+    stable package versus SRE preview, exact-tool filtering, strict parameters,
+    opt-in structured output and upgrade considerations.
+12. [3.x command reference](https://github.com/microsoft/mcp/blob/release/azure/3.x/servers/Azure.Mcp.Server/docs/azmcp-commands.md):
+    metadata-only `--learn`, server options and output modes. Prefer the exact
+    exposed SRE names verified above over generic prefixed examples.

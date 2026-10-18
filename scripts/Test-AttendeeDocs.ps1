@@ -12,6 +12,76 @@ function Read-KitFile {
     param([string]$Path)
     Get-Content -LiteralPath (Join-Path $root $Path) -Raw
 }
+function Assert-McpBonus {
+    param([string]$Text)
+    $expectedTools = @('sreagent_agents_list', 'sreagent_threads_get')
+    $expectedArgs = @('-y', '@azure/mcp@3.0.0', 'server', 'start',
+        '--read-only', '--disable-proxy-tools',
+        '--tool', $expectedTools[0], '--tool', $expectedTools[1])
+    $profiles = @()
+    foreach ($match in [regex]::Matches($Text, '(?ms)^```json\r?\n(.*?)^```[ \t]*\r?$')) {
+        $config = $match.Groups[1].Value | ConvertFrom-Json
+        $wrappers = @($config.PSObject.Properties.Name)
+        if ($wrappers -contains 'AZURE_TOKEN_CREDENTIALS') {
+            Assert-Contract ($wrappers.Count -eq 1 -and $config.AZURE_TOKEN_CREDENTIALS -ceq 'AzureCliCredential') 'Unexpected guided credential setting.'
+            continue
+        }
+        Assert-Contract ($wrappers.Count -eq 1 -and $wrappers[0] -cin @('servers', 'mcpServers')) 'Unexpected MCP client wrapper.'
+        $servers = $config.($wrappers[0])
+        Assert-Contract (@($servers.PSObject.Properties).Count -eq 1 -and
+            $servers.PSObject.Properties.Name -ceq 'sre-bonus-readonly') 'Unexpected MCP server entry.'
+        $profile = $servers.'sre-bonus-readonly'
+        $profiles += $profile
+        $index = $profiles.Count
+        $expectedKeys = switch ($index) {
+            1 { @('type', 'command', 'args', 'env', 'tools') }
+            2 { @('type', 'command', 'args', 'env') }
+            3 { @('command', 'args', 'env') }
+        }
+        Assert-Contract ((@($profile.PSObject.Properties.Name | Sort-Object) -join '|') -ceq
+            (@($expectedKeys | Sort-Object) -join '|')) 'Unexpected client-specific MCP profile fields.'
+        $expectedWrapper = if ($index -eq 2) { 'servers' } else { 'mcpServers' }
+        Assert-Contract ($wrappers[0] -ceq $expectedWrapper) 'Client configuration wrapper changed.'
+        Assert-Contract ($profile.command -ceq 'npx') 'Expected local npx transport.'
+        if ($index -le 2) { Assert-Contract ($profile.type -ceq 'stdio') 'Expected stdio transport.' }
+        Assert-Contract ($profile.args -is [array] -and
+            ($profile.args -join '|') -ceq ($expectedArgs -join '|')) 'Stable pin or exact read-only server arguments changed.'
+        Assert-Contract (@($profile.env.PSObject.Properties).Count -eq 1 -and
+            $profile.env.AZURE_TOKEN_CREDENTIALS -ceq 'AzureCliCredential') 'Credential pin changed.'
+        if ($index -eq 1) {
+            Assert-Contract ($profile.tools -is [array] -and
+                ($profile.tools -join '|') -ceq ($expectedTools -join '|')) 'Copilot exact-tool allowlist changed.'
+        }
+    }
+    Assert-Contract ($profiles.Count -eq 3) 'Expected Copilot CLI, VS Code and Desktop JSON profiles.'
+    $serverCommand = 'npx ' + ($expectedArgs -join ' ')
+    $claudePrefix = 'claude mcp add --scope user --env AZURE_TOKEN_CREDENTIALS=AzureCliCredential --transport stdio sre-bonus-readonly -- '
+    $commands = @([regex]::Matches($Text, '(?m)^(?:npx |claude mcp add ).*server start(?! --help).*') |
+        ForEach-Object { $_.Value.TrimEnd("`r") })
+    Assert-Contract ($commands.Count -eq 2 -and $commands[0] -ceq $serverCommand -and
+        $commands[1] -ceq ($claudePrefix + $serverCommand)) 'Guided CLI or Claude registration changed.'
+    foreach ($command in @('server start --help', 'sreagent agents list --learn', 'sreagent threads get --learn')) {
+        Assert-Contract ($Text.Contains("npx -y @azure/mcp@3.0.0 $command")) "Missing metadata-only check: $command"
+    }
+    Assert-Contract (-not [regex]::IsMatch($Text, '@azure/mcp@(?!3\.0\.0(?:["\s]))')) 'Unreviewed package version in bonus guide.'
+    $prose = [regex]::Replace($Text, '\s+', ' ')
+    foreach ($boundary in @(
+        'End-to-end client integration is not tested',
+        'does **not** make the underlying Azure SRE',
+        'existing **SRE Agent Administrator** access',
+        'Microsoft.App/agents',
+        'stop; this bonus does not authorize agent migration/recreation.',
+        'Use one discovery call and one GET',
+        'No agent configuration changes are needed',
+        'default responses are',
+        'content-only.',
+        'Unknown parameters now fail',
+        'Metadata discovery is not',
+        'authentication or service-read acceptance.'
+    )) {
+        Assert-Contract ($prose.Contains($boundary)) "Missing MCP boundary: $boundary"
+    }
+}
 function Assert-Skill {
     param([string]$Text)
     $normalized = $Text.Replace("`r`n", "`n")
@@ -60,6 +130,7 @@ $documents = @(
     'docs\attendee-readiness.md',
     'docs\custom-skill.md',
     'docs\native-reports.md',
+    'docs\sre-agent-mcp-client-bonus-demo.md',
     'tools\private-mcp\README.md',
     'tools\hybrid-server\README.md'
 )
@@ -76,6 +147,29 @@ foreach ($document in $documents) {
     }
 }
 Assert-Contract ($blockCount -ge 15) 'Expected attendee command blocks were not found.'
+
+$bonus = Read-KitFile 'docs\sre-agent-mcp-client-bonus-demo.md'
+Assert-McpBonus $bonus
+$bonusMutations = @(
+    $bonus.Replace('@azure/mcp@3.0.0', '@azure/mcp@latest'),
+    $bonus.Replace('@azure/mcp@3.0.0', '@azure/mcp@3.0.0-beta.50'),
+    $bonus.Replace('"--read-only", ', ''),
+    $bonus.Replace('"--disable-proxy-tools",', ''),
+    $bonus.Replace('sreagent_threads_get', 'sreagent_threads_create'),
+    $bonus.Replace('"tools": ["sreagent_agents_list", "sreagent_threads_get"]', '"tools": ["*"]'),
+    $bonus.Replace('"servers":', '"mcpServers":'),
+    $bonus.Replace('AzureCliCredential', 'EnvironmentCredential'),
+    $bonus.Replace('--scope user', '--scope project'),
+    $bonus.Replace('threads get --learn', 'threads get'),
+    $bonus.Replace('does **not** make the underlying Azure SRE', 'makes the underlying Azure SRE'),
+    $bonus.Replace('Use one discovery call and one GET', 'Keep investigating')
+)
+foreach ($mutation in $bonusMutations) {
+    $rejected = $false
+    try { Assert-McpBonus $mutation } catch { $rejected = $true }
+    Assert-Contract $rejected 'A negative MCP bonus mutation was not rejected.'
+}
+Write-Output "PASS: three stable MCP JSON profiles, two registration commands, metadata-only checks and $($bonusMutations.Count) negative mutations."
 
 $install = Read-KitFile 'docs\mcp-service-install.md'
 $guest = Read-KitFile 'docs\guest-setup.md'
